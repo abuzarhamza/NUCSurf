@@ -4,18 +4,7 @@ use warnings;
 use Crap;
 
 
-our $VERSIO = 1.0;
-
-# // 
-# // Dear maintainer:
-# // 
-# // Once you are done trying to 'optimize' this routine,
-# // and have realized what a terrible mistake that was,
-# // please increment the following counter as a warning
-# // to the next guy:
-# // 
-# // total_hours_wasted_here = 42
-# // 
+our $VERSION = 1.0;
 
 
 sub new  {
@@ -25,8 +14,10 @@ sub new  {
 		_content                      => "",
 		_input_format                 => "",
 		_flag_for_all_property        => "",
-		_flag_seqence_based_property  => "",
-		_flag_bio_physical_property   => "",
+		_flag_seqence_based_parameter  => "",
+		_flag_ohysio_cemical_parameter   => "",
+		_flag_simulation_based_parameter => "",
+		_flag_enery_parameter
 		
 	};
 
@@ -37,8 +28,10 @@ sub new  {
 
 
 
-
+=head
+=cut
 sub SetInputFormat {
+	
 	my($self,$input_format) = @_;
 
 	if (ref($input_format) ne 'STRING' ) {
@@ -54,8 +47,10 @@ sub SetInputFormat {
 	return $self->{_input_format};
 }
 
-
+=head
+=cut
 sub GetInputFormat {
+	
 	my($self,$input_format) = @_;
 
 	if (! (exists $self->{_input_format})) {
@@ -65,21 +60,59 @@ sub GetInputFormat {
 	return $self->{_input_format};
 }
 
-sub EnableSeqBasedProperty {
+=head
+EnableSeqBasedProperty : enable the squence based property
+@in                    : 
+@out                   :
+=cut
+sub EnableSeqBasedParameter {
+	
+	my($self) = @_;
+
+	if ( $self->{_flag_seqence_based_parameter} eq '' ) {
+		$self->{_flag_seqence_based_parameter} = 'y';
+	}
+
+	return $self;
+}
+
+=head
+=cut
+sub ListSeqBasedParameter {
 
 }
 
+=head
+EnableSimulationBasedProperty : enable simulation based property
+@in                           :
+@out                          :
+=cut
+sub EnableSimulationBasedParameter {
 
-sub ListSeqBasedProperty {
+	my($self) = @_;
+
+	if ( $self->{_flag_simulation_based_parameter} eq '' ) {
+		$self->{_flag_simulation_based_parameter} = 'y';
+	}
+
+	return $self;
+}
+
+=head
+=cut
+sub ListSimulationBasedParameter {
 
 }
 
-sub EnableSimulationBasedProperty {
-
+=head
+=cut
+sub EnablePhysioChemicalParameter {
 }
 
-sub ListSimulationBasedProperty {
-
+=head
+=cut
+sub ListPhysioChemicalParamter {
 }
+1;
 
-
+__END__
