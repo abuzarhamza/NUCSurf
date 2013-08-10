@@ -15,6 +15,9 @@ sub new  {
 		_file_content                    => "",
 		_input_format                    => "",
 		_file_name                       => "",
+		
+		_id                              => [],
+		_sequence                        => [],
 
 		_flag_for_all_property           => "",
 		_flag_seqence_based_parameter    => "",
