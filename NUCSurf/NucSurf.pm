@@ -15,13 +15,13 @@ sub new  {
 		_file_content                    => "",
 		_input_format                    => "",
 		_file_name                       => "",
-		
+
 		_id                              => [],
 		_sequence                        => [],
 
 		_flag_for_all_property           => "",
 		_flag_seqence_based_parameter    => "",
-		_flag_ohysio_cemical_parameter   => "",
+		_flag_physio_cemical_parameter   => "",
 		_flag_simulation_based_parameter => "",
 		_flag_enery_parameter            => "",
 
@@ -30,7 +30,7 @@ sub new  {
 		_flag_grule                      => "",
 		_flag_crule                      => "",
 		_flag_gcrule                     => "",
-		_flag_atrule                     => "",
+		_flag_atrule                     => ""
 		
 		
 	};
