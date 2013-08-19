@@ -1,8 +1,10 @@
 package NucSurf;
 use strict;
 use warnings;
-use Crap;
+use NucSurf::JournalData;
+#use Crap;
 
+our data_journal;
 
 our $VERSION = 1.0;
 
@@ -17,7 +19,8 @@ sub new  {
 		_file_name                       => "",
 
 		_id                              => [],
-		_sequence                        => [],
+		_seq                             => [],
+		_seq_detail                      => [],
 
 		_flag_for_all_property           => "",
 		_flag_seqence_based_parameter    => "",
@@ -30,9 +33,13 @@ sub new  {
 		_flag_grule                      => "",
 		_flag_crule                      => "",
 		_flag_gcrule                     => "",
-		_flag_atrule                     => ""
-		
-		
+		_flag_atrule                     => "",
+
+		_active_prop                     => [],
+		_enable_prop2                    => [],
+		_enable_prop3                    => [],  
+
+		_window_size                     => 5		
 	};
 
 	bless $class,$self;
@@ -96,7 +103,9 @@ sub ListSeqBasedParameter {
 	
 	my ($self) = @_;
 	
-	foreach (qq/_flag_trule _flag_arule _flag_grule _flag_crule _flag_gcrule _flag_atrule/) {
+	foreach (qq/_flag_trule _flag_arule _flag_grule 
+		       _flag_crule _flag_gcrule _flag_atrule/
+	) {
 		print "$_\n";
 	}
 	
@@ -107,6 +116,7 @@ EnableSimulationBasedProperty : enable simulation based property
 @in                           :
 @out                          :
 =cut
+
 sub EnableSimulationBasedParameter {
 
 	my($self) = @_;
@@ -121,6 +131,9 @@ sub EnableSimulationBasedParameter {
 	
 	return $self;
 }
+
+
+
 
 =head
 =cut
@@ -138,6 +151,133 @@ sub EnablePhysioChemicalParameter {
 =cut
 sub ListPhysioChemicalParamter {
 
+}
+
+
+sub CheckPropList {
+
+	my ($self) = @_;
+
+	foreach my $prop (@{ $self->{_active_prop} }) {
+				
+		if ( $prop =~ /weq/ ) {
+			$self->{_flag_split_2} = 'y';			
+		}
+		elsif ( $prop =~ /weq/ ) {
+			$self->{_flag_split_3} = 'y';
+		}	
+
+	}
+
+}
+
+=head
+=cut
+
+sub SequenceNumericalProfiler {
+	my ($self) = @_;
+
+	if ( scalar(@{ $self->{_id} }) > 0 ) {
+		
+
+		if ( $self->{_flag_split_2} eq 'y' ) {
+			my ($self) = _splitSeqForNumericProf($self,2);
+		}
+
+		if ( $self->{_flag_split_3} eq 'y' ) {
+			my ($self) = _splitSeqForNumericProf($self,3);
+		}
+				
+
+		if ( $self->{_flag_split_2} eq 'y' ) {
+			my ($self) = _numericProfiler($self,2);
+		}
+
+		if ( $self->{_flag_split_3} eq 'y' ) {
+			my ($self) = _numericProfiler($self,3);
+		}
+
+	}
+	
+	return $self;
+}
+
+=head
+=cut
+sub _splitSeqForNumericProf {
+
+	my ($self,$split_size) = @_;
+
+	foreach my $i (0 .. $#self->{_id}) {
+
+		my $tempSequence  = $self->{_seq}[$i];
+		$tempSequence    .= "_" if((length($tempSequence)%$split_size) != 0);
+		
+		my $tempStore = "";
+		while ( $tempSequence=~/(\w{$split_size})/gi ) {
+			$tempStore .= $1.":"; 
+		}
+		chop $tempStore;
+
+		$self->{_seq_tuple2}[$i] = $tempStore;
+
+	}
+
+	return $self;
+}
+
+=head
+=cut
+sub _numericProfiler {
+
+	my ($self) = @_;
+
+	
+	my @enableProp = ( @{$self->{_enable_prop2}} , @{$self->{_enable_prop3}}) ;
+
+	foreach my $i ( 0 .. $#self->{_id} ) {
+
+		my %propArr = () ;
+		my $seqId   = $self->{_id}[$i];
+		my $tempSeq = $self->{_seq_tuple2}[$i];
+
+		foreach my $tuple ( split(":",$tempSeq) ) {
+
+			foreach my $prop ( @enableProp ) {
+
+				if ( $self->{_window_size} == 1 ) {
+
+					if ( exists $data_journal{$prop}{$tuple} ) {
+						$self{$prop}{$seqId} .= $data_journal{$prop}{$tuple} .":";
+					}else{
+						$self{$prop}{$seqId} .= '0'.":"; 
+					}
+
+				} elsif ( $self->{_window_size} > 1 ) {
+
+					if ( exists $data_journal{$prop}{$tuple} ) {
+						push @{$propArr{$prop}{_windowarray}},$data_journal{$prop}{$tuple};
+					} else {
+						push @{$propArr{$prop}{_windowarray}},0;
+					}
+
+					if ( scalar( @{$propArr{$prop}{_windowarray}} ) == $self->{_window_size} ) {
+
+						# my $string = join('+',@{$propArr{$prop}{_windowarray}});
+						# my $sum    = eval($string);
+						my $sum   += $_ for @{$propArr{$prop}{_windowarray}};
+						$sum       = $sum/$self->{_window_size};
+
+						$self{$prop}{$seqId} .= $sum.":";			
+						shift(@{$propArr{$prop}{_windowarray}});
+					}
+
+				}
+			}
+		}
+	}
+
+	return $self;
 }
 
 =head
