@@ -58,7 +58,7 @@ sub new  {
 		_flag_gcrule                     => "",
 		_flag_atrule                     => "",
 
-		_active_prop                     => [],
+		_enable_prop                     => [],
 		_enable_prop2                    => [],
 		_enable_prop3                    => [],  
 
@@ -181,7 +181,7 @@ sub CheckPropList {
 
 	my ($self) = @_;
 
-	foreach my $prop (@{ $self->{_active_prop} }) {
+	foreach my $prop ( @{ $self->{_enable_prop} } ) {
 				
 		if ( $prop =~ /weq/ ) {
 			$self->{_flag_split_2} = 'y';			
