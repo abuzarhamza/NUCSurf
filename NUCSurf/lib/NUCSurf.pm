@@ -27,7 +27,7 @@ our @EXPORT = qw(
 	
 );
 
-our data_journal;
+our %data_journal;
 
 our $VERSION = 1.0;
 
