@@ -390,7 +390,7 @@ If you have a mailing list set up for your module, mention it here.
 If you have a web site set up for your module, mention it here.
 
 =head1 AUTHOR
-
+Abuzar Hamza, Email : abuzarhamza.at.gmail.com
 Mohd Noor Alam, E<lt>noor@E<gt>
 
 =head1 COPYRIGHT AND LICENSE
