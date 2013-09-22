@@ -1,7 +1,8 @@
 package JournalData;
 
 
-use version; $VERSION = qv('0.0.3');
+use version; 
+$VERSION = qv('0.0.3');
 use warnings;
 use strict;
 use Carp;
@@ -827,7 +828,7 @@ our %data_journal = {
 					'gt'=> 27.52
 				} ,
 
-				
+
 
 	 _b_a_trimeric => {
 						'aaa' => 1.17,
