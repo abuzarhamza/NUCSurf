@@ -3,6 +3,7 @@ package NUCSurf;
 use 5.014002;
 use strict;
 use warnings;
+use MFASTAParse;
 use NucSurf::JournalData;
 
 require Exporter;
@@ -305,13 +306,13 @@ sub _numericProfiler {
 
 sub ReadFastaSeq {
 
-	my ($self) = @_;
-	my $fasta  = FASTAParse->new();
+	my ($self,$text) = @_;
+	my $fasta  = MFASTAParse->new();
 	# $text is the text value fetched from the web tool
 	# It should contain the raw sequence
     $fasta->load_FASTA( fasta => $text );
-    $self->{_seq}=$fasta->{_sequence};
-    $self->{_id}=$fasta->{_id};
+    $self->{_seq} = $fasta->{_sequence};
+    $self->{_id}  = $fasta->{_id};
     return $self;
 
 }
@@ -319,20 +320,14 @@ sub ReadFastaSeq {
 sub ReadFastaFile {
 	my ($self) = @_;
 	my $fasta = FASTAParse->new();
-    # $fasta->load_FASTA( fasta => $text );
-	# 	_file_content                    => "",
-	# 	_input_format                    => "",
-	# Could not understand how and when these keys would be intialized
-	# Assuming that there is ONE file and it contains only one sequence
-	# Can handle multiple sequence in a single file
 	my $text = "";
 	if (defined $self->{_file_name}) {
 		open (F, $self->{_file_name} ) or die "Can not open the file $!";
 		$text = <F>;
 		close F;
 		$fasta->load_FASTA( fasta => $text );
-	    $self->{_seq}=$fasta->{_sequence};
-	    $self->{_id}=$fasta->{_id};
+	    $self->{_seq} = $fasta->{_sequence};
+	    $self->{_id}  = $fasta->{_id};
 	}
 	return $self;
 }

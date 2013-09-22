@@ -1,14 +1,16 @@
-package FASTAParse;
+
+package MFASTAParse;
 
 # | PACKAGE | FASTAParse
 # | AUTHOR  | Todd Wylie
 # | EMAIL   | perldev@monkeybytes.org
 
-use version; $VERSION = qv('0.0.3');
+use version; $VERSION = qv('13.1');
 use warnings;
 use strict;
 use Carp;
 use IO::File;
+
 
 # --------------------------------------------------------------------------
 # N E W  (class CONSTRUCTOR)
@@ -23,7 +25,7 @@ sub new {
     my $class = shift;
 
     my $self  = {
-        _id          => '',
+        _id          => [],
         _descriptors => [],
         _comments    => [],
         _sequence    => [],
@@ -38,7 +40,7 @@ sub new {
 # L O A D  F A S T A  (method)
 # ==========================================================================
 # USAGE      : FASTAParse->load_FASTA();
-# PURPOSE    : loads a chunk of FASTA into the class
+# PURPOSE    : loads a chunk of single or multiple FASTA into the class
 # RETURNS    : none
 # PARAMETERS : fasta => ''
 # THROWS     : croaks if no FASTA attribute or bad FASTA header
@@ -63,13 +65,18 @@ sub load_FASTA {
 
     # Parse sequence and load the FASTA object:
     my @lines = split( /\n/, $arg{fasta} );
+    my $sequence ;
     foreach my $line (@lines) {
         if ($line =~ /^>\S+/) {
+            if(defined$sequence) {
+                push( @{$class->{_sequence}}, $sequence );
+                $sequence = "";
+            }
             # Header line:
             my ($id, $descriptions)   = $line =~ /^>(\S+)\s*(.*)/;
-            $class->{_id}             = $id;
+            push(@{$class->{_id}},$id);
             if (defined$descriptions) {
-                @{$class->{_descriptors}} = split( /\cA/, $descriptions );
+                push( @{$class->{_descriptors}}, split( /\cA/, $descriptions ));
             }
         }
         elsif ($line =~ /^;\s*(.+)/) {
@@ -79,11 +86,18 @@ sub load_FASTA {
         else {
             # Sequence lines:
             $line =~ s/\s+//g;
-            unless( $line eq "" ) { push( @{$class->{_sequence}}, $line ) }
+            unless( $line eq "" ) { $sequence .= "$line"; }
         }
+    }
+
+    if(defined$sequence ) {
+        push( @{$class->{_sequence}}, $sequence );
+        $sequence = "";
     }
     return($class);
 }
+
+
 
 
 # --------------------------------------------------------------------------
@@ -114,23 +128,31 @@ sub format_FASTA {
     # If incoming sequence is multi-part, join them before breaking
     # into FASTA lines:
     delete( $class->{_sequence} );
+    delete( $class->{_descriptors} );
+    delete( $class->{_comments} );
+    delete( $class->{_id} );
+    # undef $class;
+    # my $fasta = new MFASTAParse ();
     my $fasta  = join( "", $arg{sequence} );
     my $length = length( $fasta );
     my $pos    = 0;
+    my $seq     = "";
     my $lines  = int( $length / $columns) + 1;
     for (my $i = 1; $i <= $lines; $i++) {
         my $line = substr( $fasta, $pos, $columns );
-        push( @{$class->{_sequence}}, $line );
+        $seq .= "$line";
         $pos = $pos + $columns;
     }
 
+    push(@{$class->{_id}},$arg{id});
+    push( @{$class->{_sequence}}, $seq);
+
     # Descriptions, comments, etc.
-    $class->{_id} = $arg{id};
     if (defined @{$arg{comments}}) {
-        @{$class->{_comments}} = @{$arg{comments}};
+       push (@{$class->{_comments}},@{$arg{comments}});
     }
     if (defined @{$arg{descriptors}}) {
-        @{$class->{_descriptors}} = @{$arg{descriptors}};
+        push (@{$class->{_descriptors}}, @{$arg{descriptors}});
     }
 
     return( $class );
@@ -150,21 +172,27 @@ sub dump_FASTA {
 
     # Dump the class in scalar context:
     my $returnable;
-    if (defined $class->{_id}) {
-        my $descriptors = join( "\cA", @{$class->{_descriptors}} );  # ^A delimiter
-        $returnable = ">$class->{_id} $descriptors\n";
-        foreach my $comment ( @{$class->{_comments}} ) {
-            $returnable .= ";$comment\n";
+    for (my $i=0; $i<(scalar @{$class->{_id}}); $i++) {
+        my $printable;
+        my $descriptors = join( "\cA", $class->{_descriptors}[$i] );  # ^A delimiter
+        $printable = ">$class->{_id}[$i] $descriptors\n";
+        foreach my $comment ( $class->{_comments}[$i] ) {
+            $printable .= ";$comment\n";
         }
-        foreach my $sequence ( @{$class->{_sequence}} ) {
-            $returnable .= "$sequence\n";
+        foreach my $sequence ( $class->{_sequence}[$i] ) {
+            my $length = length( $sequence );
+            my $pos    = 0;
+            my $columns = 60;
+            my $lines  = int( $length / $columns) + 1;
+            for (my $i = 1; $i <= $lines; $i++) {
+                my $line = substr( $sequence, $pos, $columns );
+                $printable .= "$line\n";
+                $pos = $pos + $columns;
+            }           
         }
+        $returnable .= "$printable";
     }
-    else {
-        croak "ID is missing from the object";
-    }
-
-    return( $returnable );
+    return ( $returnable );
 }
 
 
@@ -182,20 +210,27 @@ sub save_FASTA {
     if (!$arg{save}) { croak "save_FASTA needs SAVE attribute" }
 
     # Save the class information to a file:
-    my $save = new IO::File ">>$arg{save}" or croak "could not save to file $arg{save}";
+    my $save = new IO::File ">$arg{save}" or croak "could not save to file $arg{save}";
     my $returnable;
-    if (defined $class->{_id}) {
-        my $descriptors = join( "\cA", @{$class->{_descriptors}} );  # ^A delimiter
-        $returnable = ">$class->{_id} $descriptors\n";
-        foreach my $comment ( @{$class->{_comments}} ) {
-            $returnable .= ";$comment\n";
+    for (my $i=0; $i<(scalar @{$class->{_id}}); $i++) {
+        my $printable;
+        my $descriptors = join( "\cA", $class->{_descriptors}[$i] );  # ^A delimiter
+        $printable = ">$class->{_id}[$i] $descriptors\n";
+        foreach my $comment ( $class->{_comments}[$i] ) {
+            $printable .= ";$comment\n";
         }
-        foreach my $sequence ( @{$class->{_sequence}} ) {
-            $returnable .= "$sequence\n";
+        foreach my $sequence ( $class->{_sequence}[$i] ) {
+            my $length = length( $sequence );
+            my $pos    = 0;
+            my $columns = 60;
+            my $lines  = int( $length / $columns) + 1;
+            for (my $i = 1; $i <= $lines; $i++) {
+                my $line = substr( $sequence, $pos, $columns );
+                $printable .= "$line\n";
+                $pos = $pos + $columns;
+            }           
         }
-    }
-    else {
-        croak "ID is missing from the object";
+        $returnable .= "$printable";
     }
     print $save "$returnable";
 
@@ -213,22 +248,26 @@ sub save_FASTA {
 # --------------------------------------------------------------------------
 sub print {
     my $class = shift;
-
     # Print the class to STDOUT:
-    my $printable;
-    if (defined $class->{_id}) {
-        my $descriptors = join( "\cA", @{$class->{_descriptors}} );  # ^A delimiter
-        $printable = ">$class->{_id} $descriptors\n";
-        foreach my $comment ( @{$class->{_comments}} ) {
+    for (my $i=0; $i<(scalar @{$class->{_id}}); $i++) {
+        my $printable;
+        my $descriptors = join( "\cA", $class->{_descriptors}[$i] );  # ^A delimiter
+        $printable = ">$class->{_id}[$i] $descriptors\n";
+        foreach my $comment ( $class->{_comments}[$i] ) {
             $printable .= ";$comment\n";
         }
-        foreach my $sequence ( @{$class->{_sequence}} ) {
-            $printable .= "$sequence\n";
+        foreach my $sequence ( $class->{_sequence}[$i] ) {
+            my $length = length( $sequence );
+            my $pos    = 0;
+            my $columns = 60;
+            my $lines  = int( $length / $columns) + 1;
+            for (my $i = 1; $i <= $lines; $i++) {
+                my $line = substr( $sequence, $pos, $columns );
+                $printable .= "$line\n";
+                $pos = $pos + $columns;
+            }           
         }
         print $printable;
-    }
-    else {
-        croak "ID is missing from the object";
     }
 
     return( $class );
@@ -245,12 +284,7 @@ sub print {
 # --------------------------------------------------------------------------
 sub id {
     my $class = shift;
-    if (defined $class->{_id}) {
-        return( $class->{_id} );
-    }
-    else {
-        croak "ID does not exist in object";
-    }
+    return \@{$class->{_id}};
 }
 
 
@@ -264,13 +298,7 @@ sub id {
 # --------------------------------------------------------------------------
 sub sequence {
     my $class = shift;
-    if (defined $class->{_sequence} ) {
-        my $sequence = join(  "", @{$class->{_sequence}} );
-        return( $sequence );
-    }
-    else {
-        croak "SEQUENCE does not exist in object";
-    }
+    return \@{$class->{_sequence}};
 }
 
 
@@ -279,12 +307,12 @@ sub sequence {
 # ==========================================================================
 # USAGE      : $fasta->descriptors();
 # PURPOSE    : Accessor to retrieve the FASTA descriptors.
-# RETURNS    : array reference
+# RETURNS    : scalar
 # PARAMETERS : none
 # --------------------------------------------------------------------------
 sub descriptors {
     my $class = shift;
-    return( \@{$class->{_descriptors}} );
+    return \@{$class->{_descriptors}};
 }
 
 
@@ -293,12 +321,12 @@ sub descriptors {
 # ==========================================================================
 # USAGE      : $fasta->comments();
 # PURPOSE    : Accessor to retrieve the FASTA comments.
-# RETURNS    : array reference
+# RETURNS    : scalar
 # PARAMETERS : none
 # --------------------------------------------------------------------------
 sub comments {
     my $class = shift;
-    return( \@{$class->{_comments}} );
+    return \@{$class->{_comments}};
 }
 
 
@@ -309,19 +337,19 @@ __END__
 
 =head1 NAME
 
-FASTAParse - A light-weight parsing module for handling FASTA formatted sequence within larger perl applications.
+MFASTAParse - A light-weight parsing module for handling multiple FASTA formatted sequence within larger perl applications.
 
 
 =head1 VERSION
 
-This document describes FASTAParse version 0.0.3
+This document describes MFASTAParse version 0.0.3
 
 
 =head1 SYNOPSIS
 
     # Manually creating a FASTA object:
-    use FASTAParse;
-    my $fasta = FASTAParse->new();
+    use MFASTAParse;
+    my $fasta = MFASTAParse->new();
     $fasta->format_FASTA(
                          id          => 'example_0.0.1',
                          sequence    => 'ACGTCTCTCTCGAGAGGAGAGCTTCTCTCTAGGAGAG',
@@ -331,7 +359,7 @@ This document describes FASTAParse version 0.0.3
     $fasta->print();
 
     # Loading a FASTA object from a block of captured text:
-    use FASTAParse;
+    use MFASTAParse;
     my $text = "
     >gi|55416189|gb|AAV50056.1| NADH dehydrogenase subunit 1 [Dasyurus hallucatus]
     ;Taken from nr GenBank
@@ -340,7 +368,7 @@ This document describes FASTAParse version 0.0.3
     TLKTLSITQENLWLIITTWPLAMMWYISTLAETNRAPFDLTEGESELVSGFNVEYAAGPFAMFFLAEYANIIAMNAITTI
     LFLGPSLTPNLSHLNTLSFMLKTLLLTMVFLWVRASYPRFRYDQLMHLLWKNFLPMTLAM
     ";
-    my $fasta = FASTAParse->new();
+    my $fasta = MFASTAParse->new();
     $fasta->load_FASTA( fasta => $text );
     my $id          = $fasta->id();
     my $sequence    = $fasta->sequence(); # Flat sequence.
@@ -350,10 +378,7 @@ This document describes FASTAParse version 0.0.3
 
 =head1 DESCRIPTION
 
-FASTAParse is pretty simple in that it does one of two things: 1) loads a FASTA object from a chunk of text; 2) formats a FASTA object given explicit user input. See SYNOPSIS for example code for both functions. Once populated, individual sections of the FASTA entry may be pulled from the object. For further information on FASTA format, please see:
-
- http://en.wikipedia.org/wiki/Fasta_format
- http://blast.wustl.edu/doc/FAQ-Indexing.html
+MFASTAParse is pretty simple in that it does one of two things: 1) loads a FASTA object from a chunk of text; 2) formats a FASTA object given explicit user input. See SYNOPSIS for example code for both functions. Once populated, individual sections of the FASTA entry may be pulled from the object. For further information on FASTA format, please see:
 
 
 =head1 INTERFACE
@@ -363,8 +388,8 @@ FASTAParse is pretty simple in that it does one of two things: 1) loads a FASTA 
 
 new: Class constructor for FASTA.
 
-    use FASTAParse;
-    my $fasta = FASTAParse->new();
+    use MFASTAParse;
+    my $fasta = MFASTAParse->new();
 
 
 =head2 load_FASTA
@@ -447,7 +472,7 @@ comments: Accessor method to return an array reference to the list of comments i
 
 =head1 CONFIGURATION AND ENVIRONMENT
 
-FASTAParse requires no configuration files or environment variables.
+MFASTAParse requires no configuration files or environment variables.
 
 
 =head1 DEPENDENCIES
@@ -465,22 +490,16 @@ None reported.
 No bugs have been reported.
 
 Please report any bugs or feature requests to
-C<bug-fastaparse@rt.cpan.org>, or through the web interface at
-L<http://rt.cpan.org>.
-
+<mohd_noor_alam@yahoo.co.in>
 
 =head1 AUTHOR
 
-Todd Wylie
-
-C<< <perldev@monkeybytes.org> >>
-
-L<< http://www.monkeybytes.org >>
+Mohd Noor Alam
 
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2006, Todd Wylie C<< <perldev@monkeybytes.org> >>. All rights reserved.
+Copyright (c) 2013, Mohd Noor Alam << <mohd_noor_alam@yahoo.co.in> >>. All rights reserved.
 
 This module is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself. See perlartistic.
