@@ -1,7 +1,8 @@
 package JournalData;
 
 
-use version; $VERSION = qv('0.0.3');
+use version; 
+$VERSION = qv('0.0.3');
 use warnings;
 use strict;
 use Carp;
@@ -10,7 +11,7 @@ use Carp;
 
 
 require Exporter;
-require 'lib/FASTAParse.pm'
+#require 'lib/FASTAParse.pm'
 
 our @ISA = qw(Exporter);
 
@@ -147,8 +148,8 @@ our %data_journal = {
 										'tg' => 1,
 										'tt' => 0
 									} ,
-	#gtrule 
-	#des - count of nucleotide G
+	#gcrule 
+	#des : count of nucleotide gc
 	#max val : none
 	#min val : none
 	#bio rev :
@@ -171,7 +172,7 @@ our %data_journal = {
 										'tt' => 0
 									} ,
 	#bendingstiffness 
-	#des - count of nucleotide G
+	#des : count of nucleotide G
 	#max val : 
 	#min val : 
 	#bio rev :
@@ -194,7 +195,7 @@ our %data_journal = {
 										'tt' => 35
 									} ,
 	#dnadenaturation
-	#des - count of nucleotide G
+	#des : 
 	#max val : 
 	#min val : 
 	#bio rev :
@@ -216,8 +217,8 @@ our %data_journal = {
 									'tg' => 64.92,
 									'tt' => 66.51
 									} ,
-	#dnadenaturation
-	#des - count of nucleotide G
+	#duplexstability_freeenergy
+	#des : count of nucleotide G
 	#max val : 
 	#min val : 
 	#bio rev :
@@ -239,7 +240,7 @@ our %data_journal = {
 	 								'tg' => -1.7,
 	 								'tt' => -1.2
 	 								} ,
-	#dnadenaturation
+	#propellartwist
 	#des - count of nucleotide G
 	#max val : 
 	#min val : 
@@ -262,7 +263,7 @@ our %data_journal = {
 									'tg' => -9.45, 
 									'tt' => -18.66
 									} ,
-	#dnadenaturation
+	#proteininduceddeform
 	#des - count of nucleotide G
 	#max val : 
 	#min val : 
@@ -285,7 +286,7 @@ our %data_journal = {
 									'tg' => 9.8, 
 									'tt' => 2.9
 									} ,
-	#dnadenaturation
+	#stabilisingenergy_zdna
 	#des - count of nucleotide G
 	#max val : 
 	#min val : 
@@ -308,7 +309,7 @@ our %data_journal = {
 									'tg' => 1.3, 
 									'tt' => 3.9
 									} ,
-	#dnadenaturation
+	#stackingenergy
 	#des - count of nucleotide G
 	#max val : 
 	#min val : 
@@ -331,7 +332,7 @@ our %data_journal = {
 									'tg' => -6.57, 
 									'tt' => -5.37
 									} ,
-	#dnadenaturation
+	#charmm27_rise
 	#des - count of nucleotide G
 	#max val : 
 	#min val : 
@@ -355,7 +356,7 @@ our %data_journal = {
 									'generic'=> 3.36,
 									'gt'=> 3.46
 								} ,
-	#dnadenaturation
+	#charmm27_roll
 	#des - count of nucleotide G
 	#max val : 
 	#min val : 
@@ -379,8 +380,8 @@ our %data_journal = {
 									'generic'=> 5.74 ,
 									'gt'=> 9.64
 								} ,
-	#dnadenaturation
-	#des - count of nucleotide G
+	#charmm27_slide
+	#des     : count of nucleotide G
 	#max val : 
 	#min val : 
 	#bio rev :
@@ -403,8 +404,8 @@ our %data_journal = {
 			 					'generic'=> -0.04,
 			 					'gt'=> -0.07
 	 						},
-	#dnadenaturation
-	#des - count of nucleotide G
+	#charmm27_tilt
+	#des     : count of nucleotide G
 	#max val : 
 	#min val : 
 	#bio rev :
@@ -427,8 +428,8 @@ our %data_journal = {
 								'generic'=> 0.00,
 								'gt'=> -0.12
 						 	} ,
-	#dnadenaturation
-	#des - count of nucleotide G
+	#charmm27_twist
+	#des     :- count of nucleotide G
 	#max val : 
 	#min val : 
 	#bio rev :
@@ -451,8 +452,8 @@ our %data_journal = {
 								'generic'=> 34.22 ,
 								'gt'=> 33.43
 							} ,
-	#dnadenaturation
-	#des - count of nucleotide G
+	#charmm27_shift
+	#des     : - count of nucleotide G
 	#max val : 
 	#min val : 
 	#bio rev :
@@ -475,8 +476,8 @@ our %data_journal = {
 								'generic'=>0.00,
 								'gt'=>-0.23
 							},
-	#dnadenaturation
-	#des - count of nucleotide G
+	#_xray_rise
+	#des     :count of nucleotide G
 	#max val : 
 	#min val : 
 	#bio rev :
@@ -499,6 +500,7 @@ our %data_journal = {
 								'generic'=> 3.29 ,
 								'gt'=> 3.14
 							} ,
+
 	_xray_roll 				=> {
 								'gg'=> 5.34 ,
 								'cg'=> 3.19 ,
@@ -577,6 +579,7 @@ our %data_journal = {
 								'generic'=> 0.00 ,
 								'gt'=> -0.12
 							} ,
+
 	_xray_twist 			=> {
 								'gg'=> 35.50 ,
 								'cg'=> 35.58 ,
@@ -595,27 +598,28 @@ our %data_journal = {
 								'tc'=> 31.45 ,
 								'generic'=> 34.22 ,
 								'gt'=> 33.43
-						} ,
+							} ,
 
-	_parm94_rise 		=> {
-							'gg'=> 3.57,
-							'cg'=> 3.35,
-							'tt'=> 3.30,
-							'ct'=> 3.34,
-							'ag'=> 3.36,
-							'ga'=> 3.34,
-							'cc'=> 3.57,
-							'at'=> 3.28,
-							'gc'=> 3.35,
-							'tg'=> 3.37,
-							'ta'=> 3.28,
-							'aa'=> 3.30,
-							'ac'=> 3.37,
-							'ca'=> 3.28,
-							'tc'=> 3.36,
-							'generic'=> 3.35,
-							'gt'=> 3.28
-						} ,
+	_parm94_rise 			=> {
+								'gg'=> 3.57,
+								'cg'=> 3.35,
+								'tt'=> 3.30,
+								'ct'=> 3.34,
+								'ag'=> 3.36,
+								'ga'=> 3.34,
+								'cc'=> 3.57,
+								'at'=> 3.28,
+								'gc'=> 3.35,
+								'tg'=> 3.37,
+								'ta'=> 3.28,
+								'aa'=> 3.30,
+								'ac'=> 3.37,
+								'ca'=> 3.28,
+								'tc'=> 3.36,
+								'generic'=> 3.35,
+								'gt'=> 3.28
+							} ,
+
 	_parm94_roll		=>	{
 							'gg'=> 4.99,
 							'cg'=> 0.64,
@@ -827,7 +831,7 @@ our %data_journal = {
 					'gt'=> 27.52
 				} ,
 
-				
+
 
 	 _b_a_trimeric => {
 						'aaa' => 1.17,
