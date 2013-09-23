@@ -7,7 +7,6 @@ use MFASTAParse;
 use NucSurf::JournalData;
 
 require Exporter;
-require 'lib/FASTAParse.pm'
 
 our @ISA = qw(Exporter);
 
