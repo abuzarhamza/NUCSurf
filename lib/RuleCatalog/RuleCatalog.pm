@@ -203,7 +203,7 @@ sub GetRuleCataloge {
 			'_flag_twist_parmbsc0' => {
 							{'simple'}    => 'twist_parmbsc0',
 							{'ktuple'}    => 2,
-							{'details'}   => 'rotation around the rise axis (z axis) of B DNA. ( rotational deformability ). Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.',
+							{'details'}   => 'rotation around the rise axis (z axis) of B DNA. ( rotational deformability ). Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
 							{'data'}      => {'aa' => 0.028 , 'tt' => 0.028 ,  'ac' => 0.036 , 'tg' => 0.036 ,  'ag' => 0.028 , 'tc' => 0.028 ,  'at' => 0.031 , 'ta' => 0.031 ,  'ca' => 0.015 , 'gt' => 0.015 ,  'cc' => 0.026 , 'gg' => 0.026 ,  'cg' => 0.014 , 'gc' => 0.014 ,  'ga' => 0.024 , 'ct' => 0.024 ,  'gc' => 0.022 , 'cg' => 0.022 ,  'ta' => 0.018 , 'at' => 0.018},
 							{'min_value'} => 'NA',
 							{'max_value'} => 'NA',
@@ -212,7 +212,7 @@ sub GetRuleCataloge {
 			'_flag_tilt_parmbsc0' => {
 							{'simple'}    => 'tilt_parmbsc0',
 							{'ktuple'}    => 2,
-							{'details'}   => 'rotation around the shift axis (x axis) of B DNA ( rotational deformability).Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.',
+							{'details'}   => 'rotation around the shift axis (x axis) of B DNA ( rotational deformability).Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
 							{'data'}      => {'aa' => 0.037 , 'tt' => 0.037 ,  'ac' => 0.038 , 'tg' => 0.038 ,  'ag' => 0.037 , 'tc' => 0.037 ,  'at' => 0.035 , 'ta' => 0.035 ,  'ca' => 0.025 , 'gt' => 0.025 ,  'cc' => 0.042 , 'gg' => 0.042 ,  'cg' => 0.026 , 'gc' => 0.026 ,  'ga' => 0.038 , 'ct' => 0.038 ,  'gc' => 0.036 , 'cg' => 0.036 ,  'ta' => 0.019 , 'at' => 0.019},
 							{'min_value'} => 'NA',
 							{'max_value'} => 'NA',
@@ -221,7 +221,7 @@ sub GetRuleCataloge {
 			'_flag_roll_parmbsc0' => {
 							{'simple'}    => 'roll_parmbsc0',
 							{'ktuple'}    => 2,
-							{'details'}   => 'rotation around the slide axis (y axis) of B DNA  (rotational deformability ). Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.',
+							{'details'}   => 'rotation around the slide axis (y axis) of B DNA  (rotational deformability ). Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
 							{'data'}      => {'aa' => 0.02 , 'tt' => 0.02 ,  'ac' => 0.023 , 'tg' => 0.023 ,  'ag' => 0.019 , 'tc' => 0.019 ,  'at' => 0.022 , 'ta' => 0.022 ,  'ca' => 0.016 , 'gt' => 0.016 ,  'cc' => 0.02 , 'gg' => 0.02 ,  'cg' => 0.016 , 'gc' => 0.016 ,  'ga' => 0.02 , 'ct' => 0.02 ,  'gc' => 0.026 , 'cg' => 0.026 ,  'ta' => 0.015 , 'at' => 0.015},
 							{'min_value'} => 'NA',
 							{'max_value'} => 'NA',
@@ -230,7 +230,7 @@ sub GetRuleCataloge {
 			'_flag_shift_parmbsc0' => {
 							{'simple'}    => 'shift_parmbsc0',
 							{'ktuple'}    => 2,
-							{'details'}   => 'displacement along an axis (x axis) in the base-pair plane perpendicular to the first, directed from the minor to the major groove, of B DNA (translational deformability).Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.',
+							{'details'}   => 'displacement along an axis (x axis) in the base-pair plane perpendicular to the first, directed from the minor to the major groove, of B DNA (translational deformability).Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
 							{'data'}      => { 'aa' => 1.72 , 'tt' => 1.72 ,  'ac' => 1.28 , 'tg' => 1.28 ,  'ag' => 1.4 , 'tc' => 1.4 ,  'at' => 1.05 , 'ta' => 1.05 ,  'ca' => 1.05 , 'gt' => 1.05 ,  'cc' => 1.43 , 'gg' => 1.43 ,  'cg' => 1.05 , 'gc' => 1.05 ,  'ga' => 1.32 , 'ct' => 1.32 ,  'gc' => 1.18 , 'cg' => 1.18 ,  'ta' => 0.64 , 'at' => 0.64},
 							{'min_value'} => 'NA',
 							{'max_value'} => 'NA',
@@ -239,7 +239,7 @@ sub GetRuleCataloge {
 			'_flag_slide_parmbsc0' => {
 							{'simple'}    => 'slide_parmbsc0',
 							{'ktuple'}    => 2,
-							{'details'}   => 'displacement along an axis ( y axi) in the plane of the base pair directed from one strand to the other,of B DNA (translational deformability).Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.',
+							{'details'}   => 'displacement along an axis ( y axi) in the plane of the base pair directed from one strand to the other,of B DNA (translational deformability).Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
 							{'data'}      => {'aa' => 2.13 , 'tt' => 2.13 ,  'ac' => 2.98 , 'tg' => 2.98 ,  'ag' => 1.78 , 'tc' => 1.78 ,  'at' => 3.77 , 'ta' => 3.77 ,  'ca' => 1.8 , 'gt' => 1.8 ,  'cc' => 1.57 , 'gg' => 1.57 ,  'cg' => 1.91 , 'gc' => 1.91 ,  'ga' => 1.88 , 'ct' => 1.88 ,  'gc' => 2.59 , 'cg' => 2.59 ,  'ta' => 1.25 , 'at' => 1.25},
 							{'min_value'} => 'NA',
 							{'max_value'} => 'NA',
@@ -248,7 +248,7 @@ sub GetRuleCataloge {
 			'_flag_rise_parmbsc0' => {
 							{'simple'}    => 'rise_parmbsc0',
 							{'ktuple'}    => 2,
-							{'details'}   => 'displacement along the helix axis (z axis),of B DNA (translational deformability).Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.',
+							{'details'}   => 'displacement along the helix axis (z axis),of B DNA (translational deformability).Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
 							{'data'}      => {'aa' => 7.64 , 'tt' => 7.64 ,  'ac' => 8.83 , 'tg' => 8.83 ,  'ag' => 7.04 , 'tc' => 7.04 ,  'at' => 9.34 , 'ta' => 9.34 ,  'ca' => 6.3 , 'gt' => 6.3 ,  'cc' => 7.86 , 'gg' => 7.86 ,  'cg' => 6.11 , 'gc' => 6.11 ,  'ga' => 8.48 , 'ct' => 8.48 ,  'gc' => 9.47 , 'cg' => 9.47 ,  'ta' => 6.08 , 'at' => 6.08},
 							{'min_value'} => 'NA',
 							{'max_value'} => 'NA',
@@ -257,7 +257,7 @@ sub GetRuleCataloge {
 			'_flag_twist_CHARMM27' => {
 							{'simple'}    => 'twist_CHARMM27',
 							{'ktuple'}    => 2,
-							{'details'}   => 'rotation around the rise axis (z axis) of B DNA. ( rotational deformability ). Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.',
+							{'details'}   => 'rotation around the rise axis (z axis) of B DNA. ( rotational deformability ). Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
 							{'data'}      => {'ac' => 0.034 , 'tg' => 0.034 ,  'aa' => 0.043 , 'tt' => 0.043 ,  'ag' => 0.036 , 'tc' => 0.036 ,  'at' => 0.032 , 'ta' => 0.032 ,  'ca' => 0.032 , 'gt' => 0.032 ,  'cc' => 0.03 , 'gg' => 0.03 ,  'cg' => 0.032 , 'gc' => 0.032 ,  'ga' => 0.04 , 'ct' => 0.04 ,  'gc' => 0.027 , 'cg' => 0.027 ,  'ta' => 0.036 , 'at' => 0.036},
 							{'min_value'} => 'NA',
 							{'max_value'} => 'NA',
@@ -266,7 +266,7 @@ sub GetRuleCataloge {
 			'_flag_tilt_CHARMM27' => {
 							{'simple'}    => 'tilt_CHARMM27',
 							{'ktuple'}    => 2,
-							{'details'}   => 'rotation around the shift axis (x axis) of B DNA ( rotational deformability).Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.',
+							{'details'}   => 'rotation around the shift axis (x axis) of B DNA ( rotational deformability).Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
 							{'data'}      => {'ac' => 0.034 , 'tg' => 0.034 ,  'aa' => 0.044 , 'tt' => 0.044 ,  'ag' => 0.045 , 'tc' => 0.045 ,  'at' => 0.032 , 'ta' => 0.032 ,  'ca' => 0.027 , 'gt' => 0.027 ,  'cc' => 0.043 , 'gg' => 0.043 ,  'cg' => 0.024 , 'gc' => 0.024 ,  'ga' => 0.041 , 'ct' => 0.041 ,  'gc' => 0.031 , 'cg' => 0.031 ,  'ta' => 0.021 , 'at' => 0.021},
 							{'min_value'} => 'NA',
 							{'max_value'} => 'NA',
@@ -275,7 +275,7 @@ sub GetRuleCataloge {
 			'_flag_roll_CHARMM27' => {
 							{'simple'}    => 'roll_CHARMM27',
 							{'ktuple'}    => 2,
-							{'details'}   => 'rotation around the slide axis (y axis) of B DNA  (rotational deformability ). Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.',
+							{'details'}   => 'rotation around the slide axis (y axis) of B DNA  (rotational deformability ). Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
 							{'data'}      => {'ac' => 0.025 , 'tg' => 0.025 ,  'aa' => 0.022 , 'tt' => 0.022 ,  'ag' => 0.022 , 'tc' => 0.022 ,  'at' => 0.023 , 'ta' => 0.023 ,  'ca' => 0.018 , 'gt' => 0.018 ,  'cc' => 0.021 , 'gg' => 0.021 ,  'cg' => 0.017 , 'gc' => 0.017 ,  'ga' => 0.024 , 'ct' => 0.024 ,  'gc' => 0.028 , 'cg' => 0.028 ,  'ta' => 0.015 , 'at' => 0.015},
 							{'min_value'} => 'NA',
 							{'max_value'} => 'NA',
@@ -284,7 +284,7 @@ sub GetRuleCataloge {
 			'_flag_shift_CHARMM27' => {
 							{'simple'}    => 'shift_CHARMM27',
 							{'ktuple'}    => 2,
-							{'details'}   => 'displacement along an axis (x axis) in the base-pair plane perpendicular to the first, directed from the minor to the major groove, of B DNA (translational deformability).Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.',
+							{'details'}   => 'displacement along an axis (x axis) in the base-pair plane perpendicular to the first, directed from the minor to the major groove, of B DNA (translational deformability).Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
 							{'data'}      => {'ac' => 1.55 , 'tg' => 1.55 ,  'aa' => 2.45 , 'tt' => 2.45 ,  'ag' => 2 , 'tc' => 2 ,  'at' => 1.21 , 'ta' => 1.21 ,  'ca' => 1.6 , 'gt' => 1.6 ,  'cc' => 1.53 , 'gg' => 1.53 ,  'cg' => 1.82 , 'gc' => 1.82 ,  'ga' => 2.27 , 'ct' => 2.27 ,  'gc' => 1.7 , 'cg' => 1.7 ,  'ta' => 0.93 , 'at' => 0.93},
 							{'min_value'} => 'NA',
 							{'max_value'} => 'NA',
@@ -293,7 +293,7 @@ sub GetRuleCataloge {
 			'_flag_slide_CHARMM27' => {
 							{'simple'}    => 'slide_CHARMM27',
 							{'ktuple'}    => 2,
-							{'details'}   => 'displacement along an axis ( y axi) in the plane of the base pair directed from one strand to the other,of B DNA (translational deformability).Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.',
+							{'details'}   => 'displacement along an axis ( y axi) in the plane of the base pair directed from one strand to the other,of B DNA (translational deformability).Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
 							{'data'}      => {'ac' => 3.33 , 'tg' => 3.33 ,  'aa' => 3.56 , 'tt' => 3.56 ,  'ag' => 2.82 , 'tc' => 2.82 ,  'at' => 3.49 , 'ta' => 3.49 ,  'ca' => 2.19 , 'gt' => 2.19 ,  'cc' => 1.74 , 'gg' => 1.74 ,  'cg' => 2.48 , 'gc' => 2.48 ,  'ga' => 3.4 , 'ct' => 3.4 ,  'gc' => 4.79 , 'cg' => 4.79 ,  'ta' => 1.52 , 'at' => 1.52},
 							{'min_value'} => 'NA',
 							{'max_value'} => 'NA',
@@ -302,7 +302,7 @@ sub GetRuleCataloge {
 			'_flag_rise_CHARMM27' => {
 							{'simple'}    => 'rise_CHARMM27',
 							{'ktuple'}    => 2,
-							{'details'}   => 'displacement along the helix axis (z axis),of B DNA (translational deformability).Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.',
+							{'details'}   => 'displacement along the helix axis (z axis),of B DNA (translational deformability).Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
 							{'data'}      => {'ac' => 8.31 , 'tg' => 8.31 ,  'aa' => 9.47 , 'tt' => 9.47 ,  'ag' => 9.35 , 'tc' => 9.35 ,  'at' => 7.32 , 'ta' => 7.32 ,  'ca' => 6.71 , 'gt' => 6.71 ,  'cc' => 8.96 , 'gg' => 8.96 ,  'cg' => 6.64 , 'gc' => 6.64 ,  'ga' => 10.12 , 'ct' => 10.12 ,  'gc' => 9.43 , 'cg' => 9.43 ,  'ta' => 6.61 , 'at' => 6.61},
 							{'min_value'} => 'NA',
 							{'max_value'} => 'NA',
