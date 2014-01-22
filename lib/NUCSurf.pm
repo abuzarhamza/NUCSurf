@@ -5,6 +5,7 @@ use strict;
 use warnings;
 
 require Exporter;
+use NUCSurf::RuleCatalog;
 
 our @ISA = qw(Exporter);
 
@@ -21,9 +22,7 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
-our @EXPORT = qw(
-	
-);
+our @EXPORT = qw();
 
 our $VERSION = '0.01';
 
@@ -56,36 +55,82 @@ sub new {
 	return $self;
 }
 
-=head SetFilePath
-set the input file path 
+=head set_input_file_name
+Title     : set_input_file_name
+Usage     : $obj->set_input_file_name("tmp.fa")
+Function  : set the input file path
+Returns   : obj
+Argument  : input_file
 =cut
-sub SetFilePath {
-    #SetFilePath
-    #set file name
-
+sub set_input_file_name {
+    my ($self,$input_file) = shift;
+    if (ref($input_file) ne '' ) {
+		die "provide input is not string type\n";
+	}
+	$self->{_input_filename} = $input_file;
+	return $self->{_input_filename};
 }
 
-=head SetWindowSize
-set the window size for numeric profilling calculation
+=head set_window_size
+Title     : set_window_size
+Usage     : $obj->set_window_size(5);
+Function  : set the window size for numeric profilling calculation
+Returns   : obj
+Argument  : window_size
 =cut
-sub SetWindowSize {
-    #set the window size
+sub set_window_size {
+    my ($self,$window_size) = shift;
+    if (ref($window_size) ne '' ) {
+		die "provide input is not string type\n";
+	}
+    if ($window_size !~ /^\d{1,}$/) {
+		die "provide input is not an integer\n";
+	}
+	$self->{_window_size} = $window_size;
+	return $self->{_window_size};
 }
 
-=head SetOutputFilePath
-set the output file path
+=head set_output_file_name
+Title     : set_output_file_name
+Usage     : $obj->set_output_file_name("tmp.txt");
+Function  : set output file name
+Returns   : obj
+Argument  : output file name
 =cut
-sub SetOutputFilePath {
-    #set the window size
+sub set_output_file_name {
+    my ($self,$output_file) = shift;
+    if (ref($output_file) ne '' ) {
+		die "provide input is not string type\n";
+	}
+	$self->{_output_filename} = $output_file;
+	return $self->{output_filename};
 }
 
-=head2 GetSupportedRule
-get the list of supported rules/properties
+=head2 get_rule_list
+Title     : get_rule_list
+Usage     : $obj->set_output_file_name('name');
+Function  : get the list of supported rules/properties
+Returns   : @(array)
+Argument  : none
 =cut
-sub GetRuleList {
+sub get_rule_list {
+	my($self) = @_;
     #GetSupportedRules
     #get list of rules that will be supported
     #GetRuleCataloge(propertyName=>'simple')
+    
+}
+
+=head2 print_detail_abt_rules
+Title     : get_detail_abt_rules
+Usage     : $obj->get_detail_abt_rules('trule'=>'description')  ,=>min_value,=>max_value,=>data,=>reference,=>complete_detail
+Function  : get description or other value for the specified property
+Returns   : none
+Argument  : 
+=cut
+sub print_detail_abt_rules {
+    #List out property detail information and journal from where it has been taken
+    #get the rules detail from hash GetRuleCataloge(propertyName=>'details')
 }
 
 sub EnableRule {
@@ -104,11 +149,6 @@ sub EnableRule {
 sub GetEnableRules {
     #GetEnableProperty
     #return array with list of property
-}
-
-sub GetDetailAboutRules {
-    #List out property detail information and journal from where it has been taken
-    #get the rules detail from hash GetRuleCataloge(propertyName=>'details')
 }
 
 sub GetNumericProfile {

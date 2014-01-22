@@ -15,24 +15,31 @@ our @ISA = qw(Exporter);
 # This allows declaration	use NUCSurf ':all';
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
-	
-) ] );
+
+our %EXPORT_TAGS = ( 'all' => [ qw() ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
-our @EXPORT = qw();
+our @EXPORT = qw(get_rule_cataloge);
 
 our $VERSION = '0.01';
 
-=head GetRuleCataloge
+
+
+=head1 get_rule_cataloge
+ Title     : get_rule_cataloge
+ Usage     : 
+ Function  : 
+ Returns   : 
+ Argument  : 
 =cut
-sub GetRuleCataloge {
+sub copy_rule_cataloge {
 	#propertyName=>'simple' | human readable form
 	#propertyName=>'ktuple' | 2 or 3
 	#propertyName=>'details' | detail about the property
 	#propertyName=>'catagory' | will be added later
 	#propertyName=>'data' | hash stucture data
+	my ($self,$key) = @_;
 	
 	%ruleCataloge = (
 		'_flag_t_rule' => {
@@ -310,6 +317,8 @@ sub GetRuleCataloge {
 			},
 	);
 }
+
+
 
 
 1;
