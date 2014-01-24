@@ -1,3 +1,4 @@
+use lib '/home/abuzzar/Desktop/project/nucleotide/gitProject/NUCSurf/lib/RuleCatalog';
 package NUCSurf;
 
 use 5.014002;
@@ -5,7 +6,7 @@ use strict;
 use warnings;
 
 require Exporter;
-use NUCSurf::RuleCatalog;
+use RuleCatalog;
 
 our @ISA = qw(Exporter);
 
@@ -16,9 +17,7 @@ our @ISA = qw(Exporter);
 # This allows declaration	use NUCSurf ':all';
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
-	
-) ] );
+our %EXPORT_TAGS = ( 'all' => [ qw() ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
@@ -106,32 +105,6 @@ sub set_output_file_name {
 	return $self->{output_filename};
 }
 
-=head2 get_rule_list
-Title     : get_rule_list
-Usage     : $obj->set_output_file_name('name');
-Function  : get the list of supported rules/properties
-Returns   : @(array)
-Argument  : none
-=cut
-sub get_rule_list {
-	my($self) = @_;
-    #GetSupportedRules
-    #get list of rules that will be supported
-    #GetRuleCataloge(propertyName=>'simple')
-    
-}
-
-=head2 print_detail_abt_rules
-Title     : get_detail_abt_rules
-Usage     : $obj->get_detail_abt_rules('trule'=>'description')  ,=>min_value,=>max_value,=>data,=>reference,=>complete_detail
-Function  : get description or other value for the specified property
-Returns   : none
-Argument  : 
-=cut
-sub print_detail_abt_rules {
-    #List out property detail information and journal from where it has been taken
-    #get the rules detail from hash GetRuleCataloge(propertyName=>'details')
-}
 
 sub EnableRule {
     #EnableProperty
