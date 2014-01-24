@@ -52,9 +52,7 @@ sub _initialize {
 		_id                              => [],
 		_seq                             => [],
 		_seq_detail                      => [],
-        _flag_list                       => ['_flag_t_rule', '_flag_a_rule', '_flag_g_rule','_flag_c_rule','_flag_at_rule',                                     '_flag_gc_rule',
-                                             '_flag_bendingstiffness_rule','_flag_dna_denaturation','_flag_duplexstability_free_energy','_flag_propellar_twist','_flag_protein_induced_deform','_flag_stabilising_energy_zdna','_stacking_energy'
-                                            ],
+        _flag_list                       => [],
 		_window_size                     => 5		
 	};
 }
@@ -110,6 +108,29 @@ sub set_output_file_name {
 	return $self->{output_filename};
 }
 
+=head1 get_available_rules
+Title     : get_available_rules
+Usage     : $obj->get_available_rules();
+Function  : give the list of rule for anlaysis of nucleotide 
+Returns   : array
+Argument  : output file name
+=cut
+sub get_available_rules {
+	my ($self) = @_;
+	my @listProp = RuleCatalog->available_nuc_rules();
+	return @listProp;
+}
+
+=head1 get_enable_rules
+Title     : get_enable_rules
+Usage     : $obj->get_enable_rules();
+Function  : 
+Returns   : 
+Argument  : 
+=cut
+sub get_enable_rules {
+}
+
 
 sub EnableRule {
     #EnableProperty
@@ -122,11 +143,6 @@ sub EnableRule {
     #get the rules detail from hash GetRuleCataloge(propertyName=>'ktuple')
     #throw an error if the rule is not found
     
-}
-
-sub GetEnableRules {
-    #GetEnableProperty
-    #return array with list of property
 }
 
 sub GetNumericProfile {

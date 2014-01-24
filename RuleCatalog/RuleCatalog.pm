@@ -3,6 +3,7 @@ package RuleCatalog;
 use 5.014002;
 use strict;
 use warnings;
+#use Smart::Comment;
 
 require Exporter;
 
@@ -17,14 +18,18 @@ our @ISA = qw(Exporter);
 # will save memory.
 
 our %EXPORT_TAGS = ( 'all' => [ qw() ] );
-
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-
 our @EXPORT = qw(get_rule_cataloge);
-
 our $VERSION = '0.01';
 
-
+=head
+=cut
+sub new {
+    my ($class) = shift;
+    my $self    = {};
+    bless $self,$class;
+	return $self;
+}
 
 =head1 get_rule_cataloge
  Title     : get_rule_cataloge
@@ -33,17 +38,17 @@ our $VERSION = '0.01';
  Returns   : 
  Argument  : 
 =cut
-sub get_rule_cataloge {
+sub _get_rule_cataloge {
 	#propertyName=>'simple' | human readable form
 	#propertyName=>'ktuple' | 2 or 3
 	#propertyName=>'details' | detail about the property
 	#propertyName=>'catagory' | will be added later
 	#propertyName=>'data' | hash stucture data
-	my ($self,$key) = @_;
+	my ($hash_ref) = @_;
 	
 	my %ruleCataloge = (
 		'_flag_t_rule' => {
-							{'simple'}    => 't rule',
+							{'simple'}    => 't_rule',
 							{'ktuple'}    => 2,
 							{'details'}   => 'count of nucleotide t (thymine) in the DNA strand.',
 							{'data'}      =>  {'aa' => 0, 'ac' => 0, 'ag' => 0, 'at' => 1, 'ca' => 0, 'cc' => 0, 'cg' => 0, 'ct' => 1, 'ga' => 0, 'gc' => 0, 'gg' => 0, 'gt' => 1, 'ta' => 1, 'tc' => 1, 'tg' => 1, 'tt' => 2} ,
@@ -53,7 +58,7 @@ sub get_rule_cataloge {
 			  },
 			  
 		'_flag_a_rule' => {
-							{'simple'}    => 'a rule',
+							{'simple'}    => 'a_rule',
 							{'ktuple'}    => 2,
 							{'details'}   => 'count of nucleotide a (adenine) in the DNA strand.',
 							{'data'}      => {'aa' => 2, 'ac' => 1, 'ag' => 1, 'at' => 1, 'ca' => 1, 'cc' => 0, 'cg' => 0, 'ct' => 0, 'ga' => 1, 'gc' => 0, 'gg' => 0, 'gt' => 0, 'ta' => 1, 'tc' => 0, 'tg' => 0, 'tt' => 0},
@@ -63,7 +68,7 @@ sub get_rule_cataloge {
 			  },	  
 		
 		'_flag_c_rule' => {
-							{'simple'}    => 'c rule',
+							{'simple'}    => 'c_rule',
 							{'ktuple'}    => 2,
 							{'details'}   => 'count of nucleotide c (cytosine) in the DNA strand.',
 							{'data'}      => {'aa' => 0, 'ac' => 1, 'ag' => 0, 'at' => 0, 'ca' => 1, 'cc' => 2, 'cg' => 1, 'ct' => 1, 'ga' => 0, 'gc' => 1, 'gg' => 0, 'gt' => 0, 'ta' => 0, 'tc' => 1, 'tg' => 0, 'tt' => 0},
@@ -73,7 +78,7 @@ sub get_rule_cataloge {
 			  },
 		
 		'_flag_g_rule' => {
-							{'simple'}    => 'g rule',
+							{'simple'}    => 'g_rule',
 							{'ktuple'}    => 2,
 							{'details'}   => 'count of nucleotide g (guanine) in the DNA strand.',
 							{'data'}      => {'aa' => 0, 'ac' => 0, 'ag' => 1, 'at' => 0, 'ca' => 0, 'cc' => 0, 'cg' => 1, 'ct' => 0, 'ga' => 1, 'gc' => 1, 'gg' => 2, 'gt' => 1, 'ta' => 0, 'tc' => 0, 'tg' => 1, 'tt' => 0},
@@ -83,7 +88,7 @@ sub get_rule_cataloge {
 			  },
 			  
 		'_flag_at_rule' => {
-							{'simple'}    => 'at rule',
+							{'simple'}    => 'at_rule',
 							{'ktuple'}    => 2,
 							{'details'}   => 'count of nucleotide a (adenine) and t (thymine) or t or a in the DNA strand.',
 							{'data'}      => {'aa' => 2, 'ac' => 1, 'ag' => 1, 'at' => 2, 'ca' => 1, 'cc' => 0, 'cg' => 0, 'ct' => 1, 'ga' => 1, 'gc' => 0, 'gg' => 0, 'gt' => 1, 'ta' => 2, 'tc' => 1, 'tg' => 1, 'tt' => 2},
@@ -93,7 +98,7 @@ sub get_rule_cataloge {
 			  },
 			  
 		'_flag_gc_rule' => {
-							{'simple'}    => 'gc rule',
+							{'simple'}    => 'gc_rule',
 							{'ktuple'}    => 2,
 							{'details'}   => 'count of nucleotide g (gunine) and c (cytosine) or g or c in the DNA strand.',
 							{'data'}      => {'aa' => 0, 'ac' => 0, 'ag' => 1, 'at' => 0, 'ca' => 1, 'cc' => 2, 'cg' => 2, 'ct' => 1, 'ga' => 1, 'gc' => 2, 'gg' => 2, 'gt' => 1, 'ta' => 2, 'tc' => 1, 'tg' => 1, 'tt' => 0},
@@ -103,7 +108,7 @@ sub get_rule_cataloge {
 			  },
 			  
 		'_flag_dna_bendingstiffness_rule' => {
-							{'simple'}    => 'dna bending stiffness',
+							{'simple'}    => 'dna_bending_stiffness',
 							{'ktuple'}    => 2,
 							{'details'}   => 'The bending stiffness is regarded as the translational positioning of nucleosomes and more precisely the string correlation with the anisotropic flexibility of the DNA. In the analysis, a simple algorithm is used that accounts for nucleosome translational positions in terms of bending free energy. The values are given in nm, which stand for the persistence length value that is derived from experimental data. High peak values correspond to DNA regions that are more rigid, while low peak values correspond to regions that will bend more easily.',
 							{'data'}      => {'aa' => 35, 'ac' => 60,' ag' => 60, 'at' => 20, 'ca' => 60, 'cc' => 130, 'cg' => 85, 'ct' => 60, 'ga' => 60, 'gc' => 85, 'gg' => 130, 'gt' => 60, 'ta' => 20, 'tc' => 60, 'tg' => 60, 'tt' => 35},
@@ -113,7 +118,7 @@ sub get_rule_cataloge {
 			},
 			
 			'_flag_dna_denaturation_rule' => {
-							{'simple'}    => 'dna denaturation',
+							{'simple'}    => 'dna_denaturation',
 							{'ktuple'}    => 2,
 							{'details'}   => 'The denaturation equilibrium is calculated by UV electronic spectroscopy at 270 nm of high-resolution melting experiments on 42 plasmids, containing synthetic repeated inserts. DNA regions with a low peak value are more likely to denaturate than regions with a higher peak value',
 							{'data'}      => {'aa' => 66.51, 'ac' => 108.80, 'ag' => 85.12, 'at' => 72.29, 'ca' => 64.92, 'cc' => 99.31, 'cg' => 88.84, 'ct' => 85.12, 'ga' => 80.03, 'gc' => 135.83, 'gg' => 99.31, 'gt' => 108.80, 'ta' => 50.11, 'tc' => 80.03, 'tg' => 64.92, 'tt' => 66.51},
@@ -123,7 +128,7 @@ sub get_rule_cataloge {
 							
 			},
 			'_flag_duplex_free_energy' => {
-							{'simple'}    => 'duplex free energy',
+							{'simple'}    => 'duplex_free_energy',
 							{'alias'}     => 'duplexstability_freeenergy',#need to be removed
 							{'ktuple'}    => 2,
 							{'details'}   => 'For 50 DNA/DNA duplexes the thermodynamic parameters of the DNA free
@@ -137,7 +142,7 @@ sub get_rule_cataloge {
 							{'refrence'}  => 'PMID:8948641',
 			},
 			'_flag_propellar_twist' => {
-							{'simple'}    => 'propellar twist',
+							{'simple'}    => 'propellar_twist',
 							{'ktuple'}    => 2,
 							{'details'}   => 'The dinucleotide propeller twist angle scale is measured in degrees and is based on X-ray crystallography of DNA oligomers. A region with high propeller twist would mean that the helix is quite rigid in this area. Correspondingly, regions that are quite flexible would have low propeller twist values',
 							{'data'}      => {'aa' => -18.66, 'ac' => -13.10, 'ag' => -14.00, 'at' => -15.01, 'ca' => -9.45, 'cc' => -8.11, 'cg' => -10.03, 'ct' => -14.00, 'ga' => -13.48, 'gc' => -11.08, 'gg' => -8.11, 'gt' => -13.10, 'ta' => -11.85, 'tc' => -13.48, 'tg' => -9.45, 'tt' => -18.66},
@@ -146,7 +151,7 @@ sub get_rule_cataloge {
 							{'refrence'}  => 'PMID:11473010',
 			},
 			'_flag_protein_induced_deform'=> {
-							{'simple'}    => 'protein-induced deformability',
+							{'simple'}    => 'protein_induced_deformability',
 							{'ktuple'}    => 2,
 							{'details'}   => 'The dinucleotide protein deformability scale is derived from empirical energy
 							functions extracted from the fluctuations and correlations of structural
@@ -160,7 +165,7 @@ sub get_rule_cataloge {
 							{'refrence'}  => 'PMID:9736707',
 			},
 			'_flag_stabilizingenergy_zdna'=> {
-							{'simple'}    => 'stabilizing energy of Z-DNA',
+							{'simple'}    => 'stabilizing_energy_of_Z_DNA',
 							{'ktuple'}    => 2,
 							{'details'}   => 'To search for particular DNA segments, which can adopt a left-handedZ-conformation, empirically determined energetic parameters are used.The dinucleotide parameters represent the free energy values for a transition from B- to Z-DNA. Stretches of DNA with low energy minima are more likely to form Z-DNA than a high-energy region',
 							{'data'}      => {'aa' => 3.9, 'ac' => 4.6, 'ag' => 3.4, 'at' => 5.9, 'ca' => 1.3, 'cc' => 2.4, 'cg' => 0.7, 'ct' => 3.4, 'ga' => 3.4, 'gc' => 4.0, 'gg' => 2.4, 'gt' => 4.6, 'ta' => 2.5, 'tc' => 3.4, 'tg' => 1.3, 'tt' => 3.9},
@@ -169,7 +174,7 @@ sub get_rule_cataloge {
 							{'refrence'}  => 'PMID:2224047',
 			},
 			'_flag_stacking_energy' => {
-							{'simple'}    => 'stacking energy',
+							{'simple'}    => 'stacking_energy',
 							{'ktuple'}    => 2,
 							{'details'}   => 'Dinucleotide base-stacking energy scale expressed in kilocalories per mol, derived from approximate quantum mechanical calculations on crystal structures. High peaks in base stacking reflect regions of the helix that de-stack or melt more easily; conversely a minimal peak would represent more stable regions',
 							{'data'}      => {'aa' => -5.37, 'ac' => -10.51, 'ag' => -6.78, 'at' => -6.57, 'ca' => -6.57, 'cc' => -8.26, 'cg' => -9.69, 'ct' => -6.78, 'ga' => -9.81, 'gc' => -14.59, 'gg' => -8.26, 'gt' => -10.51, 'ta' => -3.82, 'tc'=> -9.81, 'tg' => -6.57, 'tt' => -5.37},
@@ -178,7 +183,7 @@ sub get_rule_cataloge {
 							{'refrence'}  => 'journal: 10.1002/bip.1978.360171005',
 			},
 			'_flag_nuc_pos_pref' => {
-							{'simple'}    => 'nucleosome position preference',
+							{'simple'}    => 'nucleosome_position_preference',
 							{'ktuple'}    => 3,
 							{'alias'}     => 'np_scl',#to be removed
 							{'details'}   => 'NPP is a trinucleotide model based on the preferential location of sequences within a nucleosomal core. The study was performed on sequences wrapped around nucleosome cores and in closed circles of DNA. They calculated the fractional preference of each base pair triplet for a position facing out. High value peaks represent more rigid regions where nucleosomes are less likely to appear',
@@ -198,7 +203,7 @@ sub get_rule_cataloge {
 							{'refrence'}  => 'PMID:8579790',
 			},
 			'_flag_a_philicity' => {
-							{'simple'}    => 'a-philicity',
+							{'simple'}    => 'a_philicity',
 							{'alias'}     => 'b_a_trimeric', #to be removed
 							{'ktuple'}    => 3,
 							{'details'}   => 'The free energy dinucleotide base pair scale, for the ethanol-induced B to A-DNA conformational transitions in solution, was determined for a series of carefully designed synthetic duplexes. A region in the DNA with a high A-philicity value is more easily converted to the A-form than a low value region, which is more resistant to transition.',
@@ -313,24 +318,46 @@ sub get_rule_cataloge {
 							{'data'}      => {'ac' => 8.31 , 'tg' => 8.31 ,  'aa' => 9.47 , 'tt' => 9.47 ,  'ag' => 9.35 , 'tc' => 9.35 ,  'at' => 7.32 , 'ta' => 7.32 ,  'ca' => 6.71 , 'gt' => 6.71 ,  'cc' => 8.96 , 'gg' => 8.96 ,  'cg' => 6.64 , 'gc' => 6.64 ,  'ga' => 10.12 , 'ct' => 10.12 ,  'gc' => 9.43 , 'cg' => 9.43 ,  'ta' => 6.61 , 'at' => 6.61},
 							{'min_value'} => 'NA',
 							{'max_value'} => 'NA',
-							{'refrence'}  => 'PMID:18299282',
-			},
+							{'refrence'}  => 'PMID:18299282'
+			}
 	);
+
+	foreach my $data (keys %$hash_ref) {
+		if ($data =~ /^array$/){
+				my @temp =();
+				if ($hash->{$data}=~/^flag$/) {
+				}
+				elsif ($hash->{$data}=~/^simple$/) {
+					foreach my $flag (sort {$a cmp $b } keys %ruleCataloge) {
+						push @temp,$ruleCataloge{$flag}{$hash->{$data}};
+					}
+					
+				}
+			return @temp;
+		}
+		
+	}
+	
+
+	#~ if () {
+	#~ }
+	#~ else {
+	#~ }
+	
+	#return
 }
 
 =head2 available_nuc_rules
-Title     : available_nuc_analysis
-Usage     : $obj->available_nuc_analysis();
+Title     : available_nuc_rules
+Usage     : $obj->available_nuc_rules();
 Function  : get the list of supported rules/properties
 Returns   : @(array)
 Argument  : none
 =cut
 sub available_nuc_rules {
 	my($self) = @_;
-    #available_nuc_analysis
-    #get list of rules that will be supported
-    #GetRuleCataloge(propertyName=>'simple')
-    
+	my @listRule = _get_rule_cataloge({'array'=>'simple'});
+	return @listRule;
 }
 
 =head2 print_detail_abt_rules
