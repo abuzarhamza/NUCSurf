@@ -1,4 +1,4 @@
-use lib '/home/abuzzar/Desktop/project/nucleotide/gitProject/NUCSurf/lib/RuleCatalog';
+use lib '/home/abuzzar/Desktop/project/nucleotide/gitProject/NUCSurf/RuleCatalog';
 package NUCSurf;
 
 use 5.014002;
@@ -6,6 +6,7 @@ use strict;
 use warnings;
 
 require Exporter;
+use Carp;
 use RuleCatalog;
 
 our @ISA = qw(Exporter);
@@ -18,11 +19,8 @@ our @ISA = qw(Exporter);
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
 our %EXPORT_TAGS = ( 'all' => [ qw() ] );
-
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-
 our @EXPORT = qw();
-
 our $VERSION = '0.01';
 
 
@@ -30,31 +28,38 @@ our $VERSION = '0.01';
 =head
 =cut
 sub new {
-    #SetObject
-    #to decide list of object keys
     my ($class) = shift;
-    my $self    = {
+    my $self    = {};
+    bless $self,$class;
+	$self->_initialize();
+	return $self;
+}
+
+=head _initialize
+Title     : _initialize
+Usage     : 
+Function  : intialize the new object.
+Returns   : 
+Argument  : 
+=cut
+sub _initialize {
+	my ($self) = @_;
+	$self->{
 		_file_content                    => "",
 		_input_format                    => "",
 		_input_filename                  => "",
         _output_filename                 => "",
-
 		_id                              => [],
 		_seq                             => [],
 		_seq_detail                      => [],
-
         _flag_list                       => ['_flag_t_rule', '_flag_a_rule', '_flag_g_rule','_flag_c_rule','_flag_at_rule',                                     '_flag_gc_rule',
                                              '_flag_bendingstiffness_rule','_flag_dna_denaturation','_flag_duplexstability_free_energy','_flag_propellar_twist','_flag_protein_induced_deform','_flag_stabilising_energy_zdna','_stacking_energy'
-                                            ]
-		
+                                            ],
 		_window_size                     => 5		
 	};
-
-    bless $self,$class;
-	return $self;
 }
 
-=head set_input_file_name
+=head1 set_input_file_name
 Title     : set_input_file_name
 Usage     : $obj->set_input_file_name("tmp.fa")
 Function  : set the input file path
@@ -62,15 +67,15 @@ Returns   : obj
 Argument  : input_file
 =cut
 sub set_input_file_name {
-    my ($self,$input_file) = shift;
+    my ($self,$input_file) = @_;
     if (ref($input_file) ne '' ) {
-		die "provide input is not string type\n";
+		croak "provide input is not string type\n";
 	}
 	$self->{_input_filename} = $input_file;
 	return $self->{_input_filename};
 }
 
-=head set_window_size
+=head1 set_window_size
 Title     : set_window_size
 Usage     : $obj->set_window_size(5);
 Function  : set the window size for numeric profilling calculation
@@ -78,12 +83,12 @@ Returns   : obj
 Argument  : window_size
 =cut
 sub set_window_size {
-    my ($self,$window_size) = shift;
+    my ($self,$window_size) = @_;
     if (ref($window_size) ne '' ) {
-		die "provide input is not string type\n";
+		croak "provide input is not string type\n";
 	}
     if ($window_size !~ /^\d{1,}$/) {
-		die "provide input is not an integer\n";
+		croak "provide input is not an integer\n";
 	}
 	$self->{_window_size} = $window_size;
 	return $self->{_window_size};
@@ -97,9 +102,9 @@ Returns   : obj
 Argument  : output file name
 =cut
 sub set_output_file_name {
-    my ($self,$output_file) = shift;
+    my ($self,$output_file) = @_;
     if (ref($output_file) ne '' ) {
-		die "provide input is not string type\n";
+		croak "provide input is not string type\n";
 	}
 	$self->{_output_filename} = $output_file;
 	return $self->{output_filename};
