@@ -121,18 +121,48 @@ sub get_available_rules {
 	return @listProp;
 }
 
-=head1 get_enable_rules
-Title     : get_enable_rules
-Usage     : $obj->get_enable_rules();
+=head1 print_detail_abt_rules
+Title     : print_detail_abt_rules
+Usage     : $obj->print_detail_abt_rules('popertyName'=>'description');$obj->print_detail_abt_rules('popertyName'=>'all');
 Function  : 
 Returns   : 
 Argument  : 
+=cut
+sub print_detail_abt_rules {
+	my ($self,$hash_ref) = @_;
+	if (ref($hash_ref) ne 'HASH') {
+		croak "incorrect data type not HASH type\n";
+	}
+	my @keys = keys %$hash_ref;
+	if (scalar(@keys) > 1) {
+		croak "more than one key\n";
+	}
+	$str = RuleCatalog->print_detail_abt_rules({
+													$keys[0] => $hash_ref->{$keys[0]} 
+												});
+	return $str;
+}
+
+=head1 get_enable_rules
+Title     : get_enable_rules
+Usage     : $obj->get_enable_rules();
+Function  : give the list of enable rules
+Returns   : array
+Argument  : none
 =cut
 sub get_enable_rules {
 }
 
 
-sub EnableRule {
+=head1 enable_rule
+Title     : enable_rule
+Usage     : $obj->enable_rule(@array);
+Function  : enable the list of rules
+Returns   : none
+Argument  : array
+=cut
+
+sub enable_rule {
     #EnableProperty
     #validate the list passed by user 'simple'
     #enable the list of property passed by the user

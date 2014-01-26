@@ -314,20 +314,55 @@ sub _get_rule_cataloge {
 			}
 	);
 
-	foreach my $data (keys %$hash_ref) {
-		if ($data =~ /^array$/){
+	foreach my $dataType (keys %$hash_ref) {
+		
+		if ($dataType =~ /^array$/){
+			
 			my @temp =();
-			if ($hash_ref->{$data}=~/^flag$/) {
+			if ($hash_ref->{$dataType}=~/^flag$/) {
 			}
-			elsif ($hash_ref->{$data}=~/^simple$/) {
+			elsif ($hash_ref->{$dataType}=~/^simple$/) {
+				
 				foreach my $flag (sort {$a cmp $b } keys %ruleCataloge) {
-					push @temp,$ruleCataloge{$flag}{$hash_ref->{$data}};
+					push @temp,$ruleCataloge{$flag}{$hash_ref->{$dataType}};
 				}
 				
 			}
 			return @temp;
 		}
-		
+		elsif ($dataType =~ /^string$/) {
+			#get_available_rules('a_philicity'=> 'details');
+			my $str       = "";
+			my $flagProp = 0;
+
+			my $propParam     = keys %{ $hash_ref->{'string'} };
+			my $keyNameParam = $hash_ref->{'string'}{$propParam};
+			
+			foreach my $propFlag (sort {$a cmp $b } keys %ruleCataloge) {
+				
+				if ( $ruleCataloge{$propFlag}{'simple'} =~ /$propParam/ ) {
+
+					$flagProp =1;
+
+					if ( $keyName !~ /^all$/) {						
+						$str .= $ruleCataloge{$propFlag}{$keyNameParam} . "\n";
+					}
+					else {
+						foreach my $keyDetail (sort {$a cmp $b } keys %{ $ruleCataloge{$propFlag}{$keyName} }) {
+							$str .= $keyDetail ." : " . $ruleCataloge{$propFlag}{$keyNameParam} . "\n";
+						}
+					}
+				}
+			}
+
+			crock "property $$hash_ref->{'string'}{$prop} does not match the avaible rules" 
+				if ($flagProp != 1);
+
+			return $str
+		}
+		else {
+			crock "does not match any data stucture";
+		}
 	}
 	
 
@@ -362,6 +397,12 @@ Argument  :
 sub print_detail_abt_rules {
     #List out property detail information and journal from where it has been taken
     #get the rules detail from hash GetRuleCataloge(propertyName=>'details')
+    my($self,$hash_ref) = @_;
+    my $prop = keys %$hash_ref
+	my $str = _get_rule_cataloge({
+									'string'=> { $prop => $hash_ref->{$prop} }
+								 });
+	return $str;
 }
 
 
