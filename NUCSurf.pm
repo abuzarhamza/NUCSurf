@@ -137,9 +137,9 @@ sub print_detail_abt_rules {
 	if (scalar(@keys) > 1) {
 		croak "more than one key\n";
 	}
-	$str = RuleCatalog->print_detail_abt_rules({
+	my $str = RuleCatalog->print_detail_abt_rules({
 													$keys[0] => $hash_ref->{$keys[0]} 
-												});
+													});
 	return $str;
 }
 
@@ -161,7 +161,6 @@ Function  : enable the list of rules
 Returns   : none
 Argument  : array
 =cut
-
 sub enable_rule {
     #EnableProperty
     #validate the list passed by user 'simple'
@@ -173,6 +172,14 @@ sub enable_rule {
     #get the rules detail from hash GetRuleCataloge(propertyName=>'ktuple')
     #throw an error if the rule is not found
     
+}
+
+sub ReadFastaSeq {
+    #this module will used for web
+}
+
+sub ReadFastaFile {
+    #read the fasta file
 }
 
 sub GetNumericProfile {
@@ -187,13 +194,7 @@ sub numericProfiler {
     #save the outut     
 }
 
-sub ReadFastaSeq {
-    #this module will used for web
-}
 
-sub ReadFastaFile {
-    #read the fasta file
-}
 
 1;
 __END__

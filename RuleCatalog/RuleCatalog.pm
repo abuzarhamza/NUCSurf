@@ -3,7 +3,9 @@ package RuleCatalog;
 use 5.014002;
 use strict;
 use warnings;
+use Carp;
 #use Smart::Comment;
+
 
 require Exporter;
 
@@ -42,7 +44,7 @@ sub _get_rule_cataloge {
 	my ($hash_ref) = @_;
 	
 	my %ruleCataloge = (
-		'_flag_t_rule' => {
+		't_rule' => {
 							'simple'    => 't_rule',
 							'ktuple'    => 2,
 							'details'   => 'count of nucleotide t (thymine) in the DNA strand.',
@@ -52,7 +54,7 @@ sub _get_rule_cataloge {
 							'refrence'  => 'NA',
 			  },
 			  
-		'_flag_a_rule' => {
+		'a_rule' => {
 							'simple'    => 'a_rule',
 							'ktuple'    => 2,
 							'details'   => 'count of nucleotide a (adenine) in the DNA strand.',
@@ -61,7 +63,7 @@ sub _get_rule_cataloge {
 							'max_value' => '2',
 							'refrence'  => 'NA',
 			  },
-		'_flag_c_rule' => {
+		'c_rule' => {
 							'simple'    => 'c_rule',
 							'ktuple'    => 2,
 							'details'   => 'count of nucleotide c (cytosine) in the DNA strand.',
@@ -70,7 +72,7 @@ sub _get_rule_cataloge {
 							'max_value' => '2',
 							'refrence'  => 'NA',
 			  },		
-		'_flag_g_rule' => {
+		'g_rule' => {
 							'simple'    => 'g_rule',
 							'ktuple'    => 2,
 							'details'   => 'count of nucleotide g (guanine) in the DNA strand.',
@@ -79,7 +81,7 @@ sub _get_rule_cataloge {
 							'max_value' => '2',
 							'refrence'  => 'NA',
 			  },		  
-		'_flag_at_rule' => {
+		'at_rule' => {
 							'simple'    => 'at_rule',
 							'ktuple'    => 2,
 							'details'   => 'count of nucleotide a (adenine) and t (thymine) or t or a in the DNA strand.',
@@ -89,7 +91,7 @@ sub _get_rule_cataloge {
 							'refrence'  => 'NA',
 			  },
 			  
-		'_flag_gc_rule' => {
+		'gc_rule' => {
 							'simple'    => 'gc_rule',
 							'ktuple'    => 2,
 							'details'   => 'count of nucleotide g (gunine) and c (cytosine) or g or c in the DNA strand.',
@@ -99,7 +101,7 @@ sub _get_rule_cataloge {
 							'refrence'  => 'NA',
 			  },
 			  
-		'_flag_dna_bendingstiffness_rule' => {
+		'dna_bendingstiffness' => {
 							'simple'    => 'dna_bending_stiffness',
 							'ktuple'    => 2,
 							'details'   => 'The bending stiffness is regarded as the translational positioning of nucleosomes and more precisely the string correlation with the anisotropic flexibility of the DNA. In the analysis, a simple algorithm is used that accounts for nucleosome translational positions in terms of bending free energy. The values are given in nm, which stand for the persistence length value that is derived from experimental data. High peak values correspond to DNA regions that are more rigid, while low peak values correspond to regions that will bend more easily.',
@@ -109,7 +111,7 @@ sub _get_rule_cataloge {
 							'refrence'  => 'PMID:7723041',
 			},
 			
-			'_flag_dna_denaturation_rule' => {
+			'dna_denaturation' => {
 							{'simple'}    => 'dna_denaturation',
 							{'ktuple'}    => 2,
 							{'details'}   => 'The denaturation equilibrium is calculated by UV electronic spectroscopy at 270 nm of high-resolution melting experiments on 42 plasmids, containing synthetic repeated inserts. DNA regions with a low peak value are more likely to denaturate than regions with a higher peak value',
@@ -119,7 +121,7 @@ sub _get_rule_cataloge {
 							{'refrence'}  => 'PMID:9649614,PMID:10366657',
 							
 			},
-			'_flag_duplex_free_energy' => {
+			'duplex_free_energy' => {
 							'simple'    => 'duplex_free_energy',
 							'alias'     => 'duplexstability_freeenergy',#need to be removed
 							'ktuple'    => 2,
@@ -133,7 +135,7 @@ sub _get_rule_cataloge {
 							'max_value' => '-0.9 kcal/mol',
 							'refrence'  => 'PMID:8948641',
 			},
-			'_flag_propellar_twist' => {
+			'propellar_twist' => {
 							'simple'    => 'propellar_twist',
 							'ktuple'    => 2,
 							'details'   => 'The dinucleotide propeller twist angle scale is measured in degrees and is based on X-ray crystallography of DNA oligomers. A region with high propeller twist would mean that the helix is quite rigid in this area. Correspondingly, regions that are quite flexible would have low propeller twist values',
@@ -142,7 +144,7 @@ sub _get_rule_cataloge {
 							'max_value' => '-8.11 degree',
 							'refrence'  => 'PMID:11473010',
 			},
-			'_flag_protein_induced_deform'=> {
+			'protein_induced_deformability'=> {
 							'simple'    => 'protein_induced_deformability',
 							'ktuple'    => 2,
 							'details'   => 'The dinucleotide protein deformability scale is derived from empirical energy
@@ -156,7 +158,7 @@ sub _get_rule_cataloge {
 							'max_value' => '12.1',
 							'refrence'  => 'PMID:9736707',
 			},
-			'_flag_stabilizingenergy_zdna'=> {
+			'stabilizingenergy_zdna'=> {
 							'simple'    => 'stabilizing_energy_of_Z_DNA',
 							'ktuple'    => 2,
 							'details'   => 'To search for particular DNA segments, which can adopt a left-handedZ-conformation, empirically determined energetic parameters are used.The dinucleotide parameters represent the free energy values for a transition from B- to Z-DNA. Stretches of DNA with low energy minima are more likely to form Z-DNA than a high-energy region',
@@ -165,7 +167,7 @@ sub _get_rule_cataloge {
 							'max_value' => '0.7 kcal/mol',
 							'refrence'  => 'PMID:2224047',
 			},
-			'_flag_stacking_energy' => {
+			'stacking_energy' => {
 							'simple'    => 'stacking_energy',
 							'ktuple'    => 2,
 							'details'   => 'Dinucleotide base-stacking energy scale expressed in kilocalories per mol, derived from approximate quantum mechanical calculations on crystal structures. High peaks in base stacking reflect regions of the helix that de-stack or melt more easily; conversely a minimal peak would represent more stable regions',
@@ -174,7 +176,7 @@ sub _get_rule_cataloge {
 							'max_value' => '-3.82 kcal',
 							'refrence'  => 'journal: 10.1002/bip.1978.360171005',
 			},
-			'_flag_nuc_pos_pref' => {
+			'nucleosome_position_preference' => {
 							'simple'    => 'nucleosome_position_preference',
 							'ktuple'    => 3,
 							'alias'     => 'np_scl',#to be removed
@@ -184,7 +186,7 @@ sub _get_rule_cataloge {
 							'max_value' => '+45%',
 							'refrence'  => 'PMID:3806678',
 			},
-			'_flag_bendability' => {
+			'bendability' => {
 							'simple'    => 'bendability',
 							'alias'     => 'bend_scl', #to be removed
 							'ktuple'    => 3,
@@ -194,7 +196,7 @@ sub _get_rule_cataloge {
 							'max_value' => '0.194',
 							'refrence'  => 'PMID:8579790',
 			},
-			'_flag_a_philicity' => {
+			'a_philicity' => {
 							'simple'    => 'a_philicity',
 							'alias'     => 'b_a_trimeric', #to be removed
 							'ktuple'    => 3,
@@ -204,7 +206,7 @@ sub _get_rule_cataloge {
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:7885327',
 			},
-			'_flag_twist_parmbsc0' => {
+			'twist_parmbsc0' => {
 							'simple'    => 'twist_parmbsc0',
 							'ktuple'    => 2,
 							'details'   => 'rotation around the rise axis (z axis) of B DNA. ( rotational deformability ). Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
@@ -213,7 +215,7 @@ sub _get_rule_cataloge {
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
 			},
-			'_flag_tilt_parmbsc0' => {
+			'tilt_parmbsc0' => {
 							'simple'    => 'tilt_parmbsc0',
 							'ktuple'    => 2,
 							'details'   => 'rotation around the shift axis (x axis) of B DNA ( rotational deformability).Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
@@ -222,7 +224,7 @@ sub _get_rule_cataloge {
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
 			},
-			'_flag_roll_parmbsc0' => {
+			'roll_parmbsc0' => {
 							'simple'    => 'roll_parmbsc0',
 							'ktuple'    => 2,
 							'details'   => 'rotation around the slide axis (y axis) of B DNA  (rotational deformability ). Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
@@ -231,7 +233,7 @@ sub _get_rule_cataloge {
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
 			},
-			'_flag_shift_parmbsc0' => {
+			'shift_parmbsc0' => {
 							'simple'    => 'shift_parmbsc0',
 							'ktuple'    => 2,
 							'details'   => 'displacement along an axis (x axis) in the base-pair plane perpendicular to the first, directed from the minor to the major groove, of B DNA (translational deformability).Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
@@ -240,7 +242,7 @@ sub _get_rule_cataloge {
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
 			},
-			'_flag_slide_parmbsc0' => {
+			'slide_parmbsc0' => {
 							'simple'    => 'slide_parmbsc0',
 							'ktuple'    => 2,
 							'details'   => 'displacement along an axis ( y axi) in the plane of the base pair directed from one strand to the other,of B DNA (translational deformability).Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
@@ -249,7 +251,7 @@ sub _get_rule_cataloge {
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
 			},
-			'_flag_rise_parmbsc0' => {
+			'rise_parmbsc0' => {
 							'simple'    => 'rise_parmbsc0',
 							'ktuple'    => 2,
 							'details'   => 'displacement along the helix axis (z axis),of B DNA (translational deformability).Derived from atomistic MD simulations (amber force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
@@ -258,7 +260,7 @@ sub _get_rule_cataloge {
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
 			},
-			'_flag_twist_CHARMM27' => {
+			'twist_CHARMM27' => {
 							'simple'    => 'twist_CHARMM27',
 							'ktuple'    => 2,
 							'details'   => 'rotation around the rise axis (z axis) of B DNA. ( rotational deformability ). Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
@@ -267,7 +269,7 @@ sub _get_rule_cataloge {
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
 			},
-			'_flag_tilt_CHARMM27' => {
+			'tilt_CHARMM27' => {
 							'simple'    => 'tilt_CHARMM27',
 							'ktuple'    => 2,
 							'details'   => 'rotation around the shift axis (x axis) of B DNA ( rotational deformability).Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
@@ -276,7 +278,7 @@ sub _get_rule_cataloge {
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
 			},
-			'_flag_roll_CHARMM27' => {
+			'roll_CHARMM27' => {
 							'simple'    => 'roll_CHARMM27',
 							'ktuple'    => 2,
 							'details'   => 'rotation around the slide axis (y axis) of B DNA  (rotational deformability ). Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
@@ -285,7 +287,7 @@ sub _get_rule_cataloge {
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
 			},
-			'_flag_shift_CHARMM27' => {
+			'shift_CHARMM27' => {
 							'simple'    => 'shift_CHARMM27',
 							'ktuple'    => 2,
 							'details'   => 'displacement along an axis (x axis) in the base-pair plane perpendicular to the first, directed from the minor to the major groove, of B DNA (translational deformability).Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
@@ -294,7 +296,7 @@ sub _get_rule_cataloge {
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
 			},
-			'_flag_slide_CHARMM27' => {
+			'slide_CHARMM27' => {
 							'simple'    => 'slide_CHARMM27',
 							'ktuple'    => 2,
 							'details'   => 'displacement along an axis ( y axi) in the plane of the base pair directed from one strand to the other,of B DNA (translational deformability).Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
@@ -303,7 +305,7 @@ sub _get_rule_cataloge {
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
 			},
-			'_flag_rise_CHARMM27' => {
+			'rise_CHARMM27' => {
 							'simple'    => 'rise_CHARMM27',
 							'ktuple'    => 2,
 							'details'   => 'displacement along the helix axis (z axis),of B DNA (translational deformability).Derived from atomistic MD simulations (CHARMM27 force field 94) in water for a small set of duplexes cointaining all unique dinucleotide steps. Helical force-constants are derivedby inversion of the covariance matrix in helical spaceand assuming harmonic oscillations. The neigbhbour approach is used.The rotational values are in kcal/mol deg2 and translational ones are in kcal/mol A2.',
@@ -318,60 +320,33 @@ sub _get_rule_cataloge {
 		
 		if ($dataType =~ /^array$/){
 			
-			my @temp =();
-			if ($hash_ref->{$dataType}=~/^flag$/) {
-			}
-			elsif ($hash_ref->{$dataType}=~/^simple$/) {
-				
-				foreach my $flag (sort {$a cmp $b } keys %ruleCataloge) {
-					push @temp,$ruleCataloge{$flag}{$hash_ref->{$dataType}};
-				}
-				
-			}
+			my @temp = keys %ruleCataloge;
 			return @temp;
 		}
 		elsif ($dataType =~ /^string$/) {
-			#get_available_rules('a_philicity'=> 'details');
-			my $str       = "";
-			my $flagProp = 0;
-
-			my $propParam     = keys %{ $hash_ref->{'string'} };
-			my $keyNameParam = $hash_ref->{'string'}{$propParam};
 			
-			foreach my $propFlag (sort {$a cmp $b } keys %ruleCataloge) {
-				
-				if ( $ruleCataloge{$propFlag}{'simple'} =~ /$propParam/ ) {
-
-					$flagProp =1;
-
-					if ( $keyName !~ /^all$/) {						
-						$str .= $ruleCataloge{$propFlag}{$keyNameParam} . "\n";
-					}
-					else {
-						foreach my $keyDetail (sort {$a cmp $b } keys %{ $ruleCataloge{$propFlag}{$keyName} }) {
-							$str .= $keyDetail ." : " . $ruleCataloge{$propFlag}{$keyNameParam} . "\n";
-						}
+			my $propName     = ${ $hash_ref->{'string'} }->[0];
+			my $keyTypeParam = ${ $hash_ref->{'string'} }->[1];
+			my $str            = "";
+			if (! exists $ruleCataloge{$propName}) {
+				$str =  "property $propName does not match the avaible rules/properties" ;
+			}
+			else {
+				if ($keyTypeParam !~ /^all$/) {
+					$str = "$keyTypeParam : $ruleCataloge{$propName}{$keyTypeParam}"; 
+				}
+				else {
+					foreach my $key (sort {$a cmp $b} keys %{$ruleCataloge{$propName}{$keyTypeParam} } ) {
+						$str .= "$keyTypeParam : $ruleCataloge{$propName}{$keyTypeParam} \n"; 
 					}
 				}
 			}
-
-			crock "property $$hash_ref->{'string'}{$prop} does not match the avaible rules" 
-				if ($flagProp != 1);
-
 			return $str
 		}
 		else {
-			crock "does not match any data stucture";
+			croak "does not match any data stucture";
 		}
 	}
-	
-
-	#~ if () {
-	#~ }
-	#~ else {
-	#~ }
-	
-	#return
 }
 
 =head2 available_nuc_rules
@@ -398,11 +373,12 @@ sub print_detail_abt_rules {
     #List out property detail information and journal from where it has been taken
     #get the rules detail from hash GetRuleCataloge(propertyName=>'details')
     my($self,$hash_ref) = @_;
-    my $prop = keys %$hash_ref
-	my $str = _get_rule_cataloge({
-									'string'=> { $prop => $hash_ref->{$prop} }
-								 });
-	return $str;
+    my $prop = keys %$hash_ref;
+    return "$prop : $hash_ref->{$prop}";
+	#~ my $str = _get_rule_cataloge({
+									#~ 'string'=> [ $prop , $hash_ref->{$prop} ]
+								 #~ });
+	my $str="";return $str;
 }
 
 
