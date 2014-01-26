@@ -112,13 +112,13 @@ sub _get_rule_cataloge {
 			},
 			
 			'dna_denaturation' => {
-							{'simple'}    => 'dna_denaturation',
-							{'ktuple'}    => 2,
-							{'details'}   => 'The denaturation equilibrium is calculated by UV electronic spectroscopy at 270 nm of high-resolution melting experiments on 42 plasmids, containing synthetic repeated inserts. DNA regions with a low peak value are more likely to denaturate than regions with a higher peak value',
-							{'data'}      => {'aa' => 66.51, 'ac' => 108.80, 'ag' => 85.12, 'at' => 72.29, 'ca' => 64.92, 'cc' => 99.31, 'cg' => 88.84, 'ct' => 85.12, 'ga' => 80.03, 'gc' => 135.83, 'gg' => 99.31, 'gt' => 108.80, 'ta' => 50.11, 'tc' => 80.03, 'tg' => 64.92, 'tt' => 66.51},
-							{'min_value'} => '64.35 cal/mol',
-							{'max_value'} => '135.38 cal/mol',
-							{'refrence'}  => 'PMID:9649614,PMID:10366657',
+							'simple'    => 'dna_denaturation',
+							'ktuple'    => 2,
+							'details'   => 'The denaturation equilibrium is calculated by UV electronic spectroscopy at 270 nm of high-resolution melting experiments on 42 plasmids, containing synthetic repeated inserts. DNA regions with a low peak value are more likely to denaturate than regions with a higher peak value',
+							'data'      => {'aa' => 66.51, 'ac' => 108.80, 'ag' => 85.12, 'at' => 72.29, 'ca' => 64.92, 'cc' => 99.31, 'cg' => 88.84, 'ct' => 85.12, 'ga' => 80.03, 'gc' => 135.83, 'gg' => 99.31, 'gt' => 108.80, 'ta' => 50.11, 'tc' => 80.03, 'tg' => 64.92, 'tt' => 66.51},
+							'min_value' => '64.35 cal/mol',
+							'max_value' => '135.38 cal/mol',
+							'refrence'  => 'PMID:9649614,PMID:10366657',
 							
 			},
 			'duplex_free_energy' => {
@@ -313,7 +313,7 @@ sub _get_rule_cataloge {
 							'min_value' => 'NA',
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282'
-			}
+			},
 	);
 
 	foreach my $dataType (keys %$hash_ref) {

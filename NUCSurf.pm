@@ -129,18 +129,13 @@ Returns   :
 Argument  : 
 =cut
 sub print_detail_abt_rules {
-	my ($self,$hash_ref) = @_;
-	if (ref($hash_ref) ne 'HASH') {
-		croak "incorrect data type not HASH type\n";
-	}
-	my @keys = keys %$hash_ref;
-	if (scalar(@keys) > 1) {
-		croak "more than one key\n";
-	}
-	my $str = RuleCatalog->print_detail_abt_rules({
-													$keys[0] => $hash_ref->{$keys[0]} 
-													});
-	return $str;
+	my ($self,$prop_name,$key_for_cat) = @_;
+	print $prop_name, ,$key_for_cat,"\n";
+	exit;
+	#~ my $str = RuleCatalog->print_detail_abt_rules({
+													#~ $keys[0] => $hash_ref->{$keys[0]} 
+													#~ });
+	my $str="";return $str;
 }
 
 =head1 get_enable_rules
