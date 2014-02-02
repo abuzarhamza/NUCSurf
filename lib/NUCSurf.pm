@@ -1,4 +1,3 @@
-use lib '/home/abuzzar/Desktop/project/nucleotide/gitProject/NUCSurf/RuleCatalog';
 package NUCSurf;
 
 use 5.006;
@@ -70,11 +69,11 @@ sub _initialize {
 		_file_content                    => "",
 		_input_format                    => "",
 		_input_filename                  => "",
-                _output_filename                 => "",
+        _output_filename                 => "",
 		_id                              => [],
 		_seq                             => [],
 		_seq_detail                      => [],
-                _flag_list                       => [],
+        _flag_list                       => [],
 		_window_size                     => 5		
 	};
 }
