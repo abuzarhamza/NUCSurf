@@ -1,6 +1,10 @@
 Changes
+lib/NucSURF.pm
+lib/NucSURF/RuleCataloge.pm
 Makefile.PL
-MANIFEST
+MANIFEST			This list of files
 README
-t/NUCSurf.t
-lib/NUCSurf.pm
+t/00-load.t
+t/manifest.t
+t/pod-coverage.t
+t/pod.t

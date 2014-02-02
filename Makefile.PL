@@ -1,12 +1,26 @@
-use 5.014002;
+use 5.006;
+use strict;
+use warnings FATAL => 'all';
 use ExtUtils::MakeMaker;
-# See lib/ExtUtils/MakeMaker.pm for details of how to influence
-# the contents of the Makefile that is written.
+
 WriteMakefile(
-    NAME              => 'NUCSurf',
-    VERSION_FROM      => 'lib/NUCSurf.pm', # finds $VERSION
-    PREREQ_PM         => {}, # e.g., Module::Name => 1.1
-    ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
-      (ABSTRACT_FROM  => 'lib/NUCSurf.pm', # retrieve abstract from module
-       AUTHOR         => 'abuzar <abuzzar@>') : ()),
+    NAME             => 'NucSURF',
+    AUTHOR           => q{abuzar hamza <abuzarhamza@gmail.com>},
+    VERSION_FROM     => 'lib/NucSURF.pm',
+    ABSTRACT_FROM    => 'lib/NucSURF.pm',
+    LICENSE          => 'Artistic_2_0',
+    PL_FILES         => {},
+    MIN_PERL_VERSION => 5.006,
+    CONFIGURE_REQUIRES => {
+        'ExtUtils::MakeMaker' => 0,
+    },
+    BUILD_REQUIRES => {
+        'Test::More' => 0,
+    },
+    PREREQ_PM => {
+        #'ABC'              => 1.6,
+        #'Foo::Bar::Module' => 5.0401,
+    },
+    dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
+    clean => { FILES => 'NucSURF-*' },
 );
