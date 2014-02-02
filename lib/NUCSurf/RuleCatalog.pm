@@ -1,4 +1,4 @@
-package NucSURF::RuleCataloge;
+package NUCSurf::RuleCataloge;
 
 use 5.006;
 use strict;
@@ -8,7 +8,7 @@ use Carp;
 
 =head1 NAME
 
-NucSURF::RuleCataloge - The great new NucSURF::RuleCataloge!
+NUCSurf::RuleCataloge - The great new NUCSurf::RuleCataloge!
 
 =head1 VERSION
 
@@ -27,11 +27,11 @@ our @EXPORT = qw(get_rule_cataloge);
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-Perhaps a little code snippet.
+the module list out the various biochemiacl/structural property of DNA molecule.
+Simple Usage.
 
-    use NucSURF::RuleCataloge;
-    my $foo = NucSURF::RuleCataloge->new();
+    use NUCSurf::RuleCataloge;
+    my $foo = NUCSurf::RuleCataloge->new();
     ...
 
 =head1 EXPORT
@@ -40,8 +40,6 @@ A list of functions that can be exported.  You can delete this section
 if you don't export anything, such as for a purely object-oriented module.
 
 =head1 SUBROUTINES/METHODS
-
-=head
 =cut
 sub new {
     my ($class) = shift;
@@ -344,7 +342,8 @@ sub _get_rule_cataloge {
 			
 			my $propName     = ${ $hash_ref->{'string'} }->[0];
 			my $keyTypeParam = ${ $hash_ref->{'string'} }->[1];
-			my $str            = "";
+			my $str          = "";
+			
 			if (! exists $ruleCataloge{$propName}) {
 				$str =  "property $propName does not match the avaible rules/properties" ;
 			}

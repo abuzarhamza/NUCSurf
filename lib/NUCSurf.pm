@@ -11,7 +11,7 @@ use NUCSurf::RuleCatalog;
 
 =head1 NAME
 
-NucSURF - The great new NucSURF!
+NUCSurf - The great new NUCSurf!
 
 =head1 VERSION
 
@@ -27,9 +27,9 @@ Quick summary of what the module does.
 
 Perhaps a little code snippet.
 
-    use NucSURF;
+    use NUCSurf;
 
-    my $foo = NucSURF->new();
+    my $foo = NUCSurf->new();
     ...
 
 =head1 EXPORT
@@ -302,4 +302,4 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =cut
 
-1; # End of NucSURF
+1; # End of NUCSurf

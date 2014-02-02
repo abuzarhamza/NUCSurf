@@ -1,3 +1,4 @@
 *.log
 TEST/
+test.pl
 *~
