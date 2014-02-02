@@ -22,7 +22,7 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+the module for analysis of various biochemical/structural property of DNA
 
 Perhaps a little code snippet.
 
@@ -138,25 +138,26 @@ Argument  : output file name
 =cut
 sub get_available_rules {
 	my ($self) = @_;
-	my @listProp = RuleCatalog->available_nuc_rules();
+	my @listProp = NUCSurf::RuleCataloge->available_nuc_rules();
 	return @listProp;
 }
 
 =head1 print_detail_abt_rules
 Title     : print_detail_abt_rules
-Usage     : $obj->print_detail_abt_rules('popertyName'=>'description');$obj->print_detail_abt_rules('popertyName'=>'all');
+Usage     : $obj->print_detail_abt_rules('popertyName'=>'details');$obj->print_detail_abt_rules('popertyName'=>'all');
 Function  : 
 Returns   : 
 Argument  : 
 =cut
 sub print_detail_abt_rules {
+	croak "incorrect argument for the function"
+		if (@_ != 3);
 	my ($self,$prop_name,$key_for_cat) = @_;
-	print $prop_name, ,$key_for_cat,"\n";
-	exit;
-	#~ my $str = RuleCatalog->print_detail_abt_rules({
-													#~ $keys[0] => $hash_ref->{$keys[0]} 
-													#~ });
-	my $str="";return $str;
+	
+	my $str = NUCSurf::RuleCataloge->print_detail_abt_rules({
+													$prop_name => $key_for_cat 
+													});
+	return $str;
 }
 
 =head1 get_enable_rules
