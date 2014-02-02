@@ -6,7 +6,7 @@ use warnings;
 
 require Exporter;
 use Carp;
-use NUCSurf::RuleCatalog;
+use NUCSurf::RuleCataloge;
 
 =head1 NAME
 
