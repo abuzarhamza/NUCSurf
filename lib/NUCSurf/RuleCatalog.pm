@@ -67,6 +67,7 @@ sub _get_rule_cataloge {
 							'min_value' => '0',
 							'max_value' => '2',
 							'refrence'  => 'NA',
+							'so_no'     => 1
 			  },
 			  
 		'a_rule' => {
@@ -77,6 +78,7 @@ sub _get_rule_cataloge {
 							'min_value' => '0',
 							'max_value' => '2',
 							'refrence'  => 'NA',
+							'so_no'     => 2
 			  },
 		'c_rule' => {
 							'simple'    => 'c_rule',
@@ -86,6 +88,7 @@ sub _get_rule_cataloge {
 							'min_value' => '0',
 							'max_value' => '2',
 							'refrence'  => 'NA',
+							'so_no'     => 3
 			  },		
 		'g_rule' => {
 							'simple'    => 'g_rule',
@@ -95,6 +98,7 @@ sub _get_rule_cataloge {
 							'min_value' => '0',
 							'max_value' => '2',
 							'refrence'  => 'NA',
+							'so_no'     => 4
 			  },		  
 		'at_rule' => {
 							'simple'    => 'at_rule',
@@ -104,6 +108,7 @@ sub _get_rule_cataloge {
 							'min_value' => '0',
 							'max_value' => '2',
 							'refrence'  => 'NA',
+							'so_no'     => 5
 			  },
 			  
 		'gc_rule' => {
@@ -114,6 +119,7 @@ sub _get_rule_cataloge {
 							'min_value' => '0',
 							'max_value' => '2',
 							'refrence'  => 'NA',
+							'so_no'     => 6
 			  },
 			  
 		'dna_bendingstiffness' => {
@@ -124,6 +130,7 @@ sub _get_rule_cataloge {
 							'min_value' => '20 nm',
 							'max_value' => '130 nm',
 							'refrence'  => 'PMID:7723041',
+							'so_no'     => 7
 			},
 			
 			'dna_denaturation' => {
@@ -134,6 +141,7 @@ sub _get_rule_cataloge {
 							'min_value' => '64.35 cal/mol',
 							'max_value' => '135.38 cal/mol',
 							'refrence'  => 'PMID:9649614,PMID:10366657',
+							'so_no'     => 8
 							
 			},
 			'duplex_free_energy' => {
@@ -149,6 +157,7 @@ sub _get_rule_cataloge {
 							'min_value' => '-2.1 kcal/mol',
 							'max_value' => '-0.9 kcal/mol',
 							'refrence'  => 'PMID:8948641',
+							'so_no'     => 9
 			},
 			'propellar_twist' => {
 							'simple'    => 'propellar_twist',
@@ -158,6 +167,7 @@ sub _get_rule_cataloge {
 							'min_value' => '-18.66 degree',
 							'max_value' => '-8.11 degree',
 							'refrence'  => 'PMID:11473010',
+							'so_no'     => 10
 			},
 			'protein_induced_deformability'=> {
 							'simple'    => 'protein_induced_deformability',
@@ -172,6 +182,7 @@ sub _get_rule_cataloge {
 							'min_value' => '1.6',
 							'max_value' => '12.1',
 							'refrence'  => 'PMID:9736707',
+							'so_no'     => 11
 			},
 			'stabilizingenergy_zdna'=> {
 							'simple'    => 'stabilizing_energy_of_Z_DNA',
@@ -181,6 +192,7 @@ sub _get_rule_cataloge {
 							'min_value' => '5.9 kcal/mol',
 							'max_value' => '0.7 kcal/mol',
 							'refrence'  => 'PMID:2224047',
+							'so_no'     => 12
 			},
 			'stacking_energy' => {
 							'simple'    => 'stacking_energy',
@@ -190,6 +202,7 @@ sub _get_rule_cataloge {
 							'min_value' => '-14.59 kcal',
 							'max_value' => '-3.82 kcal',
 							'refrence'  => 'journal: 10.1002/bip.1978.360171005',
+							'so_no'     => 13
 			},
 			'nucleosome_position_preference' => {
 							'simple'    => 'nucleosome_position_preference',
@@ -200,6 +213,7 @@ sub _get_rule_cataloge {
 							'min_value' => '-36%',
 							'max_value' => '+45%',
 							'refrence'  => 'PMID:3806678',
+							'so_no'     => 14
 			},
 			'bendability' => {
 							'simple'    => 'bendability',
@@ -210,6 +224,7 @@ sub _get_rule_cataloge {
 							'min_value' => '-0.280',
 							'max_value' => '0.194',
 							'refrence'  => 'PMID:8579790',
+							'so_no'     => 15
 			},
 			'a_philicity' => {
 							'simple'    => 'a_philicity',
@@ -220,6 +235,7 @@ sub _get_rule_cataloge {
 							'min_value' => 'NA',
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:7885327',
+							'so_no'     => 16
 			},
 			'twist_parmbsc0' => {
 							'simple'    => 'twist_parmbsc0',
@@ -229,6 +245,7 @@ sub _get_rule_cataloge {
 							'min_value' => 'NA',
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
+							'so_no'     => 17
 			},
 			'tilt_parmbsc0' => {
 							'simple'    => 'tilt_parmbsc0',
@@ -238,6 +255,7 @@ sub _get_rule_cataloge {
 							'min_value' => 'NA',
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
+							'so_no'     => 18
 			},
 			'roll_parmbsc0' => {
 							'simple'    => 'roll_parmbsc0',
@@ -247,6 +265,7 @@ sub _get_rule_cataloge {
 							'min_value' => 'NA',
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
+							'so_no'     => 19
 			},
 			'shift_parmbsc0' => {
 							'simple'    => 'shift_parmbsc0',
@@ -256,6 +275,7 @@ sub _get_rule_cataloge {
 							'min_value' => 'NA',
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
+							'so_no'     => 20
 			},
 			'slide_parmbsc0' => {
 							'simple'    => 'slide_parmbsc0',
@@ -265,6 +285,7 @@ sub _get_rule_cataloge {
 							'min_value' => 'NA',
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
+							'so_no'     => 21
 			},
 			'rise_parmbsc0' => {
 							'simple'    => 'rise_parmbsc0',
@@ -274,6 +295,7 @@ sub _get_rule_cataloge {
 							'min_value' => 'NA',
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
+							'so_no'     => 22
 			},
 			'twist_CHARMM27' => {
 							'simple'    => 'twist_CHARMM27',
@@ -283,6 +305,7 @@ sub _get_rule_cataloge {
 							'min_value' => 'NA',
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
+							'so_no'     => 23
 			},
 			'tilt_CHARMM27' => {
 							'simple'    => 'tilt_CHARMM27',
@@ -292,6 +315,7 @@ sub _get_rule_cataloge {
 							'min_value' => 'NA',
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
+							'so_no'     => 24
 			},
 			'roll_CHARMM27' => {
 							'simple'    => 'roll_CHARMM27',
@@ -301,6 +325,7 @@ sub _get_rule_cataloge {
 							'min_value' => 'NA',
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
+							'so_no'     => 25
 			},
 			'shift_CHARMM27' => {
 							'simple'    => 'shift_CHARMM27',
@@ -310,6 +335,7 @@ sub _get_rule_cataloge {
 							'min_value' => 'NA',
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
+							'so_no'     => 26
 			},
 			'slide_CHARMM27' => {
 							'simple'    => 'slide_CHARMM27',
@@ -319,6 +345,7 @@ sub _get_rule_cataloge {
 							'min_value' => 'NA',
 							'max_value' => 'NA',
 							'refrence'  => 'PMID:18299282',
+							'so_no'     => 27
 			},
 			'rise_CHARMM27' => {
 							'simple'    => 'rise_CHARMM27',
@@ -327,7 +354,8 @@ sub _get_rule_cataloge {
 							'data'      => {'ac' => 8.31 , 'tg' => 8.31 ,  'aa' => 9.47 , 'tt' => 9.47 ,  'ag' => 9.35 , 'tc' => 9.35 ,  'at' => 7.32 , 'ta' => 7.32 ,  'ca' => 6.71 , 'gt' => 6.71 ,  'cc' => 8.96 , 'gg' => 8.96 ,  'cg' => 6.64 , 'gc' => 6.64 ,  'ga' => 10.12 , 'ct' => 10.12 ,  'gc' => 9.43 , 'cg' => 9.43 ,  'ta' => 6.61 , 'at' => 6.61},
 							'min_value' => 'NA',
 							'max_value' => 'NA',
-							'refrence'  => 'PMID:18299282'
+							'refrence'  => 'PMID:18299282',
+							'so_no'     => 28
 			},
 	);
 
@@ -335,7 +363,11 @@ sub _get_rule_cataloge {
 		
 		if ($dataType =~ /^array$/){
 			
-			my @temp = keys %ruleCataloge;
+			my @temp = ();
+			foreach my $propName (keys %ruleCataloge) {
+				my $index     = $ruleCataloge{$propName}{'so_no'} - 1 ;
+				$temp[$index] = $propName;
+			}
 			return @temp;
 		}
 		elsif ($dataType =~ /^string$/) {
@@ -345,22 +377,28 @@ sub _get_rule_cataloge {
 			my $str          = "";
 			
 			if (! exists $ruleCataloge{$propName}) {
-				$str =  "property $propName does not match the avaible rules/properties" ;
+				warning "property $propName does not match the avaible rules/properties" ;
 			}
 			else {
-				if ($keyTypeParam !~ /^all$/) {
-					$str = "$keyTypeParam : $ruleCataloge{$propName}{$keyTypeParam}"; 
+				my @keyCategory = qw/$keyTypeParam/;
+				if ($keyTypeParam =~ /^all$/) {
+					@keyCategory = qw /simple details data min_value max_value refrence/; 
 				}
-				else {
-					foreach my $key (sort {$a cmp $b} keys %{$ruleCataloge{$propName}{$keyTypeParam} } ) {
-						$str .= "$keyTypeParam : $ruleCataloge{$propName}{$keyTypeParam} \n"; 
+				
+				foreach my $value @keyCategory {
+					if ($value =~ /^data$/) {
+						#TODO 
+						#check out the data from key 'data' => {}
 					}
+					else {
+						$str .= "$keyTypeParam : $ruleCataloge{$propName}{$key} \n"; 
+					}					
 				}
 			}
 			return $str
 		}
 		else {
-			croak "does not match any data stucture";
+			croak "does not match any data type provided\n";
 		}
 	}
 }
@@ -389,12 +427,11 @@ sub print_detail_abt_rules {
     #List out property detail information and journal from where it has been taken
     #get the rules detail from hash GetRuleCataloge(propertyName=>'details')
     my($self,$hash_ref) = @_;
-    my $prop = keys %$hash_ref;
-    return "$prop : $hash_ref->{$prop}";
-	#~ my $str = _get_rule_cataloge({
-									#~ 'string'=> [ $prop , $hash_ref->{$prop} ]
-								 #~ });
-	my $str="";return $str;
+    my ($prop) = keys %$hash_ref;
+	my $str = _get_rule_cataloge({
+									'string'=> [ $prop , $hash_ref->{$prop} ]
+								 });
+	return $str;
 }
 
 =head1 AUTHOR
