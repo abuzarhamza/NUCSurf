@@ -399,7 +399,7 @@ sub _get_rule_cataloge {
 					}					
 				}
 			}
-			return $str
+			return $str;
 		}
 		else {
 			croak "does not match any data type provided\n";
