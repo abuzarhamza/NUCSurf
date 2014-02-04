@@ -73,8 +73,9 @@ sub _initialize {
 		_id                              => [],
 		_seq                             => [],
 		_seq_detail                      => [],
-        _flag_list                       => [],
-		_window_size                     => 5		
+        _enable_rule_list                => [],
+        _all_property_rule               => [],
+		_window_size                     => 5
 	};
 }
 
@@ -86,6 +87,9 @@ Returns   : obj
 Argument  : input_file
 =cut
 sub set_input_file_name {
+    croak "incorrect argument for the function"
+        if (@_ != 1);
+
     my ($self,$input_file) = @_;
     if (ref($input_file) ne '' ) {
 		croak "provide input is not string type\n";
@@ -102,6 +106,9 @@ Returns   : obj
 Argument  : window_size
 =cut
 sub set_window_size {
+    croak "incorrect argument for the function"
+        if (@_ != 1);
+
     my ($self,$window_size) = @_;
     if (ref($window_size) ne '' ) {
 		croak "provide input is not string type\n";
@@ -121,6 +128,9 @@ Returns   : obj
 Argument  : output file name
 =cut
 sub set_output_file_name {
+    croak "incorrect argument for the function"
+        if (@_ != 1);
+
     my ($self,$output_file) = @_;
     if (ref($output_file) ne '' ) {
 		croak "provide input is not string type\n";
@@ -137,7 +147,9 @@ Returns   : array
 Argument  : output file name
 =cut
 sub get_available_rules {
-	my ($self) = @_;
+    croak "incorrect argument for the function"
+        if (@_ != 0);
+	my ($self)   = @_;
 	my @listProp = NUCSurf::RuleCataloge->available_nuc_rules();
 	return @listProp;
 }
@@ -160,6 +172,46 @@ sub print_detail_abt_rules {
 	return $str;
 }
 
+=head1 enable_rule
+Title     : enable_rule
+Usage     : $obj->enable_rule(@array);
+Function  : enable the list of rules
+Returns   : none
+Argument  : array
+=cut
+sub enable_rule {    
+    #EnableProperty
+    #enable the list of property passed by the user
+    #copy the required keys  
+    #eg delete $foo{'foo_rule'}
+    #add the keys for the enable rule as 'y' and rest as 'n'
+    #enable the flag for required ktuple for the property
+    #get the rules detail from hash GetRuleCataloge(propertyName=>'ktuple')
+    #throw an error if the rule is not found
+    croak "incorrect argument for the function"
+        if (@_ != 1);
+    my ($self,$prop_name) = @_;
+
+    if ( scalar( @{ $self->{_all_property_rule} } ) == 0 ) {
+        my @propertyList = NUCSurf::RuleCataloge->available_nuc_rules();
+        @{ $self->{_all_property_rule} } = @propertyList;
+    }
+    
+
+    if ( !( grep { $prop_name eq $element } @{ $self->{_all_property_rule} } )) {
+        croak "incorrect argument for the function";
+    }
+    elsif ( !( grep { $prop_name eq $element } @{ $self->{_enable_rule_list} } ) )  {
+         push @{ $self->{_enable_rule_list} }, $prop_name;
+    }
+    else {
+        warning "$prop_name already enabled\n";
+    }
+
+    return $self;
+}
+
+
 =head1 get_enable_rules
 Title     : get_enable_rules
 Usage     : $obj->get_enable_rules();
@@ -171,25 +223,6 @@ sub get_enable_rules {
 }
 
 
-=head1 enable_rule
-Title     : enable_rule
-Usage     : $obj->enable_rule(@array);
-Function  : enable the list of rules
-Returns   : none
-Argument  : array
-=cut
-sub enable_rule {
-    #EnableProperty
-    #validate the list passed by user 'simple'
-    #enable the list of property passed by the user
-    #copy the required keys  
-    #eg delete $foo{'foo_rule'}
-    #add the keys for the enable rule as 'y' and rest as 'n'
-    #enable the flag for required ktuple for the property
-    #get the rules detail from hash GetRuleCataloge(propertyName=>'ktuple')
-    #throw an error if the rule is not found
-    
-}
 
 sub ReadFastaSeq {
     #this module will used for web
