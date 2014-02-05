@@ -59,18 +59,23 @@ Argument  :
 =cut
 
 sub numeric_profiler {
-    my ($self,$seq_ref,$data,$ktuple) = @_;
+    my ($self,$seq_ref,$data_ref,$ktuple) = @_;
     my $nuc_prof_str = "";
-    #duplicate copy of the sequence is coming
-    #can we ref the variable
+    #prevent the duplicate copy of the string variable
     #sequene length can be odd or even
     #window size may differ
 
-    my $seq_len = length($seq);
+    my $seq_len = length(${$seq_ref});
     if ( ($seq_len%$ktuple) == 0 ) {
 
     }
 
+
+    while (my $strCat = /.{$ktuple}/g) {
+        # if ( ) {
+
+        # }
+    }
 
     return $nuc_prof_str;
 }
