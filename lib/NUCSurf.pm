@@ -52,8 +52,8 @@ sub new {
     my ($class) = shift;
     my $self    = {};
     bless $self,$class;
-	$self->_initialize();
-	return $self;
+    $self->_initialize();
+    return $self;
 }
 
 =head _initialize
@@ -64,19 +64,19 @@ Returns   :
 Argument  : 
 =cut
 sub _initialize {
-	my ($self) = @_;
-	$self->{
-		_file_content                    => "",
-		_input_format                    => "",
-		_input_filename                  => "",
+    my ($self) = @_;
+    $self->{
+        _file_content                    => "",
+        _input_format                    => "",
+        _input_filename                  => "",
         _output_filename                 => "",
-		_id                              => [],
-		_seq                             => [],
-		_seq_detail                      => [],
+        _id                              => [],
+        _seq                             => [],
+        _seq_detail                      => [],
         _enable_rule_list                => [],
         _all_property_rule               => [],
-		_window_size                     => 5
-	};
+        _window_size                     => 5
+    };
 }
 
 =head1 set_input_file_name
@@ -92,10 +92,10 @@ sub set_input_file_name {
 
     my ($self,$input_file) = @_;
     if (ref($input_file) ne '' ) {
-		croak "provide input is not string type\n";
-	}
-	$self->{_input_filename} = $input_file;
-	return $self->{_input_filename};
+        croak "provide input is not string type\n";
+    }
+    $self->{_input_filename} = $input_file;
+    return $self->{_input_filename};
 }
 
 =head1 set_window_size
@@ -111,13 +111,13 @@ sub set_window_size {
 
     my ($self,$window_size) = @_;
     if (ref($window_size) ne '' ) {
-		croak "provide input is not string type\n";
-	}
+        croak "provide input is not string type\n";
+    }
     if ($window_size !~ /^\d{1,}$/) {
-		croak "provide input is not an integer\n";
-	}
-	$self->{_window_size} = $window_size;
-	return $self->{_window_size};
+        croak "provide input is not an integer\n";
+    }
+    $self->{_window_size} = $window_size;
+    return $self->{_window_size};
 }
 
 =head set_output_file_name
@@ -133,10 +133,10 @@ sub set_output_file_name {
 
     my ($self,$output_file) = @_;
     if (ref($output_file) ne '' ) {
-		croak "provide input is not string type\n";
-	}
-	$self->{_output_filename} = $output_file;
-	return $self->{output_filename};
+        croak "provide input is not string type\n";
+    }
+    $self->{_output_filename} = $output_file;
+    return $self->{output_filename};
 }
 
 =head1 get_available_rules
@@ -149,9 +149,9 @@ Argument  : output file name
 sub get_available_rules {
     croak "incorrect argument for the function"
         if (@_ != 0);
-	my ($self)   = @_;
-	my @listProp = NUCSurf::RuleCataloge->available_nuc_rules();
-	return @listProp;
+    my ($self)   = @_;
+    my @listProp = NUCSurf::RuleCataloge->available_nuc_rules();
+    return @listProp;
 }
 
 =head1 print_detail_abt_rules
@@ -162,14 +162,14 @@ Returns   :
 Argument  : 
 =cut
 sub print_detail_abt_rules {
-	croak "incorrect argument for the function"
-		if (@_ != 3);
-	my ($self,$prop_name,$key_for_cat) = @_;
-	
-	my $str = NUCSurf::RuleCataloge->print_detail_abt_rules({
-													$prop_name => $key_for_cat 
-													});
-	return $str;
+    croak "incorrect argument for the function"
+        if (@_ != 3);
+    my ($self,$prop_name,$key_for_cat) = @_;
+    
+    my $str = NUCSurf::RuleCataloge->print_detail_abt_rules({
+                                                    $prop_name => $key_for_cat 
+                                                    });
+    return $str;
 }
 
 =head1 enable_rule
@@ -180,14 +180,6 @@ Returns   : none
 Argument  : array
 =cut
 sub enable_rule {    
-    #EnableProperty
-    #enable the list of property passed by the user
-    #copy the required keys  
-    #eg delete $foo{'foo_rule'}
-    #add the keys for the enable rule as 'y' and rest as 'n'
-    #enable the flag for required ktuple for the property
-    #get the rules detail from hash GetRuleCataloge(propertyName=>'ktuple')
-    #throw an error if the rule is not found
     croak "incorrect argument for the function"
         if (@_ != 1);
     my ($self,$prop_name) = @_;
@@ -196,17 +188,22 @@ sub enable_rule {
         my @propertyList = NUCSurf::RuleCataloge->available_nuc_rules();
         @{ $self->{_all_property_rule} } = @propertyList;
     }
-    
+
 
     if ( !( grep { $prop_name eq $element } @{ $self->{_all_property_rule} } )) {
         croak "incorrect argument for the function";
     }
     elsif ( !( grep { $prop_name eq $element } @{ $self->{_enable_rule_list} } ) )  {
-         push @{ $self->{_enable_rule_list} }, $prop_name;
+        push @{ $self->{_enable_rule_list} }, $prop_name;
+        #copy the data of the nuc rule data into self
+        $ref_hash = NUCSurf::RuleCataloge->copy_nuc_rules_data($prop_name);
+        $self->{$prop_name}{_data} = { $ref_hash->{$prop_name}{data} };
+        $self->{$prop_name}{_ktuple} = { $ref_hash->{$prop_name}{ktuple} };
     }
     else {
         warning "$prop_name already enabled\n";
     }
+
 
     return $self;
 }
@@ -216,32 +213,31 @@ sub enable_rule {
 Title     : get_enable_rules
 Usage     : $obj->get_enable_rules();
 Function  : give the list of enable rules
-Returns   : array
+Returns   : array|null
 Argument  : none
 =cut
 sub get_enable_rules {
+    my ($self) = @_;
+    return @{ $self->{_enable_rule_list} };
 }
 
 
 
 sub ReadFastaSeq {
-    #this module will used for web
+    #this module will used from web
 }
 
 sub ReadFastaFile {
     #read the fasta file
 }
 
-sub GetNumericProfile {
+sub generate_numeric_profile {
     #1. this will call validate object
     #2. parse the content as per the format
     #3. calculate the property rules.
-    #print on screen or else on file as per required
-}
-
-sub numericProfiler {
-    #do the numeric calculation for fasta sequence
-    #save the outut     
+    # if ( ) {
+    #     NUCSurf::NumericProfiler-numeric_profiler();
+    # }
 }
 
 
