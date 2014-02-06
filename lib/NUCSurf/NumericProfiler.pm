@@ -72,9 +72,9 @@ sub numeric_profiler {
 
 
     while (my $strCat = /.{$ktuple}/g) {
-        # if ( ) {
+        if ( ) {
 
-        # }
+        }
     }
 
     return $nuc_prof_str;

@@ -6,6 +6,7 @@ use warnings;
 
 require Exporter;
 use Carp;
+use FASTAParse;
 use NUCSurf::RuleCataloge;
 
 =head1 NAME
@@ -221,14 +222,26 @@ sub get_enable_rules {
     return @{ $self->{_enable_rule_list} };
 }
 
+=head1 read_fasta_file
+Title     : read_fasta_file
+Usage     : $obj->read_fasta_file();
+Function  : give the list of enable rules
+Returns   : array|null
+Argument  : none
+=cut
+sub read_fasta_file {
+    my ($self) = @_;
 
+    if (-e "$self->{_input_filename}" ) {
+         croak "file cannot be found $self->{_input_filename}\n";
+    }
 
-sub ReadFastaSeq {
-    #this module will used from web
-}
-
-sub ReadFastaFile {
-    #read the fasta file
+    local $/ = "\n>";
+    open (RF1,"$self->{_input_filename}") or die "cant open the file : $self->{_input_filename}";
+    while(<RF1>) { 
+        #call Fasta to get the id and other seq.
+    }
+    close RF1;
 }
 
 sub generate_numeric_profile {
