@@ -20,10 +20,10 @@ our $VERSION = '0.01';
 
 require Exporter;
 
-our @ISA = qw(Exporter);
+our @ISA         = qw(Exporter);
 our %EXPORT_TAGS = ( 'all' => [ qw() ] );
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-our @EXPORT = qw(get_rule_cataloge);
+our @EXPORT_OK   = ( @{ $EXPORT_TAGS{'all'} } );
+our @EXPORT      = qw();
 
 =head1 SYNOPSIS
 
@@ -50,9 +50,9 @@ sub new {
 
 =head1 get_rule_cataloge
  Title     : get_rule_cataloge
- Usage     : 
- Function  : 
- Returns   : 
+ Usage     : _get_rule_cataloge()
+ Function  : return the data type as per the input given by the user
+ Returns   : str|array|hash
  Argument  : 
 =cut
 sub _get_rule_cataloge {

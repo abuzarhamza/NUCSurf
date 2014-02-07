@@ -67,15 +67,16 @@ Argument  :
 sub _initialize {
     my ($self) = @_;
     $self->{
-        _file_content                    => "",
         _input_format                    => "",
         _input_filename                  => "",
         _output_filename                 => "",
         _id                              => [],
-        _seq                             => [],
+        _numeris_seq                     => [],
         _seq_detail                      => [],
         _enable_rule_list                => [],
         _all_property_rule               => [],
+        _2ktuple_rule                    => [],
+        _3ktuple_rule                    => [],  
         _window_size                     => 5
     };
 }
@@ -87,7 +88,7 @@ Function  : set the input file path
 Returns   : obj
 Argument  : input_file
 =cut
-sub set_input_file_name {
+sub set_fasta_file_name {
     croak "incorrect argument for the function"
         if (@_ != 1);
 
@@ -96,6 +97,7 @@ sub set_input_file_name {
         croak "provide input is not string type\n";
     }
     $self->{_input_filename} = $input_file;
+    $self->{_input_format}   = 'fasta';
     return $self->{_input_filename};
 }
 
@@ -198,13 +200,19 @@ sub enable_rule {
         push @{ $self->{_enable_rule_list} }, $prop_name;
         #copy the data of the nuc rule data into self
         $ref_hash = NUCSurf::RuleCataloge->copy_nuc_rules_data($prop_name);
-        $self->{$prop_name}{_data} = { $ref_hash->{$prop_name}{data} };
+        $self->{$prop_name}{_data}   = { $ref_hash->{$prop_name}{data} };
         $self->{$prop_name}{_ktuple} = { $ref_hash->{$prop_name}{ktuple} };
+
+        if ( $self->{$prop_name}{_ktuple} == 2 ) {
+            push @{ $self->{_2ktuple_rule} },;
+        }
+        elsif ( $self->{$prop_name}{_ktuple} == 3 )  {
+            
+        }
     }
     else {
         warning "$prop_name already enabled\n";
     }
-
 
     return $self;
 }
@@ -222,38 +230,41 @@ sub get_enable_rules {
     return @{ $self->{_enable_rule_list} };
 }
 
-=head1 read_fasta_file
-Title     : read_fasta_file
-Usage     : $obj->read_fasta_file();
-Function  : give the list of enable rules
-Returns   : array|null
+=head1 generate_numeric_profile
+Title     : generate_numeric_profile
+Usage     : $obj->generate_numeric_profile();
+Function  : parse the file and generate the 
+Returns   : $self
 Argument  : none
 =cut
-sub read_fasta_file {
+sub generate_numeric_profile {
     my ($self) = @_;
 
     if (-e "$self->{_input_filename}" ) {
          croak "file cannot be found $self->{_input_filename}\n";
     }
 
-    local $/ = "\n>";
-    open (RF1,"$self->{_input_filename}") or die "cant open the file : $self->{_input_filename}";
-    while(<RF1>) { 
-        #call Fasta to get the id and other seq.
+    if ( $self->{_input_format} =~ /^fasta$/o ) {
+        local $/ = "\n>";
+        open (RF1,"$self->{_input_filename}") or die "cant open the file : $self->{_input_filename}";
+        while(<RF1>) {
+            #call Fasta to get the id and other seq.
+            my $obj = FASTAParse->new();
+            $obj->load_FASTA( fasta => $_ );
+            my $id          = $fasta->id();
+            my $sequence    = $fasta->sequence();
+            my @descriptors = @{ $fasta->descriptors() };
+
+            #destroy the object
+            undef $obj;
+            my $windowSize = $self->{_window_size};
+            my $seq        = NUCSurf::NumericProfiler->new();
+            my $nucSeq     = $seq->numeric_profiler(\$sequence,$self);
+        }
+        close RF1;
     }
-    close RF1;
+
 }
-
-sub generate_numeric_profile {
-    #1. this will call validate object
-    #2. parse the content as per the format
-    #3. calculate the property rules.
-    # if ( ) {
-    #     NUCSurf::NumericProfiler-numeric_profiler();
-    # }
-}
-
-
 
 =head1 AUTHOR
 

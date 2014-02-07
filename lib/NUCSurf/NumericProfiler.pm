@@ -21,10 +21,10 @@ our $VERSION = '0.01';
 
 require Exporter;
 
-our @ISA = qw(Exporter);
+our @ISA         = qw(Exporter);
 our %EXPORT_TAGS = ( 'all' => [ qw() ] );
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-our @EXPORT = qw(get_rule_cataloge);
+our @EXPORT_OK   = ( @{ $EXPORT_TAGS{'all'} } );
+our @EXPORT      = qw();
 
 =head1 SYNOPSIS
 
@@ -50,30 +50,42 @@ sub new {
 }
 
 
-=head2 print_detail_abt_rules
-Title     : get_detail_abt_rules
-Usage     : $obj->get_detail_abt_rules('trule'=>'description')  ,=>min_value,=>max_value,=>data,=>reference,=>complete_detail
+=head2 numeric_profiler
+Title     : numeric_profiler
+Usage     : $obj->numeric_profiler()
 Function  : get description or other value for the specified property
 Returns   : none
 Argument  : 
 =cut
 
 sub numeric_profiler {
-    my ($self,$seq_ref,$data_ref,$ktuple) = @_;
-    my $nuc_prof_str = "";
-    #prevent the duplicate copy of the string variable
-    #sequene length can be odd or even
-    #window size may differ
+    my ($self,$hash_self) = @_;
 
     my $seq_len = length(${$seq_ref});
-    if ( ($seq_len%$ktuple) == 0 ) {
+    #property list aw aw aw wa wa wa aa aw ww we
+    #tuple created substr,
 
+    
+    #tuple create aw bw 
+    #poperty list
+    
+    
+    if ( scalar( @{$hash_self->{_2ktuple_rule} } ) > 1 ) {
+		my ($offset,$length) = 0,2;
+        foreach my $property_rule (q//) {
+            for (substr(${$seq_ref},)) {
+				if () {
+				}
+				else {
+				}
+            }
+        }
     }
-
-
-    while (my $strCat = /.{$ktuple}/g) {
-        if ( ) {
-
+    elsif ( scalar( @{$hash_self->{_3ktuple_rule} }) > 1 ) {
+		my ($offset,$length) = 0,3;
+        foreach () {
+            for (substr()) {
+            }
         }
     }
 
