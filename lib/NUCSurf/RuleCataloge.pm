@@ -2,7 +2,8 @@ package NUCSurf::RuleCataloge;
 
 use 5.006;
 use strict;
-use warnings FATAL => 'all';
+use warnings;
+use diagnostics;
 use Carp;
 #use Smart::Comment;
 
@@ -56,8 +57,7 @@ sub new {
  Argument  : 
 =cut
 sub _get_rule_cataloge {
-    my ($hash_ref) = @_;
-    
+    my ($hash_ref)   = @_;    
     my %ruleCataloge = (
         't_rule' => {
                             'simple'    => 't_rule',
@@ -389,13 +389,13 @@ sub _get_rule_cataloge {
                         #TODO 
                         #check out the data from key 'data' => {}
                         $str .= "$value  :  "; 
-                        foreach my $nucTuple ( %{ $ruleCataloge{$propName}{$key}{$value} } {
-                            $str .= "$nucTuple : $ruleCataloge{$propName}{$key}{$value}{$nucTuple} ,"; 
+                        foreach my $nucTuple ( %{ $ruleCataloge{$propName}{$value} }) {
+                            $str .= "$nucTuple : $ruleCataloge{$propName}{$value}{$nucTuple} ,"; 
                         }
                         chop($str);
                     }
                     else {
-                        $str .= "$keyTypeParam : $ruleCataloge{$propName}{$key} \n"; 
+                        $str .= "$keyTypeParam : $ruleCataloge{$propName}{$value} \n"; 
                     }                   
                 }
             }
@@ -429,7 +429,7 @@ Argument  :
 =cut
 sub print_detail_abt_rules {
     my($self,$hash_ref) = @_;
-    my @$propName = keys %$hash_ref;
+    my ($propName) = keys %$hash_ref;
     my $str = _get_rule_cataloge({
                                     'string'=> [ $propName , $hash_ref->{$propName} ]
                                  });
