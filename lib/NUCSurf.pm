@@ -3,6 +3,7 @@ package NUCSurf;
 use 5.006;
 use strict;
 use warnings;
+use diagnostics;
 
 require Exporter;
 use Carp;
@@ -194,13 +195,13 @@ sub enable_rule {
     }
 
 
-    if ( !( grep { $prop_name eq $element } @{ $self->{_all_property_rule} } )) {
+    if ( !( grep { $_ eq $prop_name } @{ $self->{_all_property_rule} } )) {
         croak "incorrect argument for the function";
     }
-    elsif ( !( grep { $prop_name eq $element } @{ $self->{_enable_rule_list} } ) )  {
+    elsif ( !( grep { $_ eq $prop_name } @{ $self->{_enable_rule_list} } ) )  {
         push @{ $self->{_enable_rule_list} }, $prop_name;
         #copy the data of the nuc rule data into self
-        $ref_hash = NUCSurf::RuleCataloge->copy_nuc_rules_data($prop_name);
+        my $ref_hash = NUCSurf::RuleCataloge->copy_nuc_rules_data($prop_name);
         $self->{$prop_name}{_data}   = { $ref_hash->{$prop_name}{data} };
         $self->{$prop_name}{_ktuple} = { $ref_hash->{$prop_name}{ktuple} };
 
@@ -250,14 +251,14 @@ sub generate_numeric_profile {
         open (RF1,"$self->{_input_filename}") or die "cant open the file : $self->{_input_filename}";
         while(<RF1>) {
             #call Fasta to get the id and other seq.
-            my $obj = FASTAParse->new();
-            $obj->load_FASTA( fasta => $_ );
+            my $fasta = FASTAParse->new();
+            $fasta->load_FASTA( fasta => $_ );
             my $id          = $fasta->id();
             my $sequence    = $fasta->sequence();
             my @descriptors = @{ $fasta->descriptors() };
 
             #destroy the object
-            undef $obj;
+            undef $fasta;
             my $windowSize = $self->{_window_size};
             my $seq        = NUCSurf::NumericProfiler->new();
             my $nucSeq     = $seq->numeric_profiler(\$sequence,$self);
