@@ -1,18 +1,14 @@
-# Before `make install' is performed this script should be runnable with
-# `make test'. After `make install' it should work as `perl NUCSurf.t'
+use lib  '/home/abuzar/Desktop/github/NUCSurf/lib';
+use Test::Simple tests => 1;
 
-#########################
+use NUCSurf;  
 
-# change 'tests => 1' to 'tests => last_test_to_print';
+my $testObj = NUCSurf->new();
 
-use strict;
-use warnings;
+ok( defined($testObj) && ref $testObj  eq 'NUCSurf',     'NUCSurf->new() works' );
 
-use Test::More tests => 1;
-BEGIN { use_ok('NUCSurf') };
-
-#########################
-
-# Insert your test code below, the Test::More module is use()ed here so read
-# its man page ( perldoc Test::More ) for help writing this test script.
+#ok( $btaste->Title      eq 'Bad Taste',     'Title() get'    );
+#ok( $btaste->Director   eq 'Peter Jackson', 'Director() get' );
+#ok( $btaste->Rating     eq 'R',             'Rating() get'   );
+#ok( $btaste->NumExplodingSheep == 1,        'NumExplodingSheep() get' );
 
