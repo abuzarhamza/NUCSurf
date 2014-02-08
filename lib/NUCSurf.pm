@@ -90,13 +90,12 @@ Returns   : obj
 Argument  : input_file
 =cut
 sub set_fasta_file_name {
-
-    croak "incorrect argument for the function"
+    croak "incorrect count of parameter for the function"
         if (scalar(@_) != 2);
 
     my ($self,$input_file) = @_;
     if (ref($input_file) ne '' ) {
-        croak "provide input is not string type\n";
+        croak "provide parameter is not string\n";
     }
     $self->{_input_filename} = $input_file;
     $self->{_input_format}   = 'fasta';
@@ -111,16 +110,18 @@ Returns   : obj
 Argument  : window_size
 =cut
 sub set_window_size {
-    croak "incorrect argument for the function"
-        if (scalar(@_) != 1);
+    croak "incorrect count of parameter for the function"
+        if (scalar(@_) != 2);
 
     my ($self,$window_size) = @_;
+
     if (ref($window_size) ne '' ) {
-        croak "provide input is not string type\n";
+        croak "provide parameter is not string\n";
     }
     if ($window_size !~ /^\d{1,}$/) {
-        croak "provide input is not an integer\n";
+        croak "provide parameter is not an integer\n";
     }
+
     $self->{_window_size} = $window_size;
     return $self->{_window_size};
 }
@@ -133,13 +134,15 @@ Returns   : obj
 Argument  : output file name
 =cut
 sub set_output_file_name {
-    croak "incorrect argument for the function"
-        if (@_ != 1);
+    croak "incorrect count of parameter for the function"
+        if (scalar(@_) != 2);
 
     my ($self,$output_file) = @_;
+
     if (ref($output_file) ne '' ) {
-        croak "provide input is not string type\n";
+        croak "provide parameter is not string\n";
     }
+
     $self->{_output_filename} = $output_file;
     return $self->{output_filename};
 }
@@ -152,8 +155,8 @@ Returns   : array
 Argument  : output file name
 =cut
 sub get_available_rules {
-    croak "incorrect argument for the function"
-        if (@_ != 0);
+    croak "incorrect count of parameter for the function"
+        if (scalar(@_) != 1);
     my ($self)   = @_;
     my @listProp = NUCSurf::RuleCataloge->available_nuc_rules();
     return @listProp;
@@ -167,10 +170,15 @@ Returns   : string with all required detail
 Argument  : hash
 =cut
 sub print_detail_abt_rules {
-    croak "incorrect argument for the function"
-        if (@_ != 3);
-    my ($self,$prop_name,$key_for_cat) = @_;
-
+    croak "incorrect count of parameter for the function"
+        if (scalar(@_) != 2);
+    my ($self,$param) = @_;
+  
+    if (ref($param) ne 'HASH' ) {
+        croak "parameter is not a HASH\n";
+    }
+    my ($prop_name) = keys %$param;
+    my $key_for_cat = $param->{$prop_name};
     my $objRule = NUCSurf::RuleCataloge->new();
     my $str     = $objRule->print_detail_abt_rules({
                                                     $prop_name => $key_for_cat 
