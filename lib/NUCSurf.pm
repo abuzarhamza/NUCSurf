@@ -90,8 +90,9 @@ Returns   : obj
 Argument  : input_file
 =cut
 sub set_fasta_file_name {
+
     croak "incorrect argument for the function"
-        if (@_ != 1);
+        if (scalar(@_) != 2);
 
     my ($self,$input_file) = @_;
     if (ref($input_file) ne '' ) {
@@ -111,7 +112,7 @@ Argument  : window_size
 =cut
 sub set_window_size {
     croak "incorrect argument for the function"
-        if (@_ != 1);
+        if (scalar(@_) != 1);
 
     my ($self,$window_size) = @_;
     if (ref($window_size) ne '' ) {
