@@ -1,5 +1,5 @@
 use lib  '/home/abuzar/Desktop/github/NUCSurf/lib';
-use Test::Simple tests => 5;
+use Test::Simple tests => 8;
 
 use NUCSurf;  
 
@@ -33,6 +33,22 @@ eval {
     $testObj->set_fasta_file_name('test.fa','test.fa');
 };
 $err = $@;
-ok( $err =~/incorrect argument for the function/, 'set_fasta_file_name() error flag for more than 2 arg');
+ok( $err =~/incorrect argument for the function/, 'set_fasta_file_name() error flag for more than or less than 2 arg');
 
 #test6
+my $windowSize = $testObj->set_window_size(10);
+ok( $windowSize == 10 , 'set_window_size() set value 10')
+
+#test7
+eval {
+    $testObj->set_window_size();
+};
+$err = $@;
+ok( $err =~/incorrect argument for the function/, 'set_window_size() error flag for more than or less than 2 arg');
+
+#test8
+#eval {
+#    $testObj->set_window_size();
+#};
+#$err = $@;
+#ok( $err =~/incorrect argument for the function/, 'set_window_size() error flag for more than or less than 2 arg');
