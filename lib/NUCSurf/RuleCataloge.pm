@@ -49,7 +49,7 @@ sub new {
 }
 
 =head1 get_rule_cataloge
- Title     : get_rule_cataloge
+ Title     : _get_rule_cataloge
  Usage     : _get_rule_cataloge()
  Function  : return the data type as per the input given by the user
  Returns   : str|array|hash
@@ -376,15 +376,15 @@ sub _get_rule_cataloge {
             my $str          = "";
             
             if (! exists $ruleCataloge{$propName}) {
-                warning "property $propName does not match the avaible rules/properties" ;
+                warn "property $propName does not match the avaible rules/properties" ;
             }
             else {
                 my @keyCategory = qw/$keyTypeParam/;
                 if ($keyTypeParam =~ /^all$/) {
-                    @keyCategory = qw /simple details data min_value max_value refrence/; 
+                    @keyCategory = qw/simple details data min_value max_value refrence/; 
                 }
                 
-                foreach my $value @keyCategory {
+                foreach my $value (@keyCategory) {
                     if ($value =~ /^data$/) {
                         #TODO 
                         #check out the data from key 'data' => {}
@@ -428,10 +428,8 @@ Returns   : none
 Argument  : 
 =cut
 sub print_detail_abt_rules {
-    #List out property detail information and journal from where it has been taken
-    #get the rules detail from hash GetRuleCataloge(propertyName=>'details')
     my($self,$hash_ref) = @_;
-    my ($propName) = keys %$hash_ref;
+    my @$propName = keys %$hash_ref;
     my $str = _get_rule_cataloge({
                                     'string'=> [ $propName , $hash_ref->{$propName} ]
                                  });

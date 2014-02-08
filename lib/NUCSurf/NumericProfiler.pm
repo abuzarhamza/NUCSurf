@@ -72,21 +72,21 @@ sub numeric_profiler {
     
     if ( scalar( @{$hash_self->{_2ktuple_rule} } ) > 1 ) {
 		my ($offset,$length) = 0,2;
-        foreach my $property_rule (q//) {
-            for (substr(${$seq_ref},)) {
-				if () {
-				}
-				else {
-				}
-            }
-        }
+        #foreach my $property_rule (q//) {
+            #for (substr(${$seq_ref},)) {
+				#if () {
+				#}
+				#else {
+				#}
+            #}
+        #}
     }
     elsif ( scalar( @{$hash_self->{_3ktuple_rule} }) > 1 ) {
 		my ($offset,$length) = 0,3;
-        foreach () {
-            for (substr()) {
-            }
-        }
+        #foreach () {
+            #for (substr()) {
+            #}
+        #}
     }
 
     return $nuc_prof_str;

@@ -160,16 +160,17 @@ sub get_available_rules {
 =head1 print_detail_abt_rules
 Title     : print_detail_abt_rules
 Usage     : $obj->print_detail_abt_rules('popertyName'=>'details');$obj->print_detail_abt_rules('popertyName'=>'all');
-Function  : 
-Returns   : 
-Argument  : 
+Function  : print detail about the rules
+Returns   : string with all required detail
+Argument  : hash
 =cut
 sub print_detail_abt_rules {
     croak "incorrect argument for the function"
         if (@_ != 3);
     my ($self,$prop_name,$key_for_cat) = @_;
-    
-    my $str = NUCSurf::RuleCataloge->print_detail_abt_rules({
+
+    my $objRule = NUCSurf::RuleCataloge->new();
+    my $str     = $objRule->print_detail_abt_rules({
                                                     $prop_name => $key_for_cat 
                                                     });
     return $str;
@@ -204,14 +205,14 @@ sub enable_rule {
         $self->{$prop_name}{_ktuple} = { $ref_hash->{$prop_name}{ktuple} };
 
         if ( $self->{$prop_name}{_ktuple} == 2 ) {
-            push @{ $self->{_2ktuple_rule} },;
+            push @{ $self->{_2ktuple_rule} },$prop_name;
         }
         elsif ( $self->{$prop_name}{_ktuple} == 3 )  {
-            
+            push @{ $self->{_3ktuple_rule} },$prop_name;
         }
     }
     else {
-        warning "$prop_name already enabled\n";
+        warn "$prop_name already enabled\n";
     }
 
     return $self;
@@ -233,7 +234,7 @@ sub get_enable_rules {
 =head1 generate_numeric_profile
 Title     : generate_numeric_profile
 Usage     : $obj->generate_numeric_profile();
-Function  : parse the file and generate the 
+Function  : parse the file and generate the numeric profile of the provided sequence
 Returns   : $self
 Argument  : none
 =cut
