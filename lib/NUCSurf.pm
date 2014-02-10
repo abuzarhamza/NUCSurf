@@ -205,7 +205,7 @@ sub enable_rule {
     }
     
     if ( !( grep { $_ eq $prop_name } @{ $self->{_all_property_rule} } )) {
-        croak "incorrect argument for the function";
+        croak "incorrect property passed as parameter\n";
     }
 
     if (not defined @{ $self->{_enable_rule_list} } ) {
@@ -217,7 +217,7 @@ sub enable_rule {
     else{
         push @{ $self->{_enable_rule_list} }, $prop_name;
     }
-            
+    #TO DO develop function copy_nuc_rules_data
     my $ref_hash = NUCSurf::RuleCataloge->copy_nuc_rules_data($prop_name);
     $self->{$prop_name}{_data}   = { $ref_hash->{$prop_name}{data} };
     $self->{$prop_name}{_ktuple} = { $ref_hash->{$prop_name}{ktuple} };
