@@ -408,6 +408,14 @@ sub _get_rule_cataloge {
             }
             return $str;
         }
+        elsif ($dataType =~ /^hash$/) {
+            my %dataRuleCopy = ();
+            my $propName = $hash_ref->{$dataType};
+
+            $dataRuleCopy{$propName}{'data'}   = $ruleCataloge{$propName}{'data'};
+            $dataRuleCopy{$propName}{'ktuple'} = $ruleCataloge{$propName}{'ktuple'};
+            return \%dataRuleCopy;
+        }
         else {
             croak "does not match any data type provided\n";
         }
@@ -443,8 +451,20 @@ sub print_detail_abt_rules {
     return $str;
 }
 
+=head2 copy_nuc_rules_data
+Title     : copy_nuc_rules_data
+Usage     : $obj->copy_nuc_rules_data('rule name')
+Function  : get the ktuple data of various property
+Returns   : ref_hash
+Argument  : str
+=cut
+sub copy_nuc_rules_data {
+    my ($self,$property_name) = @_;
 
+    my $refHash = _get_rule_cataloge ({'hash' => $property_name});
+    return $refHash;
 
+}
 =head1 AUTHOR
 
 abuzar hamza, C<< <abuzarhamza at gmail.com> >>
