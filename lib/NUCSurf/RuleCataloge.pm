@@ -375,10 +375,17 @@ sub _get_rule_cataloge {
             my $keyTypeParam = ${ $hash_ref->{$dataType} }[1];
             my $str          = "";
             
+            #check for the property
             if (! exists $ruleCataloge{$propName}) {
                 croak "property $propName does not match the avaible rules/properties" ;
             }
             else {
+
+                #check for the key want to be fetched
+                if ( !(grep {$_ eq $keyTypeParam} qw/simple details data min_value max_value refrence all/) ) {
+                    croak "no such $keyTypeParam key present for the $propName" ;
+                }
+
                 my @keyCategory = ($keyTypeParam);
                 if ($keyTypeParam =~ /^all$/) {
                     @keyCategory = qw/simple details data min_value max_value refrence/; 

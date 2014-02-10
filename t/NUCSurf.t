@@ -1,5 +1,5 @@
 use lib  '/home/abuzar/Desktop/github/NUCSurf/lib';
-use Test::Simple tests => 17;
+use Test::Simple tests => 21;
 
 use NUCSurf;  
 
@@ -108,5 +108,32 @@ $err = $@;
 ok( $err =~/incorrect count of parameter for the function/, 'get_available_rules() expected error for incorrect count of parameter passed');
 
 #test17
-$tmp = $testObj->print_detail_abt_rules({protein_induced_deformability => simple});
+$tmp = $testObj->print_detail_abt_rules({protein_induced_deformability => 'simple'});
 ok( $tmp =~/protein_induced_deformability/, 'print_detail_abt_rules() got the posted responce');
+
+#test18
+$tmp = $testObj->print_detail_abt_rules({protein_induced_deformability => 'data'});
+ok( $tmp =~/gg : 6.1/, 'print_detail_abt_rules() got the posted responce');
+
+#test19
+$tmp = $testObj->print_detail_abt_rules({protein_induced_deformability => 'all'});
+ok( $tmp =~/gg : 6.1/, 'print_detail_abt_rules() got the posted responce');
+
+#test20
+eval {
+	$tmp = $testObj->print_detail_abt_rules({test => 'all'});
+};
+$err = $@;
+ok($err =~/property test does not match the avaible rules\/properties/ ,'print_detail_abt_rules() expected error for incorrect property name parameter');
+
+#test21
+eval {
+	$tmp = $testObj->print_detail_abt_rules({protein_induced_deformability => 'hash'});
+};
+$err = $@;
+ok($err =~/no such hash key present for the protein_induced_deformability/ ,'print_detail_abt_rules() expected error for incorrect data parameter');
+
+#test22
+my $tmp = $testObj->enable_rule('protein_induced_deformability');
+print $tmp->{_2ktuple_rule},"\n";
+ok($tmp == 1,'enable_rule() set the rule');

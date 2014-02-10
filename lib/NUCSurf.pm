@@ -195,10 +195,12 @@ Returns   : none
 Argument  : array
 =cut
 sub enable_rule {    
-    croak "incorrect argument for the function"
-        if (@_ != 1);
+    croak "incorrect count of parameter for the function"
+        if (@_ != 2);
     my ($self,$prop_name) = @_;
 
+    print scalar( @{ $self->{_all_property_rule} } ), "\n";
+    exit; 
     if ( scalar( @{ $self->{_all_property_rule} } ) == 0 ) {
         my @propertyList = NUCSurf::RuleCataloge->available_nuc_rules();
         @{ $self->{_all_property_rule} } = @propertyList;
@@ -210,6 +212,7 @@ sub enable_rule {
     }
     elsif ( !( grep { $_ eq $prop_name } @{ $self->{_enable_rule_list} } ) )  {
         push @{ $self->{_enable_rule_list} }, $prop_name;
+
         #copy the data of the nuc rule data into self
         my $ref_hash = NUCSurf::RuleCataloge->copy_nuc_rules_data($prop_name);
         $self->{$prop_name}{_data}   = { $ref_hash->{$prop_name}{data} };
