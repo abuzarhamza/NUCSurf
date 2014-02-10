@@ -395,7 +395,7 @@ sub _get_rule_cataloge {
                         chop($str);
                     }
                     else {
-                        $str .= "$keyTypeParam : $ruleCataloge{$propName}{$value} \n"; 
+                        $str .= "$value => $ruleCataloge{$propName}{$value} \n"; 
                     }                   
                 }
             }
