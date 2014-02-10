@@ -371,15 +371,15 @@ sub _get_rule_cataloge {
         }
         elsif ($dataType =~ /^string$/) {
             
-            my $propName     = ${ $hash_ref->{'string'} }->[0];
-            my $keyTypeParam = ${ $hash_ref->{'string'} }->[1];
+            my $propName     = ${ $hash_ref->{$dataType} }[0];
+            my $keyTypeParam = ${ $hash_ref->{$dataType} }[1];
             my $str          = "";
             
             if (! exists $ruleCataloge{$propName}) {
                 warn "property $propName does not match the avaible rules/properties" ;
             }
             else {
-                my @keyCategory = qw/$keyTypeParam/;
+                my @keyCategory = ($keyTypeParam);
                 if ($keyTypeParam =~ /^all$/) {
                     @keyCategory = qw/simple details data min_value max_value refrence/; 
                 }
