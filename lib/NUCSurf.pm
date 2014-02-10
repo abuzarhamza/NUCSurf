@@ -177,11 +177,12 @@ sub print_detail_abt_rules {
     if (ref($param) ne 'HASH' ) {
         croak "parameter is not a HASH\n";
     }
-    my ($prop_name) = keys %$param;
-    my $key_for_cat = $param->{$prop_name};
+    my ($propName)  = keys %$param;
+    my $key_for_cat = $param->{$propName};
+
     my $objRule = NUCSurf::RuleCataloge->new();
     my $str     = $objRule->print_detail_abt_rules({
-                                                    $prop_name => $key_for_cat 
+                                                    $propName => $key_for_cat 
                                                     });
     return $str;
 }
