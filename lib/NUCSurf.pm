@@ -194,39 +194,39 @@ Function  : enable the list of rules
 Returns   : none
 Argument  : array
 =cut
-sub enable_rule {    
+sub enable_rule {
     croak "incorrect count of parameter for the function"
         if (@_ != 2);
     my ($self,$prop_name) = @_;
-
-    print scalar( @{ $self->{_all_property_rule} } ), "\n";
-    exit; 
-    if ( scalar( @{ $self->{_all_property_rule} } ) == 0 ) {
+    
+    if (  not defined @{ $self->{_all_property_rule} } ) {
         my @propertyList = NUCSurf::RuleCataloge->available_nuc_rules();
         @{ $self->{_all_property_rule} } = @propertyList;
     }
-
-
+    
     if ( !( grep { $_ eq $prop_name } @{ $self->{_all_property_rule} } )) {
         croak "incorrect argument for the function";
     }
-    elsif ( !( grep { $_ eq $prop_name } @{ $self->{_enable_rule_list} } ) )  {
+
+    if (not defined @{ $self->{_enable_rule_list} } ) {
         push @{ $self->{_enable_rule_list} }, $prop_name;
-
-        #copy the data of the nuc rule data into self
-        my $ref_hash = NUCSurf::RuleCataloge->copy_nuc_rules_data($prop_name);
-        $self->{$prop_name}{_data}   = { $ref_hash->{$prop_name}{data} };
-        $self->{$prop_name}{_ktuple} = { $ref_hash->{$prop_name}{ktuple} };
-
-        if ( $self->{$prop_name}{_ktuple} == 2 ) {
-            push @{ $self->{_2ktuple_rule} },$prop_name;
-        }
-        elsif ( $self->{$prop_name}{_ktuple} == 3 )  {
-            push @{ $self->{_3ktuple_rule} },$prop_name;
-        }
     }
-    else {
+    elsif ( ( grep { $_ eq $prop_name } @{ $self->{_enable_rule_list} } ) )  {
         warn "$prop_name already enabled\n";
+    }
+    else{
+        push @{ $self->{_enable_rule_list} }, $prop_name;
+    }
+            
+    my $ref_hash = NUCSurf::RuleCataloge->copy_nuc_rules_data($prop_name);
+    $self->{$prop_name}{_data}   = { $ref_hash->{$prop_name}{data} };
+    $self->{$prop_name}{_ktuple} = { $ref_hash->{$prop_name}{ktuple} };
+
+    if ( $self->{$prop_name}{_ktuple} == 2 ) {
+        push @{ $self->{_2ktuple_rule} },$prop_name;
+    }
+    elsif ( $self->{$prop_name}{_ktuple} == 3 )  {
+        push @{ $self->{_3ktuple_rule} },$prop_name;
     }
 
     return $self;
