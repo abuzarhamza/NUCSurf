@@ -376,7 +376,7 @@ sub _get_rule_cataloge {
             my $str          = "";
             
             if (! exists $ruleCataloge{$propName}) {
-                warn "property $propName does not match the avaible rules/properties" ;
+                croak "property $propName does not match the avaible rules/properties" ;
             }
             else {
                 my @keyCategory = ($keyTypeParam);
@@ -389,7 +389,7 @@ sub _get_rule_cataloge {
                         #TODO 
                         #check out the data from key 'data' => {}
                         $str .= "$value  :  "; 
-                        foreach my $nucTuple ( %{ $ruleCataloge{$propName}{$value} }) {
+                        foreach my $nucTuple (keys %{ $ruleCataloge{$propName}{$value} }) {
                             $str .= "$nucTuple : $ruleCataloge{$propName}{$value}{$nucTuple} ,"; 
                         }
                         chop($str);
