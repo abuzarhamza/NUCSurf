@@ -209,6 +209,7 @@ sub enable_rule {
         croak "incorrect property passed as parameter\n";
     }
 
+    #test to check if user has already enable the property
     if (not defined @{ $self->{_enable_rule_list} } ) {
         push @{ $self->{_enable_rule_list} }, $prop_name;
     }
@@ -220,7 +221,6 @@ sub enable_rule {
         push @{ $self->{_enable_rule_list} }, $prop_name;
     }
 
-    #TO DO develop function copy_nuc_rules_data
     if ($pushFlag) {
         my $ref_hash = NUCSurf::RuleCataloge->copy_nuc_rules_data($prop_name);
         $self->{$prop_name}{_ktuple} = $ref_hash->{$prop_name}{ktuple} ;
@@ -250,6 +250,9 @@ Argument  : none
 =cut
 sub get_enable_rules {
     my ($self) = @_;
+    if (not defined @{ $self->{_enable_rule_list} } ) {
+        return qw//;
+    }
     return @{ $self->{_enable_rule_list} };
 }
 
