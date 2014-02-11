@@ -198,6 +198,7 @@ sub enable_rule {
     croak "incorrect count of parameter for the function"
         if (@_ != 2);
     my ($self,$prop_name) = @_;
+    my $pushFlag          = 1;
     
     if (  not defined @{ $self->{_all_property_rule} } ) {
         my @propertyList = NUCSurf::RuleCataloge->available_nuc_rules();
@@ -213,20 +214,27 @@ sub enable_rule {
     }
     elsif ( ( grep { $_ eq $prop_name } @{ $self->{_enable_rule_list} } ) )  {
         warn "$prop_name already enabled\n";
+        $pushFlag = 0;
     }
     else{
         push @{ $self->{_enable_rule_list} }, $prop_name;
     }
-    #TO DO develop function copy_nuc_rules_data
-    my $ref_hash = NUCSurf::RuleCataloge->copy_nuc_rules_data($prop_name);
-    $self->{$prop_name}{_data}   = { $ref_hash->{$prop_name}{data} };
-    $self->{$prop_name}{_ktuple} = { $ref_hash->{$prop_name}{ktuple} };
 
-    if ( $self->{$prop_name}{_ktuple} == 2 ) {
-        push @{ $self->{_2ktuple_rule} },$prop_name;
-    }
-    elsif ( $self->{$prop_name}{_ktuple} == 3 )  {
-        push @{ $self->{_3ktuple_rule} },$prop_name;
+    #TO DO develop function copy_nuc_rules_data
+    if ($pushFlag) {
+        my $ref_hash = NUCSurf::RuleCataloge->copy_nuc_rules_data($prop_name);
+        $self->{$prop_name}{_ktuple} = $ref_hash->{$prop_name}{ktuple} ;
+
+        foreach my $tuple ( keys %{ $ref_hash->{$prop_name}{data} } ) {
+            $self->{$prop_name}{_data}{$tuple} =  $ref_hash->{$prop_name}{data}{$tuple};
+        }
+
+        if ( $self->{$prop_name}{_ktuple} == 2 ) {
+            push @{ $self->{_2ktuple_rule} },$prop_name;
+        }
+        elsif ( $self->{$prop_name}{_ktuple} == 3 )  {
+            push @{ $self->{_3ktuple_rule} },$prop_name;
+        }
     }
 
     return $self;
