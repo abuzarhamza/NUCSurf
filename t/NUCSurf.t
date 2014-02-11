@@ -135,4 +135,5 @@ ok($err =~/no such hash key present for the protein_induced_deformability/ ,'pri
 
 #test22
 my $tmp = $testObj->enable_rule('protein_induced_deformability');
-ok(scalar(@{$testObj->{_2ktuple_rule}}) != 0,'enable_rule() set the rule');
+ok( scalar(@{$testObj->{_2ktuple_rule}}) != 0,'enable_rule() set the rule');
+
