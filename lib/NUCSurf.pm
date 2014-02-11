@@ -102,6 +102,23 @@ sub set_fasta_file_name {
     return $self->{_input_filename};
 }
 
+=head1 get_input_file_name
+Title     : get_input_file_name
+Usage     : $obj->get_input_file_name()
+Function  : return the file name
+Returns   : obj
+Argument  : none
+=cut
+sub get_input_file_name {
+    croak "incorrect count of parameter for the function"
+        if (scalar(@_) != 1);
+
+    if (not defined $_[0]->{_input_filename}) {
+        croak "input file not set";
+    }
+    return $_[0]->{_input_filename};
+}
+
 =head1 set_window_size
 Title     : set_window_size
 Usage     : $obj->set_window_size(5);
@@ -126,6 +143,19 @@ sub set_window_size {
     return $self->{_window_size};
 }
 
+=head1 get_window_size
+Title     : get_window_size
+Usage     : $obj->get_window_size(5);
+Function  : return the window size
+Returns   : obj
+Argument  : none
+=cut
+sub get_window_size {
+    croak "incorrect count of parameter for the function"
+        if (scalar(@_) != 1);
+    return $_[0]->{_window_size};
+}
+
 =head set_output_file_name
 Title     : set_output_file_name
 Usage     : $obj->set_output_file_name("tmp.txt");
@@ -145,6 +175,23 @@ sub set_output_file_name {
 
     $self->{_output_filename} = $output_file;
     return $self->{output_filename};
+}
+
+=head get_output_file_name
+Title     : get_output_file_name
+Usage     : $obj->get_output_file_name();
+Function  : get output file name
+Returns   : str
+Argument  : nones
+=cut
+sub get_output_file_name {
+    croak "incorrect count of parameter for the function"
+        if (scalar(@_) != 1);
+
+    if (not defined $_[0]->{_output_filename}) {
+        croak "output file is not set";
+    }
+    return $_[0]->{output_filename};
 }
 
 =head1 get_available_rules
@@ -255,6 +302,7 @@ sub get_enable_rules {
     }
     return @{ $self->{_enable_rule_list} };
 }
+
 
 =head1 generate_numeric_profile
 Title     : generate_numeric_profile
