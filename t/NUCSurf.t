@@ -7,6 +7,7 @@ use NUCSurf;
 #NEED TO DEVIDE THE TEST INTO DIFFERENT FILE
 
 my $testObj = NUCSurf->new();
+#$testObj->generate_numeric_profile();
 
 #test1
 ok( defined($testObj) && ref $testObj  eq 'NUCSurf',     'NUCSurf->new() works' );
