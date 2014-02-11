@@ -1,7 +1,10 @@
 use lib  '/home/abuzar/Desktop/github/NUCSurf/lib';
-use Test::Simple tests => 21;
+use Test::Simple tests => 24;
 
 use NUCSurf;  
+
+#TO DO
+#NEED TO DEVIDE THE TEST INTO DIFFERENT FILE
 
 my $testObj = NUCSurf->new();
 
@@ -134,6 +137,15 @@ $err = $@;
 ok($err =~/no such hash key present for the protein_induced_deformability/ ,'print_detail_abt_rules() expected error for incorrect data parameter');
 
 #test22
-my $tmp = $testObj->enable_rule('protein_induced_deformability');
+$tmp = $testObj->enable_rule('protein_induced_deformability');
 ok( scalar(@{$testObj->{_2ktuple_rule}}) != 0,'enable_rule() set the rule');
 
+#test23
+ok($testObj->{protein_induced_deformability}{_ktuple} == 2 , 'enable_rule() expected ktuple value i.e 2');
+
+#test24
+ok($testObj->{protein_induced_deformability}{_data}{aa} == 2.9, 'enable_rule() expected tuple value tuple aa');
+
+#test25
+@tmp = $testObj->get_enable_rules();
+ok( scalar(@tmp) == 1, 'get_enable_rules()');
