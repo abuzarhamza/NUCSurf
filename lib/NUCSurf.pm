@@ -314,9 +314,13 @@ Argument  : none
 sub generate_numeric_profile {
     my ($self) = @_;
 
-    if (-e "$self->{_input_filename}" ) {
-         croak "file cannot be found $self->{_input_filename}\n";
-    }
+    #TO DO CHECK THE FILE
+    #TO DO CHECK THE OUTPUT FILE
+    #NEED TO TEST WITH CLOSURE
+    my $callbackCheck1 = sub {$self->get_input_file_name()};
+    #my $callbackCheck2 = $self->get_output_file_name() ;
+    print "\$callbackCheck1 : $callbackCheck1\n";
+
 
     if ( $self->{_input_format} =~ /^fasta$/o ) {
         local $/ = "\n>";
