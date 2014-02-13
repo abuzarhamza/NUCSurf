@@ -97,6 +97,9 @@ sub set_fasta_file_name {
     if (ref($input_file) ne '' ) {
         croak "provide parameter is not string\n";
     }
+    if (! (-e "$input_file" ) ) {
+        croak "$input_file cannot be found\n";
+    }
     $self->{_input_filename} = $input_file;
     $self->{_input_format}   = 'fasta';
     return $self->{_input_filename};
@@ -172,7 +175,9 @@ sub set_output_file_name {
     if (ref($output_file) ne '' ) {
         croak "provide parameter is not string\n";
     }
-
+    if (-e "$output_file") {
+        warn "output file will be over written $output_file\n";
+    }
     $self->{_output_filename} = $output_file;
     return $self->{output_filename};
 }
@@ -298,7 +303,8 @@ Argument  : none
 sub get_enable_rules {
     my ($self) = @_;
     if (not defined @{ $self->{_enable_rule_list} } ) {
-        return qw//;
+        my @tmp = ();
+        return @tmp;
     }
     return @{ $self->{_enable_rule_list} };
 }
@@ -320,23 +326,15 @@ sub generate_numeric_profile {
     if ($@) {
         croak "set the input file name\n";
     }
-    #this validation should go in set_input_file_name
-    # elsif (! (-e $self->get_input_file_name()) )  {
-    #     croak "file cant be found ", $self->get_input_file_name() , "\n";
-    # }
 
     eval {
         $self->get_output_file_name();
     };
     if ($@) {
-        croak "set the output file rule\n";
+        croak "set the output file\n";
     }
-    #this validation shold go set_output file name
-    # elsif (-e $self->get_input_file_name ) {
-    #     warn "file already present . Program will over write it."
-    # }
 
-    if (scalar($self->get_enable_rules()) == 0 ) {
+    if ( scalar($self->get_enable_rules()) == 0 ) {
         croak "no NUCSurf property is enabled\n";
     }
 
