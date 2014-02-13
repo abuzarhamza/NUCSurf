@@ -314,13 +314,31 @@ Argument  : none
 sub generate_numeric_profile {
     my ($self) = @_;
 
-    #TO DO CHECK THE FILE
-    #TO DO CHECK THE OUTPUT FILE
-    #NEED TO TEST WITH CLOSURE
-    my $callbackCheck1 = sub {$self->get_input_file_name()};
-    #my $callbackCheck2 = $self->get_output_file_name() ;
-    print "\$callbackCheck1 : $callbackCheck1\n";
+    eval {
+        $self->get_input_file_name();
+    };
+    if ($@) {
+        croak "set the input file name\n";
+    }
+    #this validation should go in set_input_file_name
+    # elsif (! (-e $self->get_input_file_name()) )  {
+    #     croak "file cant be found ", $self->get_input_file_name() , "\n";
+    # }
 
+    eval {
+        $self->get_output_file_name();
+    };
+    if ($@) {
+        croak "set the output file rule\n";
+    }
+    #this validation shold go set_output file name
+    # elsif (-e $self->get_input_file_name ) {
+    #     warn "file already present . Program will over write it."
+    # }
+
+    if (scalar($self->get_enable_rules()) == 0 ) {
+        croak "no NUCSurf property is enabled\n";
+    }
 
     if ( $self->{_input_format} =~ /^fasta$/o ) {
         local $/ = "\n>";
