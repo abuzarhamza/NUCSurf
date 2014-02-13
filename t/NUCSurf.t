@@ -1,10 +1,41 @@
 use lib  '/home/abuzar/Desktop/github/NUCSurf/lib';
-use Test::Simple tests => 24;
+use Test::Simple tests => 21;
 
-use NUCSurf;  
+use NUCSurf;
+use Carp;
 
-#TO DO
-#NEED TO DEVIDE THE TEST INTO DIFFERENT FILE
+no warnings;
+
+local *NUCSurf::set_fasta_file_name = sub {
+    croak "incorrect count of parameter for the function"
+        if (scalar(@_) != 2);
+
+    my ($self,$input_file) = @_;
+    if (ref($input_file) ne '' ) {
+        croak "provide parameter is not string\n";
+    }
+    $self->{_input_filename} = $input_file;
+    $self->{_input_format}   = 'fasta';
+    return $self->{_input_filename};
+};
+
+
+local *NUCSurf::set_output_file_name = sub {
+    croak "incorrect count of parameter for the function"
+        if (scalar(@_) != 2);
+
+    my ($self,$output_file) = @_;
+
+    if (ref($output_file) ne '' ) {
+        croak "provide parameter is not string\n";
+    }
+
+    $self->{_output_filename} = $output_file;
+    return $self->{output_filename};
+
+};
+
+use warnings;
 
 my $testObj = NUCSurf->new();
 #$testObj->generate_numeric_profile();
@@ -12,32 +43,7 @@ my $testObj = NUCSurf->new();
 #test1
 ok( defined($testObj) && ref $testObj  eq 'NUCSurf',     'NUCSurf->new() works' );
 
-#test2
 my $fileName = $testObj->set_fasta_file_name('test.fa');
-ok( $fileName eq 'test.fa', 'set_fasta_file_name() get');
-
-#test3
-my @tmp = ();
-eval {
-    $testObj->set_fasta_file_name(\@tmp);
-};
-my $err = $@;
-ok( $err =~/provide parameter is not string/, 'set_fasta_file_name() expected error for passed array ref parameter');
-
-#test4
-my %tmp = ();
-eval {
-    $testObj->set_fasta_file_name(\%tmp);
-};
-$err = $@;
-ok( $err =~/provide parameter is not string/, 'set_fasta_file_name() expected error flag for passed hash ref parameter');
-
-#test5
-eval {
-    $testObj->set_fasta_file_name('test.fa','test.fa');
-};
-$err = $@;
-ok( $err =~/incorrect count of parameter for the function/, 'set_fasta_file_name() expected error for passed argument count');
 
 #test6
 my $windowSize = $testObj->set_window_size(10);
