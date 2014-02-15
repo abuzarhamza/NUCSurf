@@ -22,8 +22,8 @@ our $VERSION = '0.01';
 require Exporter;
 
 our @ISA         = qw(Exporter);
-our %EXPORT_TAGS = ( 'all' => [ qw() ] );
-our @EXPORT_OK   = ( @{ $EXPORT_TAGS{'all'} } );
+our %EXPORT_TAGS = ();
+our @EXPORT_OK   = ();
 our @EXPORT      = qw();
 
 =head1 SYNOPSIS
@@ -50,47 +50,142 @@ sub new {
 }
 
 
-=head2 numeric_profiler
-Title     : numeric_profiler
-Usage     : $obj->numeric_profiler()
+=head2 numeric_profiler_2ktuple
+Title     : numeric_profiler_2ktuple
+Usage     : $obj->numeric_profiler_2ktuple()
 Function  : get description or other value for the specified property
 Returns   : none
 Argument  : 
 =cut
+sub numeric_profiler_2ktuple {
 
-sub numeric_profiler {
-    my ($self,$hash_self) = @_;
+    my ($self,$hash_ref,$seqence) = @_;
 
-    my $seq_len = length(${$seq_ref});
-    #property list aw aw aw wa wa wa aa aw ww we
-    #tuple created substr,
+    my $windowSize = $hash_ref->{_window_size};
+    my %tempCal    = ();
+    my %dataCal    = ();
 
-    
-    #tuple create aw bw 
-    #poperty list
-    
-    
-    if ( scalar( @{$hash_self->{_2ktuple_rule} } ) > 1 ) {
-		my ($offset,$length) = 0,2;
-        #foreach my $property_rule (q//) {
-            #for (substr(${$seq_ref},)) {
-				#if () {
-				#}
-				#else {
-				#}
-            #}
-        #}
+    while ( length($seqence) != 0 &&
+            length($seqence) != 1
+    ) {
+
+
+        my $tuple = substr($seqence,0,2,"");
+        #$tuple    =~tr/A-Z/a-z/;
+
+        foreach my $propertyName ( @{ $hash_ref->{_2ktuple_rule} } ) {
+            if ( ! (exists $dataCal{$propertyName}) ) {
+                $dataCal{$propertyName} = "";
+            }
+
+            # if (! (exists $dataCal{$propertyName}) ) {
+            #     $dataCal{$propertyName} = "";
+            # }
+
+            # if ($windowSize == 1) {
+
+            #     $dataCal{$propertyName} = $hash_ref{$propertyName}{data}{$tuple} . ","
+            #             if (exists $hash_ref{$propertyName}{data}{$tuple});
+            #     $dataCal{$propertyName} = 0 . ","
+            #             if (! exists $hash_ref{$propertyName}{data}{$tuple} ) ;
+            #             #this bracket made me waste 1/2 an hour
+            # }
+            # else {
+
+            #     if ( exists $hash_ref{$propertyName}{data}{$tuple} ) {
+            #         push @{$tempCal{$propertyName}},$hash_ref{$propertyName}{data}{$tuple};
+            #     }
+            #     else {
+            #         push @{$tempCal{$propertyName}},0;
+            #     }
+
+            #     if ( scalar(@{$tempCal{$propertyName}}) != $windowSize ) {
+            #         my $strExpr = join ("+",@{$tempCal{$propertyName}});
+            #         my $sum  = eval($strExpr);
+            #         eval {$sum = $sum/$windowSize;};
+            #         my $err = $@;
+            #         if ($err eq "") {
+            #             $dataCal{$propertyName} = "$sum".",";
+            #         }
+            #         else {
+            #             $dataCal{$propertyName} = "0".",";
+            #         }
+
+            #         pop @{ $dataCal{$propertyName} };
+            #     }
+            # }
+        }
     }
-    elsif ( scalar( @{$hash_self->{_3ktuple_rule} }) > 1 ) {
-		my ($offset,$length) = 0,3;
-        #foreach () {
-            #for (substr()) {
-            #}
-        #}
-    }
-
-    return $nuc_prof_str;
+    return \%dataCal;
 }
+
+=head2 numeric_profiler_3ktuple
+Title     : numeric_profiler_3ktuple
+Usage     : $obj->numeric_profiler_3ktuple()
+Function  : get description or other value for the specified property
+Returns   : none
+Argument  : 
+=cut
+# sub numeric_profiler_3ktuple {
+#     my ($self,$hash_ref,$seqence) = @_;
+    
+#     my $windowSize = $hash_ref->{_window_size};
+#     my %tempCal    = ();
+#     #my %dataCal    = ();
+
+#     while ( (length($seqence) != 0 &&
+#             (length($seqence) != 1 &&
+#             (length($seqence) != 2    
+#     ) {
+
+#         if (! exist $hash_ref->{$propertyName}{_nuc_prof}) {
+#             $hash_ref->{$propertyName}{_nuc_prof} = "";
+#         }  
+#         my $tuple = substr($seqence,0,3,"");
+#         $tuple =~ tr/A-Z/a-z/;
+
+#         foreach my $propertyName ( @{$hash_ref->{_3ktuple_rule}} ) {
+
+#             if (! (exist $dataCal{$propertyName}) ) {
+#                 $dataCal{$propertyName} = "";
+#             }
+
+#             if ($windowSize == 1) {
+
+#                 $hash_ref->{$propertyName}{_nuc_prof} = $hash_ref{$propertyName}{data}{$tuple} . ","
+#                         if (exists $hash_ref{$propertyName}{data}{$tuple});
+#                 $hash_ref->{$propertyName}{_nuc_prof} = 0 . ","
+#                         if (! (exists $hash_ref{$propertyName}{data}{$tuple}) ;
+#             }
+#             else {
+
+#                 if ( exist $hash_ref{$propertyName}{data}{$tuple} ) {
+#                     push @{$tempCal{$propertyName}},$hash_ref{$propertyName}{data}{$tuple};
+#                 }
+#                 else {
+#                     push @{$tempCal{$propertyName}},0;
+#                 }
+
+#                 if ( scalar( @{$tempCal{$propertyName}} ) != $windowSize ) {
+#                     my $strExpr = join ("+",@{$tempCal{$propertyName}});
+#                     my $sum  = eval($strExpr);
+#                     eval {$sum = $sum/$windowSize;};
+#                     my $err = $@;
+#                     if ($err eq "") {
+#                         $hash_ref->{$propertyName}{_nuc_prof} = $sum.",";
+#                     }
+#                     else {
+#                         $hash_ref->{$propertyName}{_nuc_prof} = 0,",";
+#                     }
+
+#                     pop @{$tempCal{$propertyName}};
+#                 }
+#             }
+#         }
+#     }
+
+#     return $self;
+# }
 
 =head1 AUTHOR
 

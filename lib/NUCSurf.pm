@@ -339,9 +339,11 @@ sub generate_numeric_profile {
     }
 
     if ( $self->{_input_format} =~ /^fasta$/o ) {
+
         local $/ = "\n>";
-        open (RF1,"$self->{_input_filename}") or die "cant open the file : $self->{_input_filename}";
-        while(<RF1>) {
+
+        open (my $rf ,"$self->{_input_filename}") or die "cant open the file : $self->{_input_filename}";
+        while(<$rf>) {
             #call Fasta to get the id and other seq.
             my $fasta = FASTAParse->new();
             $fasta->load_FASTA( fasta => $_ );
@@ -353,9 +355,21 @@ sub generate_numeric_profile {
             undef $fasta;
             my $windowSize = $self->{_window_size};
             my $seq        = NUCSurf::NumericProfiler->new();
-            my $nucSeq     = $seq->numeric_profiler(\$sequence,$self);
+
+            if (defined ($self->{_2ktuple_rule}) &&
+                scalar( @{$self->{_2ktuple_rule}} ) > 1
+            ) {
+               $self = $seq->numeric_profiler_3ktuple($self,$sequence); 
+            }
+
+            if (defined ($self->{_3ktuple_rule}) &&
+                scalar( @{$self->{_3ktuple_rule}} ) > 1
+            ) {
+                $self = $seq->numeric_profiler_3ktuple($self,$sequence);
+            }
+            
         }
-        close RF1;
+        close $rf;
     }
 
 }
