@@ -44,42 +44,29 @@ if you don't export anything, such as for a purely object-oriented module.
 
 =cut
 
-our @ISA = qw(Exporter);
+our @ISA         = qw(Exporter);
 our %EXPORT_TAGS = ( 'all' => [ qw() ] );
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-our @EXPORT = qw();
+our @EXPORT_OK   = ( @{ $EXPORT_TAGS{'all'} } );
+our @EXPORT      = qw();
 
 
 sub new {
     my ($class) = shift;
-    my $self    = {};
-    bless $self,$class;
-    $self->_initialize();
-    return $self;
-}
-
-=head _initialize
-Title     : _initialize
-Usage     : 
-Function  : intialize the new object.
-Returns   : 
-Argument  : 
-=cut
-sub _initialize {
-    my ($self) = @_;
-    $self->{
-        _input_format                    => "",
-        _input_filename                  => "",
-        _output_filename                 => "",
-        _id                              => [],
-        _numeris_seq                     => [],
-        _seq_detail                      => [],
-        _enable_rule_list                => [],
-        _all_property_rule               => [],
-        _2ktuple_rule                    => [],
-        _3ktuple_rule                    => [],  
-        _window_size                     => 5
+    my $self    = {
+                    _input_format                    => "",
+                    _input_filename                  => "",
+                    _output_filename                 => "",
+                    _id                              => [],
+                    _numeris_seq                     => [],
+                    _seq_detail                      => [],
+                    _enable_rule_list                => [],
+                    _all_property_rule               => [],
+                    _2ktuple_rule                    => [],
+                    _3ktuple_rule                    => [],
+                    _window_size                     => 5
     };
+    bless $self,$class;
+    return $self;
 }
 
 =head1 set_input_file_name
@@ -357,13 +344,13 @@ sub generate_numeric_profile {
             my $seq        = NUCSurf::NumericProfiler->new();
 
             if (defined ($self->{_2ktuple_rule}) &&
-                scalar( @{$self->{_2ktuple_rule}} ) > 1
+                scalar( @{$self->{_2ktuple_rule}} ) >= 1
             ) {
-               $self = $seq->numeric_profiler_3ktuple($self,$sequence); 
+               $self = $seq->numeric_profiler_2ktuple($self,$sequence);
             }
 
             if (defined ($self->{_3ktuple_rule}) &&
-                scalar( @{$self->{_3ktuple_rule}} ) > 1
+                scalar( @{$self->{_3ktuple_rule}} ) >= 1
             ) {
                 $self = $seq->numeric_profiler_3ktuple($self,$sequence);
             }
