@@ -98,7 +98,7 @@ sub _get_rule_cataloge {
                             'max_value' => '2',
                             'refrence'  => 'NA',
                             'so_no'     => 4
-        },        
+        },
         'at_rule' => {
                             'simple'    => 'at_rule',
                             'ktuple'    => 2,
