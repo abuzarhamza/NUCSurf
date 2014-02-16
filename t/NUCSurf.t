@@ -1,5 +1,5 @@
 use lib  '/home/abuzar/Desktop/github/NUCSurf/lib';
-use Test::Simple tests => 21;
+use Test::Simple tests => 22;
 
 use NUCSurf;
 use Carp;
@@ -43,10 +43,10 @@ my $testObj = NUCSurf->new();
 #test1
 ok( defined($testObj) && ref $testObj  eq 'NUCSurf',     'NUCSurf->new() works' );
 
-my $fileName = $testObj->set_fasta_file_name('test.fa');
-
+my $windowSize = $testObj->get_window_size();
+ok ($windowSize == 5, 'get the default value of the window size') ;
 #test6
-my $windowSize = $testObj->set_window_size(10);
+$windowSize = $testObj->set_window_size(10);
 ok( $windowSize == 10 , 'set_window_size() set value for the window');
 
 
@@ -143,6 +143,7 @@ eval {
 $err = $@;
 ok($err =~/no such hash key present for the protein_induced_deformability/ ,'print_detail_abt_rules() expected error for incorrect data parameter');
 
+my $fileName = $testObj->set_fasta_file_name('test.fa');
 #test22
 $tmp = $testObj->enable_rule('protein_induced_deformability');
 ok( scalar(@{$testObj->{_2ktuple_rule}}) != 0,'enable_rule() set the rule');
