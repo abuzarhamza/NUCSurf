@@ -61,62 +61,61 @@ sub numeric_profiler_2ktuple {
 
     my ($self,$hash_ref,$seqence) = @_;
 
-    my $windowSize = $hash_ref->{_window_size};
     my %tempCal    = ();
-    my %dataCal    = ();
+    my $windowSize = $hash_ref->{_window_size};
 
     while ( length($seqence) != 0 &&
             length($seqence) != 1
     ) {
 
-
         my $tuple = substr($seqence,0,2,"");
-        #$tuple    =~tr/A-Z/a-z/;
+        $tuple    =~tr/A-Z/a-z/;
 
         foreach my $propertyName ( @{ $hash_ref->{_2ktuple_rule} } ) {
-            if ( ! (exists $dataCal{$propertyName}) ) {
-                $dataCal{$propertyName} = "";
+
+            if ( ! (exists $hash_ref->{$propertyName}) ) {
+                $hash_ref->{$propertyName} = "";
             }
 
-            # if (! (exists $dataCal{$propertyName}) ) {
-            #     $dataCal{$propertyName} = "";
-            # }
+            if ( ! (exists $hash_ref->{$propertyName}) ) {
+                $hash_ref->{$propertyName} = "";
+            }
 
-            # if ($windowSize == 1) {
+            if ($windowSize == 1) {
+                $hash_ref->{$propertyName} = $hash_ref->{$propertyName}{data}{$tuple} . ","
+                        if (exists $hash_ref->{$propertyName}{data}{$tuple});
+                $hash_ref->{$propertyName} = "0" . ","
+                        if (! exists $hash_ref->{$propertyName}{data}{$tuple} ) ;
+                        #this bracket made me waste 1/2 an hour
+            }
+            else {
 
-            #     $dataCal{$propertyName} = $hash_ref{$propertyName}{data}{$tuple} . ","
-            #             if (exists $hash_ref{$propertyName}{data}{$tuple});
-            #     $dataCal{$propertyName} = 0 . ","
-            #             if (! exists $hash_ref{$propertyName}{data}{$tuple} ) ;
-            #             #this bracket made me waste 1/2 an hour
-            # }
-            # else {
+                if ( exists $hash_ref->{$propertyName}{data}{$tuple} ) {
+                    push @{ $tempCal{$propertyName} },
+                        $hash_ref->{$propertyName}{data}{$tuple};
+                }
+                else {
+                    push @{ $tempCal{$propertyName} },0;
+                }
 
-            #     if ( exists $hash_ref{$propertyName}{data}{$tuple} ) {
-            #         push @{$tempCal{$propertyName}},$hash_ref{$propertyName}{data}{$tuple};
-            #     }
-            #     else {
-            #         push @{$tempCal{$propertyName}},0;
-            #     }
+                if ( scalar(@{$tempCal{$propertyName}}) != $windowSize ) {
+                    my $strExpr = join ("+",@{ $tempCal{$propertyName} });
+                    my $sum  = eval($strExpr);
+                    eval {$sum = $sum/$windowSize;};
+                    my $err = $@;
+                    if ($err eq "") {
+                        $hash_ref->{$propertyName} = "$sum".",";
+                    }
+                    else {
+                        $hash_ref->{$propertyName} = "0".",";
+                    }
 
-            #     if ( scalar(@{$tempCal{$propertyName}}) != $windowSize ) {
-            #         my $strExpr = join ("+",@{$tempCal{$propertyName}});
-            #         my $sum  = eval($strExpr);
-            #         eval {$sum = $sum/$windowSize;};
-            #         my $err = $@;
-            #         if ($err eq "") {
-            #             $dataCal{$propertyName} = "$sum".",";
-            #         }
-            #         else {
-            #             $dataCal{$propertyName} = "0".",";
-            #         }
-
-            #         pop @{ $dataCal{$propertyName} };
-            #     }
-            # }
+                    pop @{ $hash_ref->{$propertyName} };
+                }
+            }
         }
     }
-    return \%dataCal;
+    return $hash_ref;
 }
 
 =head2 numeric_profiler_3ktuple
