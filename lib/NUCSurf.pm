@@ -345,7 +345,7 @@ sub generate_numeric_profile {
             my %dataCal    = ();
 
             push @{ $self->{_id} },$id;
-            $self->{$id}{_descrption} = join("|",@descriptors);
+            $self->{$id}{_description} = join("|",@descriptors);
 
             if (defined ($self->{_2ktuple_rule}) &&
                 scalar( @{$self->{_2ktuple_rule}} ) >= 1
@@ -359,7 +359,7 @@ sub generate_numeric_profile {
                 scalar( @{$self->{_3ktuple_rule}} ) >= 1
             ) {
                 my $refHash = $seq->numeric_profiler_3ktuple($self,$sequence);
-                my %dataCal = %$refHash;
+                %dataCal = %$refHash;
             }
 
             foreach my $propertyName (keys %dataCal) {
@@ -372,6 +372,8 @@ sub generate_numeric_profile {
         }
         close $rf;
     }
+
+    return $self;
 
 }
 
@@ -389,18 +391,25 @@ sub print_numeric_profile {
     my $strReturn = "";
     $strReturn    = "#".localtime."\n";
 
+    print Dumper ($self);
+
     foreach my $id ( @{ $self->{_id} } ) {
-        $strReturn .= ">$id|$self->{_id}{_descrption}\n";
+
+        $strReturn .= ">$id|" . $self->{$id}{_description}  . "\n";
+
         foreach my $propertyName (@{ $self->{_enable_rule_list} }) {
-            $strReturn .= "#${propertyName}\n";
-            while ($self->{$id}{$propertyName}{_nuc_prof} =~ /.{0,180}/g) {
+
+            $strReturn .= "#$propertyName\n";
+
+            print $self->{$id}{$propertyName}{_nuc_prof} , "\n";
+            while ( $self->{$id}{$propertyName}{_nuc_prof} =~ /.{0,180}/g ) {
                 $strReturn .= "$_\n";
             }
 
         }
 
     }
-
+    $strReturn    = "#EOF\n";
     return $strReturn;
 }
 

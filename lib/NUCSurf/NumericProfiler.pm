@@ -79,17 +79,17 @@ sub numeric_profiler_2ktuple {
             }
 
             if ($windowSize == 1) {
-                $dataCal{$propertyName} = $hash_ref->{$propertyName}{data}{$tuple} . ","
-                        if (exists $hash_ref->{$propertyName}{data}{$tuple});
-                $dataCal{$propertyName} = "0" . ","
-                        if (! exists $hash_ref->{$propertyName}{data}{$tuple} ) ;
+                $dataCal{$propertyName} = $hash_ref->{$propertyName}{_data}{$tuple} . " "
+                        if (exists $hash_ref->{$propertyName}{_data}{$tuple});
+                $dataCal{$propertyName} = "0" . " "
+                        if (! exists $hash_ref->{$propertyName}{_data}{$tuple} ) ;
                         #this bracket made me waste 1/2 an hour
             }
             else {
 
-                if ( exists $hash_ref->{$propertyName}{data}{$tuple} ) {
+                if ( exists $hash_ref->{$propertyName}{_data}{$tuple} ) {
                     push @{ $tempCal{$propertyName} },
-                        $hash_ref->{$propertyName}{data}{$tuple};
+                        $hash_ref->{$propertyName}{_data}{$tuple};
                 }
                 else {
                     push @{ $tempCal{$propertyName} },0;
@@ -104,10 +104,10 @@ sub numeric_profiler_2ktuple {
                     };
                     my $err = $@;
                     if ($err eq "") {
-                        $dataCal{$propertyName} = "$sum"." ";
+                        $dataCal{$propertyName} .= "$sum"." ";
                     }
                     else {
-                        $dataCal{$propertyName} = "0"." ";
+                        $dataCal{$propertyName} .= "0"." ";
                     }
                     pop @{$tempCal{$propertyName}};
                 }
@@ -147,17 +147,17 @@ sub numeric_profiler_3ktuple {
             }
 
             if ($windowSize == 1) {
-                $dataCal{$propertyName} = $hash_ref->{$propertyName}{data}{$tuple} . ","
-                        if (exists $hash_ref->{$propertyName}{data}{$tuple});
+                $dataCal{$propertyName} = $hash_ref->{$propertyName}{_data}{$tuple} . ","
+                        if (exists $hash_ref->{$propertyName}{_data}{$tuple});
                 $dataCal{$propertyName} = "0" . ","
-                        if (! exists $hash_ref->{$propertyName}{data}{$tuple} ) ;
+                        if (! exists $hash_ref->{$propertyName}{_data}{$tuple} ) ;
                         #this bracket made me waste 1/2 an hour
             }
             else {
 
-                if ( exists $hash_ref->{$propertyName}{data}{$tuple} ) {
+                if ( exists $hash_ref->{$propertyName}{_data}{$tuple} ) {
                     push @{ $tempCal{$propertyName} },
-                        $hash_ref->{$propertyName}{data}{$tuple};
+                        $hash_ref->{$propertyName}{_data}{$tuple};
                 }
                 else {
                     push @{ $tempCal{$propertyName} },0;
@@ -172,10 +172,10 @@ sub numeric_profiler_3ktuple {
                     };
                     my $err = $@;
                     if ($err eq "") {
-                        $dataCal{$propertyName} = "$sum"." ";
+                        $dataCal{$propertyName} .= "$sum"." ";
                     }
                     else {
-                        $dataCal{$propertyName} = "0"." ";
+                        $dataCal{$propertyName} .= "0"." ";
                     }
 
                     pop @{ $tempCal{$propertyName} };

@@ -3,6 +3,7 @@ use Test::Simple tests => 1;
 
 use NUCSurf;
 use NUCSurf::NumericProfiler;
+use Data::Dumper;
 
 use Carp;
 #use NUCSurf::NumericProfiler;
@@ -46,18 +47,29 @@ local *NUCSurf::generate_numeric_profile = sub {
         my $windowSize = $self->{_window_size};
         my $seq        = NUCSurf::NumericProfiler->new();
 
-        if ( defined ($self->{_2ktuple_rule}) &&
-            scalar( @{$self->{_2ktuple_rule}} ) >= 1
-        ) {
-            print "\$windowSize : $windowSize\n";
-            $self = $seq->numeric_profiler_2ktuple($self,$sequence); 
-        }
+        push @{ $self->{_id} },'idTest1';
+            $self->{$id}{_descrption} = join("|",'description');
 
-        if (defined ($self->{_3ktuple_rule}) &&
-            scalar( @{$self->{_3ktuple_rule}} ) >= 1
-        ) {
-            $self = $seq->numeric_profiler_3ktuple($self,$sequence);
-        }
+            if (defined ($self->{_2ktuple_rule}) &&
+                scalar( @{$self->{_2ktuple_rule}} ) >= 1
+            ) {
+               my $refHash = $seq->numeric_profiler_2ktuple($self,$sequence);
+               %dataCal = %$refHash;
+            }
+
+            if (defined ($self->{_3ktuple_rule}) &&
+                scalar( @{$self->{_3ktuple_rule}} ) >= 1
+            ) {
+                my $refHash = $seq->numeric_profiler_3ktuple($self,$sequence);
+                %dataCal = %$refHash;
+            }
+
+            foreach my $propertyName (keys %dataCal) {
+                if (exists $dataCal{$propertyName} ) {
+                    $self->{$id}{$propertyName}{_nuc_prof} =  $dataCal{$propertyName};
+                }
+            }
+            print Dumper (\%dataCal);
             
     }
     return $self;
@@ -68,7 +80,8 @@ use warnings;
 
 my $testObj = NUCSurf->new();
 print $testObj->get_window_size();
-exit;
 my $fileName = $testObj->set_fasta_file_name('test.fa');
 $testObj->enable_rule('protein_induced_deformability');
 $testObj->generate_numeric_profile();
+
+print ">>>>", $testObj->print_numeric_profile();
