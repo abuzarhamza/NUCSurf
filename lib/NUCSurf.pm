@@ -57,7 +57,7 @@ sub new {
                     _input_filename                  => "",
                     _output_filename                 => "",
                     _id                              => [],
-                    _numeris_seq                     => [],
+                    _numeric_seq                     => [],
                     _seq_detail                      => [],
                     _enable_rule_list                => [],
                     _all_property_rule               => [],
@@ -342,23 +342,66 @@ sub generate_numeric_profile {
             undef $fasta;
             my $windowSize = $self->{_window_size};
             my $seq        = NUCSurf::NumericProfiler->new();
+            my %dataCal    = ();
+
+            push @{ $self->{_id} },$id;
+            $self->{$id}{_descrption} = join("|",@descriptors);
 
             if (defined ($self->{_2ktuple_rule}) &&
                 scalar( @{$self->{_2ktuple_rule}} ) >= 1
             ) {
-               $self = $seq->numeric_profiler_2ktuple($self,$sequence);
+               my $refHash = $seq->numeric_profiler_2ktuple($self,$sequence);
+               %dataCal = %$refHash;
+
             }
 
             if (defined ($self->{_3ktuple_rule}) &&
                 scalar( @{$self->{_3ktuple_rule}} ) >= 1
             ) {
-                $self = $seq->numeric_profiler_3ktuple($self,$sequence);
+                my $refHash = $seq->numeric_profiler_3ktuple($self,$sequence);
+                my %dataCal = %$refHash;
             }
+
+            foreach my $propertyName (keys %dataCal) {
+                if (exists $dataCal{$propertyName} ) {
+                    $self->{$id}{$propertyName}{_nuc_prof} =  $dataCal{$propertyName};
+                }
+            }
+
             
         }
         close $rf;
     }
 
+}
+
+
+=head1 print_numeric_profile
+Title     : print_numeric_profile
+Usage     : $obj->print_numeric_profile();
+Function  : print the numeric profile of the sequence
+Returns   : $self
+Argument  : none
+=cut
+sub print_numeric_profile {
+    my ($self) =  @_;
+
+    my $strReturn = "";
+    $strReturn    = "#".localtime."\n";
+
+    foreach my $id ( @{ $self->{_id} } ) {
+        $strReturn .= ">$id|$self->{_id}{_descrption}\n";
+        foreach my $propertyName (@{ $self->{_enable_rule_list} }) {
+            $strReturn .= "#${propertyName}\n";
+            while ($self->{$id}{$propertyName}{_nuc_prof} =~ /.{0,180}/g) {
+                $strReturn .= "$_\n";
+            }
+
+        }
+
+    }
+
+    return $strReturn;
 }
 
 =head1 AUTHOR
