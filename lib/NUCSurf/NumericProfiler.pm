@@ -79,9 +79,9 @@ sub numeric_profiler_2ktuple {
             }
 
             if ($windowSize == 1) {
-                $dataCal{$propertyName} = $hash_ref->{$propertyName}{_data}{$tuple} . " "
+                $dataCal{$propertyName} = sprintf("%.3f",$hash_ref->{$propertyName}{_data}{$tuple}) . " "
                         if (exists $hash_ref->{$propertyName}{_data}{$tuple});
-                $dataCal{$propertyName} = "0" . " "
+                $dataCal{$propertyName} = "0.000" . " "
                         if (! exists $hash_ref->{$propertyName}{_data}{$tuple} ) ;
                         #this bracket made me waste 1/2 an hour
             }
@@ -147,9 +147,9 @@ sub numeric_profiler_3ktuple {
             }
 
             if ($windowSize == 1) {
-                $dataCal{$propertyName} = $hash_ref->{$propertyName}{_data}{$tuple} . ","
+                $dataCal{$propertyName} = sprintf(".3f%",$hash_ref->{$propertyName}{_data}{$tuple}) . ","
                         if (exists $hash_ref->{$propertyName}{_data}{$tuple});
-                $dataCal{$propertyName} = "0" . ","
+                $dataCal{$propertyName} = "0.000" . ","
                         if (! exists $hash_ref->{$propertyName}{_data}{$tuple} ) ;
                         #this bracket made me waste 1/2 an hour
             }
