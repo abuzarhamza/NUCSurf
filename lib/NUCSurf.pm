@@ -391,25 +391,21 @@ sub print_numeric_profile {
     my $strReturn = "";
     $strReturn    = "#".localtime."\n";
 
-    print Dumper ($self);
-
     foreach my $id ( @{ $self->{_id} } ) {
-
+        print "$id\n";
         $strReturn .= ">$id|" . $self->{$id}{_description}  . "\n";
 
-        foreach my $propertyName (@{ $self->{_enable_rule_list} }) {
+         foreach my $propertyName (@{ $self->{_enable_rule_list} }) {
 
             $strReturn .= "#$propertyName\n";
-
-            print $self->{$id}{$propertyName}{_nuc_prof} , "\n";
-            while ( $self->{$id}{$propertyName}{_nuc_prof} =~ /.{0,180}/g ) {
-                $strReturn .= "$_\n";
+            while ( $self->{$id}{$propertyName}{_nuc_prof} =~ m/(.{0,180})/g ) {
+                $strReturn .= "$1\n";
             }
 
         }
 
     }
-    $strReturn    = "#EOF\n";
+    $strReturn    .= "#EOF\n";
     return $strReturn;
 }
 
