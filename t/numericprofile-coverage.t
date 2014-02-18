@@ -46,9 +46,9 @@ local *NUCSurf::generate_numeric_profile = sub {
 
         my $windowSize = $self->{_window_size};
         my $seq        = NUCSurf::NumericProfiler->new();
-
-        push @{ $self->{_id} },'idTest1';
-            $self->{$id}{_descrption} = join("|",'description');
+        my $id         = 'idTest1';
+        push @{ $self->{_id} },$id;
+            $self->{$id}{_description} = join("|",'description');
 
             if (defined ($self->{_2ktuple_rule}) &&
                 scalar( @{$self->{_2ktuple_rule}} ) >= 1
@@ -84,4 +84,4 @@ my $fileName = $testObj->set_fasta_file_name('test.fa');
 $testObj->enable_rule('protein_induced_deformability');
 $testObj->generate_numeric_profile();
 
-print ">>>>", $testObj->print_numeric_profile();
+print $testObj->print_numeric_profile();
