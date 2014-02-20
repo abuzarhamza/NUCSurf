@@ -6,8 +6,8 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME             => 'NucSURF',
     AUTHOR           => q{abuzar hamza <abuzarhamza@gmail.com>},
-    VERSION_FROM     => 'lib/NucSURF.pm',
-    ABSTRACT_FROM    => 'lib/NucSURF.pm',
+    VERSION_FROM     => 'lib/NUCSurf.pm',
+    ABSTRACT_FROM    => 'lib/NUCSurf.pm',
     LICENSE          => 'Artistic_2_0',
     PL_FILES         => {},
     MIN_PERL_VERSION => 5.006,
@@ -15,7 +15,9 @@ WriteMakefile(
         'ExtUtils::MakeMaker' => 0,
     },
     BUILD_REQUIRES => {
+        'FASTAParse' => 1,
         'Test::More' => 0,
+        'Test::Simple' => 0,
     },
     PREREQ_PM => {
         #'ABC'              => 1.6,

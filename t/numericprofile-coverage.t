@@ -83,5 +83,3 @@ print $testObj->get_window_size();
 my $fileName = $testObj->set_fasta_file_name('test.fa');
 $testObj->enable_rule('protein_induced_deformability');
 $testObj->generate_numeric_profile();
-
-print $testObj->print_numeric_profile();
