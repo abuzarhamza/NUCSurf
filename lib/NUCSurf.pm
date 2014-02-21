@@ -12,7 +12,7 @@ use NUCSurf::RuleCataloge;
 
 =head1 NAME
 
-NUCSurf - The great new NUCSurf!
+NUCSurf - perl module to analysis of DNA property!
 
 =head1 VERSION
 
@@ -32,6 +32,14 @@ Perhaps a little code snippet.
 
     my $foo = NUCSurf->new();
     ...
+
+
+=head1 ABSTRACT
+module to analysis the DNA sequence
+
+
+=head1 ABSTRACT_FROM
+
 
 =head1 EXPORT
 
@@ -63,7 +71,7 @@ sub new {
                     _all_property_rule               => [],
                     _2ktuple_rule                    => [],
                     _3ktuple_rule                    => [],
-                    _window_size                     => 5
+                    _window_size                     => 5,
     };
     bless $self,$class;
     return $self;
