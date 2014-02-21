@@ -50,8 +50,8 @@ TODO: {
     "placeholder date/time"       => qr(Date/time)
   );
 
-  module_boilerplate_ok('lib/NucSURF.pm');
-  module_boilerplate_ok('lib/NucSURF/RuleCataloge.pm');
+  module_boilerplate_ok('lib/NUCSurf.pm');
+  module_boilerplate_ok('lib/NUCSurf/RuleCataloge.pm');
 
 
 }
