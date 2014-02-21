@@ -9,4 +9,5 @@ t/00-load.t
 t/manifest.t
 t/pod-coverage.t
 t/pod.t
-t/
+t/NUCSurf_numeric.t
+t/numericprofile-coverage.t
