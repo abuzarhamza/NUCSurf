@@ -193,7 +193,7 @@ abuzar hamza, C<< <abuzarhamza at gmail.com> >>
 =head1 BUGS
 
 Please report any bugs or feature requests to C<bug-nucsurf at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=NucSURF>.  I will be notified, and then you'll
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=NUCSurf>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
 
@@ -203,7 +203,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc NucSURF::RuleCataloge
+    perldoc NUCSurf::RuleCataloge
 
 
 You can also look for information at:
@@ -212,19 +212,19 @@ You can also look for information at:
 
 =item * RT: CPAN's request tracker (report bugs here)
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=NucSURF>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=NUCSurf>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
-L<http://annocpan.org/dist/NucSURF>
+L<http://annocpan.org/dist/NUCSurf>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/NucSURF>
+L<http://cpanratings.perl.org/d/NUCSurf>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/NucSURF/>
+L<http://search.cpan.org/dist/NUCSurf/>
 
 =back
 
@@ -275,5 +275,5 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =cut
 
-1; # End of NucSURF::RuleCataloge
+1; # End of NUCSurf::RuleCataloge
 

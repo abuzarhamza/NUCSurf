@@ -45,9 +45,9 @@ if you don't export anything, such as for a purely object-oriented module.
 =cut
 
 our @ISA         = qw(Exporter);
-our %EXPORT_TAGS = ( 'all' => [ qw() ] );
-our @EXPORT_OK   = ( @{ $EXPORT_TAGS{'all'} } );
-our @EXPORT      = qw();
+our %EXPORT_TAGS = ();
+our @EXPORT_OK   = ();
+our @EXPORT      = ();
 
 
 sub new {
@@ -416,7 +416,7 @@ abuzar hamza, C<< <abuzarhamza at gmail.com> >>
 =head1 BUGS
 
 Please report any bugs or feature requests to C<bug-nucsurf at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=NucSURF>.  I will be notified, and then you'll
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=NUCSurf>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
 
@@ -426,7 +426,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc NucSURF
+    perldoc NUCSurf
 
 
 You can also look for information at:
@@ -435,19 +435,19 @@ You can also look for information at:
 
 =item * RT: CPAN's request tracker (report bugs here)
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=NucSURF>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=NUCSurf>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
-L<http://annocpan.org/dist/NucSURF>
+L<http://annocpan.org/dist/NUCSurf>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/NucSURF>
+L<http://cpanratings.perl.org/d/NUCSurf>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/NucSURF/>
+L<http://search.cpan.org/dist/NUCSurf/>
 
 =back
 
