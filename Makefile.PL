@@ -7,8 +7,6 @@ WriteMakefile(
     NAME             => 'NUCSurf',
     AUTHOR           => q{abuzar hamza <abuzarhamza@gmail.com>},
     VERSION_FROM     => 'lib/NUCSurf.pm',
-    ABSTRACT         => 'NUCSurf.pm',
-    ABSTRACT_FROM    => 'NUCSurf.pm',
     LICENSE          => 'Artistic_2_0',
     PL_FILES         => {},
     MIN_PERL_VERSION => 5.006,
