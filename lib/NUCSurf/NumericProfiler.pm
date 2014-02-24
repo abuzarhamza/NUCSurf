@@ -109,7 +109,7 @@ sub numeric_profiler_2ktuple {
                     else {
                         $dataCal{$propertyName} .= "0"." ";
                     }
-                    pop @{$tempCal{$propertyName}};
+                    shift @{$tempCal{$propertyName}};
                 }
             }
         }
@@ -178,7 +178,7 @@ sub numeric_profiler_3ktuple {
                         $dataCal{$propertyName} .= "0"." ";
                     }
 
-                    pop @{ $tempCal{$propertyName} };
+                    shift @{ $tempCal{$propertyName} };
                 }
             }
         }
