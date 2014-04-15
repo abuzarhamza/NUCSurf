@@ -53,9 +53,6 @@ if you don't export anything, such as for a purely object-oriented module.
 =cut
 
 our @ISA         = qw(Exporter);
-our %EXPORT_TAGS = ();
-our @EXPORT_OK   = ();
-our @EXPORT      = ();
 
 
 sub new {
