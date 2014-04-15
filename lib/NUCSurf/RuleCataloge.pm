@@ -22,9 +22,6 @@ our $VERSION = '0.01';
 require Exporter;
 
 our @ISA         = qw(Exporter);
-our %EXPORT_TAGS = ( 'all' => [ qw() ] );
-our @EXPORT_OK   = ();
-our @EXPORT      = ();
 
 =head1 SYNOPSIS
 
