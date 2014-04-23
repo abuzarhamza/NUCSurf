@@ -14,12 +14,12 @@ WriteMakefile(
         'ExtUtils::MakeMaker' => 0,
     },
     BUILD_REQUIRES => {
-        #s'FASTAParse'   => 0.0.3,
+        #'FASTAParse'   => '0.0.3',
         'Test::More'   => 0,
         'Test::Simple' => 0,
     },
     PREREQ_PM => {
-        'FASTAParse'   => 0.0.3,
+        'FASTAParse'   => '0.0.3',
         #'ABC'              => 1.6,
         #'Foo::Bar::Module' => 5.0401,
     },
