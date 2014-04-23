@@ -108,7 +108,7 @@ sub get_input_file_name {
     croak "incorrect count of parameter for the function"
         if (scalar(@_) != 1);
 
-    if (not defined $_[0]->{_input_filename}) {
+    if ( ($_[0]->{_input_filename} eq '') || (not defined $_[0]->{_input_filename}) ) {
         croak "input file not set";
     }
     return $_[0]->{_input_filename};
@@ -185,7 +185,7 @@ sub get_output_file_name {
     croak "incorrect count of parameter for the function"
         if (scalar(@_) != 1);
 
-    if (not defined $_[0]->{_output_filename}) {
+    if ( ($_[0]->{_output_filename} eq '') || (not defined $_[0]->{_output_filename}) ) {
         croak "output file is not set";
     }
     return $_[0]->{output_filename};
@@ -311,14 +311,12 @@ Argument  : none
 =cut
 sub generate_numeric_profile {
     my ($self) = @_;
-
     eval {
         $self->get_input_file_name();
     };
     if ($@) {
         croak "set the input file name\n";
     }
-
     eval {
         $self->get_output_file_name();
     };
