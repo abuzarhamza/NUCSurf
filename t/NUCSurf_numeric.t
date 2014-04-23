@@ -4,7 +4,8 @@ use Test::Simple tests => 3;
 use NUCSurf;
 use Carp;
 
-#Need to stub and mock subroutine  to make them compatable for unit testing
+#Need to stub and mock subroutine
+#to make them compatable for unit testing
 no warnings;
 
 local *NUCSurf::set_fasta_file_name = sub {
@@ -43,7 +44,6 @@ eval {
 	$testObj->generate_numeric_profile();
 };
 my $err = $@;
-
 #test1
 ok( $err =~/set the input file name/ , 'generate_numeric_profile() expected error for callling the subroutine without setting  the input file name');
 
@@ -63,4 +63,4 @@ eval {
 	$testObj->generate_numeric_profile();
 };
 $err = $@;
-ok( $err =~/no NUCSurf property is enabled/ , 'generate_numeric_profile() expected error for callling the subroutine without setting  the output file name');
+ok( $err =~/no NUCSurf property is enabled/ , 'generate_numeric_profile() expected error for callling the subroutine without setting NUCSurf property');
