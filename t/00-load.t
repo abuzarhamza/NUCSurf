@@ -1,5 +1,7 @@
 #!perl -T
-use 5.006;
+use FindBin;
+use lib "$FindBin::Bin/../..";
+
 use strict;
 use warnings FATAL => 'all';
 use Test::More;

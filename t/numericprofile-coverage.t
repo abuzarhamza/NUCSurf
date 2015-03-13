@@ -1,4 +1,6 @@
-use lib  '/home/abuzar/Desktop/github/NUCSurf/lib';
+use FindBin;
+use lib "$FindBin::Bin/../..";
+
 use Test::Simple tests => 1;
 
 use NUCSurf;
